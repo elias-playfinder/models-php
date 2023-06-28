@@ -17,21 +17,13 @@ class PublicationEvent extends \OpenActive\Models\SchemaOrg\Event
 
     public static function fieldList() {
         $fields = [
-            "publishedBy" => "publishedBy",
             "free" => "free",
             "publishedOn" => "publishedOn",
+            "publishedBy" => "publishedBy",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * An agent associated with the publication event.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string
-     */
-    protected $publishedBy;
 
     /**
      * A flag to signal that the item, event, or place is accessible for free.
@@ -50,30 +42,12 @@ class PublicationEvent extends \OpenActive\Models\SchemaOrg\Event
     protected $publishedOn;
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string
+     * An agent associated with the publication event.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string
      */
-    public function getPublishedBy()
-    {
-        return $this->publishedBy;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string $publishedBy
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setPublishedBy($publishedBy)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Organization",
-            "\OpenActive\Models\SchemaOrg\Person",
-            "string",
-        ];
-
-        $publishedBy = self::checkTypes($publishedBy, $types);
-
-        $this->publishedBy = $publishedBy;
-    }
+    protected $publishedBy;
 
     /**
      * @return bool|null
@@ -123,6 +97,32 @@ class PublicationEvent extends \OpenActive\Models\SchemaOrg\Event
         $publishedOn = self::checkTypes($publishedOn, $types);
 
         $this->publishedOn = $publishedOn;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string
+     */
+    public function getPublishedBy()
+    {
+        return $this->publishedBy;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string $publishedBy
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setPublishedBy($publishedBy)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Organization",
+            "\OpenActive\Models\SchemaOrg\Person",
+            "string",
+        ];
+
+        $publishedBy = self::checkTypes($publishedBy, $types);
+
+        $this->publishedBy = $publishedBy;
     }
 
 }

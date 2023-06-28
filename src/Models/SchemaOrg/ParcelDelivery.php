@@ -18,17 +18,17 @@ class ParcelDelivery extends \OpenActive\Models\SchemaOrg\Intangible
     public static function fieldList() {
         $fields = [
             "originAddress" => "originAddress",
-            "trackingNumber" => "trackingNumber",
             "itemShipped" => "itemShipped",
-            "provider" => "provider",
-            "trackingUrl" => "trackingUrl",
             "deliveryAddress" => "deliveryAddress",
-            "expectedArrivalUntil" => "expectedArrivalUntil",
+            "trackingUrl" => "trackingUrl",
+            "hasDeliveryMethod" => "hasDeliveryMethod",
             "deliveryStatus" => "deliveryStatus",
+            "partOfOrder" => "partOfOrder",
+            "trackingNumber" => "trackingNumber",
             "expectedArrivalFrom" => "expectedArrivalFrom",
             "carrier" => "carrier",
-            "hasDeliveryMethod" => "hasDeliveryMethod",
-            "partOfOrder" => "partOfOrder",
+            "provider" => "provider",
+            "expectedArrivalUntil" => "expectedArrivalUntil",
         ];
 
         return array_merge(parent::fieldList(), $fields);
@@ -43,36 +43,12 @@ class ParcelDelivery extends \OpenActive\Models\SchemaOrg\Intangible
     protected $originAddress;
 
     /**
-     * Shipper tracking number.
-     *
-     *
-     * @var string
-     */
-    protected $trackingNumber;
-
-    /**
      * Item(s) being shipped.
      *
      *
      * @var \OpenActive\Models\SchemaOrg\Product|string
      */
     protected $itemShipped;
-
-    /**
-     * The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string
-     */
-    protected $provider;
-
-    /**
-     * Tracking url for the parcel delivery.
-     *
-     *
-     * @var string
-     */
-    protected $trackingUrl;
 
     /**
      * Destination address.
@@ -83,12 +59,20 @@ class ParcelDelivery extends \OpenActive\Models\SchemaOrg\Intangible
     protected $deliveryAddress;
 
     /**
-     * The latest date the package may arrive.
+     * Tracking url for the parcel delivery.
      *
      *
-     * @var Date|DateTime|null
+     * @var string
      */
-    protected $expectedArrivalUntil;
+    protected $trackingUrl;
+
+    /**
+     * Method used for delivery or shipping.
+     *
+     *
+     * @var \OpenActive\Enums\SchemaOrg\DeliveryMethod|null
+     */
+    protected $hasDeliveryMethod;
 
     /**
      * New entry added as the package passes through each leg of its journey (from shipment to final delivery).
@@ -97,6 +81,22 @@ class ParcelDelivery extends \OpenActive\Models\SchemaOrg\Intangible
      * @var \OpenActive\Models\SchemaOrg\DeliveryEvent|string
      */
     protected $deliveryStatus;
+
+    /**
+     * The overall order the items in this delivery were included in.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Order|string
+     */
+    protected $partOfOrder;
+
+    /**
+     * Shipper tracking number.
+     *
+     *
+     * @var string
+     */
+    protected $trackingNumber;
 
     /**
      * The earliest date the package may arrive.
@@ -115,20 +115,20 @@ class ParcelDelivery extends \OpenActive\Models\SchemaOrg\Intangible
     protected $carrier;
 
     /**
-     * Method used for delivery or shipping.
+     * The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller.
      *
      *
-     * @var \OpenActive\Enums\SchemaOrg\DeliveryMethod|null
+     * @var \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\Organization|string
      */
-    protected $hasDeliveryMethod;
+    protected $provider;
 
     /**
-     * The overall order the items in this delivery were included in.
+     * The latest date the package may arrive.
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\Order|string
+     * @var Date|DateTime|null
      */
-    protected $partOfOrder;
+    protected $expectedArrivalUntil;
 
     /**
      * @return \OpenActive\Models\SchemaOrg\PostalAddress|string
@@ -153,30 +153,6 @@ class ParcelDelivery extends \OpenActive\Models\SchemaOrg\Intangible
         $originAddress = self::checkTypes($originAddress, $types);
 
         $this->originAddress = $originAddress;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTrackingNumber()
-    {
-        return $this->trackingNumber;
-    }
-
-    /**
-     * @param string $trackingNumber
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setTrackingNumber($trackingNumber)
-    {
-        $types = [
-            "string",
-        ];
-
-        $trackingNumber = self::checkTypes($trackingNumber, $types);
-
-        $this->trackingNumber = $trackingNumber;
     }
 
     /**
@@ -205,29 +181,28 @@ class ParcelDelivery extends \OpenActive\Models\SchemaOrg\Intangible
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string
+     * @return \OpenActive\Models\SchemaOrg\PostalAddress|string
      */
-    public function getProvider()
+    public function getDeliveryAddress()
     {
-        return $this->provider;
+        return $this->deliveryAddress;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string $provider
+     * @param \OpenActive\Models\SchemaOrg\PostalAddress|string $deliveryAddress
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setProvider($provider)
+    public function setDeliveryAddress($deliveryAddress)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\Organization",
-            "\OpenActive\Models\SchemaOrg\Person",
+            "\OpenActive\Models\SchemaOrg\PostalAddress",
             "string",
         ];
 
-        $provider = self::checkTypes($provider, $types);
+        $deliveryAddress = self::checkTypes($deliveryAddress, $types);
 
-        $this->provider = $provider;
+        $this->deliveryAddress = $deliveryAddress;
     }
 
     /**
@@ -255,54 +230,28 @@ class ParcelDelivery extends \OpenActive\Models\SchemaOrg\Intangible
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\PostalAddress|string
+     * @return \OpenActive\Enums\SchemaOrg\DeliveryMethod|null
      */
-    public function getDeliveryAddress()
+    public function getHasDeliveryMethod()
     {
-        return $this->deliveryAddress;
+        return $this->hasDeliveryMethod;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\PostalAddress|string $deliveryAddress
+     * @param \OpenActive\Enums\SchemaOrg\DeliveryMethod|null $hasDeliveryMethod
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setDeliveryAddress($deliveryAddress)
+    public function setHasDeliveryMethod($hasDeliveryMethod)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\PostalAddress",
-            "string",
-        ];
-
-        $deliveryAddress = self::checkTypes($deliveryAddress, $types);
-
-        $this->deliveryAddress = $deliveryAddress;
-    }
-
-    /**
-     * @return Date|DateTime|null
-     */
-    public function getExpectedArrivalUntil()
-    {
-        return $this->expectedArrivalUntil;
-    }
-
-    /**
-     * @param Date|DateTime|null $expectedArrivalUntil
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setExpectedArrivalUntil($expectedArrivalUntil)
-    {
-        $types = [
-            "Date",
-            "DateTime",
+            "\OpenActive\Enums\SchemaOrg\DeliveryMethod",
             "null",
         ];
 
-        $expectedArrivalUntil = self::checkTypes($expectedArrivalUntil, $types);
+        $hasDeliveryMethod = self::checkTypes($hasDeliveryMethod, $types);
 
-        $this->expectedArrivalUntil = $expectedArrivalUntil;
+        $this->hasDeliveryMethod = $hasDeliveryMethod;
     }
 
     /**
@@ -328,6 +277,55 @@ class ParcelDelivery extends \OpenActive\Models\SchemaOrg\Intangible
         $deliveryStatus = self::checkTypes($deliveryStatus, $types);
 
         $this->deliveryStatus = $deliveryStatus;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Order|string
+     */
+    public function getPartOfOrder()
+    {
+        return $this->partOfOrder;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Order|string $partOfOrder
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setPartOfOrder($partOfOrder)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Order",
+            "string",
+        ];
+
+        $partOfOrder = self::checkTypes($partOfOrder, $types);
+
+        $this->partOfOrder = $partOfOrder;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTrackingNumber()
+    {
+        return $this->trackingNumber;
+    }
+
+    /**
+     * @param string $trackingNumber
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setTrackingNumber($trackingNumber)
+    {
+        $types = [
+            "string",
+        ];
+
+        $trackingNumber = self::checkTypes($trackingNumber, $types);
+
+        $this->trackingNumber = $trackingNumber;
     }
 
     /**
@@ -382,53 +380,55 @@ class ParcelDelivery extends \OpenActive\Models\SchemaOrg\Intangible
     }
 
     /**
-     * @return \OpenActive\Enums\SchemaOrg\DeliveryMethod|null
+     * @return \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\Organization|string
      */
-    public function getHasDeliveryMethod()
+    public function getProvider()
     {
-        return $this->hasDeliveryMethod;
+        return $this->provider;
     }
 
     /**
-     * @param \OpenActive\Enums\SchemaOrg\DeliveryMethod|null $hasDeliveryMethod
+     * @param \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\Organization|string $provider
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setHasDeliveryMethod($hasDeliveryMethod)
+    public function setProvider($provider)
     {
         $types = [
-            "\OpenActive\Enums\SchemaOrg\DeliveryMethod",
-            "null",
-        ];
-
-        $hasDeliveryMethod = self::checkTypes($hasDeliveryMethod, $types);
-
-        $this->hasDeliveryMethod = $hasDeliveryMethod;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\Order|string
-     */
-    public function getPartOfOrder()
-    {
-        return $this->partOfOrder;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Order|string $partOfOrder
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setPartOfOrder($partOfOrder)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Order",
+            "\OpenActive\Models\SchemaOrg\Person",
+            "\OpenActive\Models\SchemaOrg\Organization",
             "string",
         ];
 
-        $partOfOrder = self::checkTypes($partOfOrder, $types);
+        $provider = self::checkTypes($provider, $types);
 
-        $this->partOfOrder = $partOfOrder;
+        $this->provider = $provider;
+    }
+
+    /**
+     * @return Date|DateTime|null
+     */
+    public function getExpectedArrivalUntil()
+    {
+        return $this->expectedArrivalUntil;
+    }
+
+    /**
+     * @param Date|DateTime|null $expectedArrivalUntil
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setExpectedArrivalUntil($expectedArrivalUntil)
+    {
+        $types = [
+            "Date",
+            "DateTime",
+            "null",
+        ];
+
+        $expectedArrivalUntil = self::checkTypes($expectedArrivalUntil, $types);
+
+        $this->expectedArrivalUntil = $expectedArrivalUntil;
     }
 
 }

@@ -17,30 +17,14 @@ class MedicalGuideline extends \OpenActive\Models\SchemaOrg\MedicalEntity
 
     public static function fieldList() {
         $fields = [
-            "evidenceLevel" => "evidenceLevel",
-            "evidenceOrigin" => "evidenceOrigin",
             "guidelineSubject" => "guidelineSubject",
+            "evidenceOrigin" => "evidenceOrigin",
+            "evidenceLevel" => "evidenceLevel",
             "guidelineDate" => "guidelineDate",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * Strength of evidence of the data used to formulate the guideline (enumerated).
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\MedicalEvidenceLevel|string
-     */
-    protected $evidenceLevel;
-
-    /**
-     * Source of the data used to formulate the guidance, e.g. RCT, consensus opinion, etc.
-     *
-     *
-     * @var string
-     */
-    protected $evidenceOrigin;
 
     /**
      * The medical conditions, treatments, etc. that are the subject of the guideline.
@@ -51,6 +35,22 @@ class MedicalGuideline extends \OpenActive\Models\SchemaOrg\MedicalEntity
     protected $guidelineSubject;
 
     /**
+     * Source of the data used to formulate the guidance, e.g. RCT, consensus opinion, etc.
+     *
+     *
+     * @var string
+     */
+    protected $evidenceOrigin;
+
+    /**
+     * Strength of evidence of the data used to formulate the guideline (enumerated).
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\MedicalEvidenceLevel|string
+     */
+    protected $evidenceLevel;
+
+    /**
      * Date on which this guideline's recommendation was made.
      *
      *
@@ -59,28 +59,28 @@ class MedicalGuideline extends \OpenActive\Models\SchemaOrg\MedicalEntity
     protected $guidelineDate;
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\MedicalEvidenceLevel|string
+     * @return \OpenActive\Models\SchemaOrg\MedicalEntity|string
      */
-    public function getEvidenceLevel()
+    public function getGuidelineSubject()
     {
-        return $this->evidenceLevel;
+        return $this->guidelineSubject;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\MedicalEvidenceLevel|string $evidenceLevel
+     * @param \OpenActive\Models\SchemaOrg\MedicalEntity|string $guidelineSubject
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setEvidenceLevel($evidenceLevel)
+    public function setGuidelineSubject($guidelineSubject)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\MedicalEvidenceLevel",
+            "\OpenActive\Models\SchemaOrg\MedicalEntity",
             "string",
         ];
 
-        $evidenceLevel = self::checkTypes($evidenceLevel, $types);
+        $guidelineSubject = self::checkTypes($guidelineSubject, $types);
 
-        $this->evidenceLevel = $evidenceLevel;
+        $this->guidelineSubject = $guidelineSubject;
     }
 
     /**
@@ -108,28 +108,28 @@ class MedicalGuideline extends \OpenActive\Models\SchemaOrg\MedicalEntity
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\MedicalEntity|string
+     * @return \OpenActive\Models\SchemaOrg\MedicalEvidenceLevel|string
      */
-    public function getGuidelineSubject()
+    public function getEvidenceLevel()
     {
-        return $this->guidelineSubject;
+        return $this->evidenceLevel;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\MedicalEntity|string $guidelineSubject
+     * @param \OpenActive\Models\SchemaOrg\MedicalEvidenceLevel|string $evidenceLevel
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setGuidelineSubject($guidelineSubject)
+    public function setEvidenceLevel($evidenceLevel)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\MedicalEntity",
+            "\OpenActive\Models\SchemaOrg\MedicalEvidenceLevel",
             "string",
         ];
 
-        $guidelineSubject = self::checkTypes($guidelineSubject, $types);
+        $evidenceLevel = self::checkTypes($evidenceLevel, $types);
 
-        $this->guidelineSubject = $guidelineSubject;
+        $this->evidenceLevel = $evidenceLevel;
     }
 
     /**

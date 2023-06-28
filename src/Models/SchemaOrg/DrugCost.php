@@ -18,11 +18,11 @@ class DrugCost extends \OpenActive\Models\SchemaOrg\MedicalEntity
     public static function fieldList() {
         $fields = [
             "applicableLocation" => "applicableLocation",
+            "costOrigin" => "costOrigin",
+            "costCurrency" => "costCurrency",
+            "drugUnit" => "drugUnit",
             "costPerUnit" => "costPerUnit",
             "costCategory" => "costCategory",
-            "drugUnit" => "drugUnit",
-            "costCurrency" => "costCurrency",
-            "costOrigin" => "costOrigin",
         ];
 
         return array_merge(parent::fieldList(), $fields);
@@ -37,20 +37,20 @@ class DrugCost extends \OpenActive\Models\SchemaOrg\MedicalEntity
     protected $applicableLocation;
 
     /**
-     * The cost per unit of the drug.
+     * Additional details to capture the origin of the cost data. For example, 'Medicare Part B'.
      *
      *
-     * @var string|Number|\OpenActive\Enums\SchemaOrg\QualitativeValue|null
+     * @var string
      */
-    protected $costPerUnit;
+    protected $costOrigin;
 
     /**
-     * The category of cost, such as wholesale, retail, reimbursement cap, etc.
+     * The currency (in 3-letter) of the drug cost. See: http://en.wikipedia.org/wiki/ISO_4217. 
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\DrugCostCategory|string
+     * @var string
      */
-    protected $costCategory;
+    protected $costCurrency;
 
     /**
      * The unit in which the drug is measured, e.g. '5 mg tablet'.
@@ -61,20 +61,20 @@ class DrugCost extends \OpenActive\Models\SchemaOrg\MedicalEntity
     protected $drugUnit;
 
     /**
-     * The currency (in 3-letter of the drug cost. See: http://en.wikipedia.org/wiki/ISO_4217. 
+     * The cost per unit of the drug.
      *
      *
-     * @var string
+     * @var Number|\OpenActive\Enums\SchemaOrg\QualitativeValue|string|null
      */
-    protected $costCurrency;
+    protected $costPerUnit;
 
     /**
-     * Additional details to capture the origin of the cost data. For example, 'Medicare Part B'.
+     * The category of cost, such as wholesale, retail, reimbursement cap, etc.
      *
      *
-     * @var string
+     * @var \OpenActive\Models\SchemaOrg\DrugCostCategory|string
      */
-    protected $costOrigin;
+    protected $costCategory;
 
     /**
      * @return \OpenActive\Models\SchemaOrg\AdministrativeArea|string
@@ -102,7 +102,79 @@ class DrugCost extends \OpenActive\Models\SchemaOrg\MedicalEntity
     }
 
     /**
-     * @return string|Number|\OpenActive\Enums\SchemaOrg\QualitativeValue|null
+     * @return string
+     */
+    public function getCostOrigin()
+    {
+        return $this->costOrigin;
+    }
+
+    /**
+     * @param string $costOrigin
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setCostOrigin($costOrigin)
+    {
+        $types = [
+            "string",
+        ];
+
+        $costOrigin = self::checkTypes($costOrigin, $types);
+
+        $this->costOrigin = $costOrigin;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCostCurrency()
+    {
+        return $this->costCurrency;
+    }
+
+    /**
+     * @param string $costCurrency
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setCostCurrency($costCurrency)
+    {
+        $types = [
+            "string",
+        ];
+
+        $costCurrency = self::checkTypes($costCurrency, $types);
+
+        $this->costCurrency = $costCurrency;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDrugUnit()
+    {
+        return $this->drugUnit;
+    }
+
+    /**
+     * @param string $drugUnit
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setDrugUnit($drugUnit)
+    {
+        $types = [
+            "string",
+        ];
+
+        $drugUnit = self::checkTypes($drugUnit, $types);
+
+        $this->drugUnit = $drugUnit;
+    }
+
+    /**
+     * @return Number|\OpenActive\Enums\SchemaOrg\QualitativeValue|string|null
      */
     public function getCostPerUnit()
     {
@@ -110,16 +182,16 @@ class DrugCost extends \OpenActive\Models\SchemaOrg\MedicalEntity
     }
 
     /**
-     * @param string|Number|\OpenActive\Enums\SchemaOrg\QualitativeValue|null $costPerUnit
+     * @param Number|\OpenActive\Enums\SchemaOrg\QualitativeValue|string|null $costPerUnit
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setCostPerUnit($costPerUnit)
     {
         $types = [
-            "string",
             "Number",
             "\OpenActive\Enums\SchemaOrg\QualitativeValue",
+            "string",
             "null",
         ];
 
@@ -151,78 +223,6 @@ class DrugCost extends \OpenActive\Models\SchemaOrg\MedicalEntity
         $costCategory = self::checkTypes($costCategory, $types);
 
         $this->costCategory = $costCategory;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDrugUnit()
-    {
-        return $this->drugUnit;
-    }
-
-    /**
-     * @param string $drugUnit
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setDrugUnit($drugUnit)
-    {
-        $types = [
-            "string",
-        ];
-
-        $drugUnit = self::checkTypes($drugUnit, $types);
-
-        $this->drugUnit = $drugUnit;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCostCurrency()
-    {
-        return $this->costCurrency;
-    }
-
-    /**
-     * @param string $costCurrency
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setCostCurrency($costCurrency)
-    {
-        $types = [
-            "string",
-        ];
-
-        $costCurrency = self::checkTypes($costCurrency, $types);
-
-        $this->costCurrency = $costCurrency;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCostOrigin()
-    {
-        return $this->costOrigin;
-    }
-
-    /**
-     * @param string $costOrigin
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setCostOrigin($costOrigin)
-    {
-        $types = [
-            "string",
-        ];
-
-        $costOrigin = self::checkTypes($costOrigin, $types);
-
-        $this->costOrigin = $costOrigin;
     }
 
 }

@@ -17,21 +17,13 @@ class Chapter extends \OpenActive\Models\SchemaOrg\CreativeWork
 
     public static function fieldList() {
         $fields = [
-            "pageStart" => "pageStart",
             "pageEnd" => "pageEnd",
             "pagination" => "pagination",
+            "pageStart" => "pageStart",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * The page on which the work starts; for example "135" or "xiii".
-     *
-     *
-     * @var string|int|null
-     */
-    protected $pageStart;
 
     /**
      * The page on which the work ends; for example "138" or "xvi".
@@ -50,30 +42,12 @@ class Chapter extends \OpenActive\Models\SchemaOrg\CreativeWork
     protected $pagination;
 
     /**
-     * @return string|int|null
+     * The page on which the work starts; for example "135" or "xiii".
+     *
+     *
+     * @var string|int|null
      */
-    public function getPageStart()
-    {
-        return $this->pageStart;
-    }
-
-    /**
-     * @param string|int|null $pageStart
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setPageStart($pageStart)
-    {
-        $types = [
-            "string",
-            "int",
-            "null",
-        ];
-
-        $pageStart = self::checkTypes($pageStart, $types);
-
-        $this->pageStart = $pageStart;
-    }
+    protected $pageStart;
 
     /**
      * @return string|int|null
@@ -123,6 +97,32 @@ class Chapter extends \OpenActive\Models\SchemaOrg\CreativeWork
         $pagination = self::checkTypes($pagination, $types);
 
         $this->pagination = $pagination;
+    }
+
+    /**
+     * @return string|int|null
+     */
+    public function getPageStart()
+    {
+        return $this->pageStart;
+    }
+
+    /**
+     * @param string|int|null $pageStart
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setPageStart($pageStart)
+    {
+        $types = [
+            "string",
+            "int",
+            "null",
+        ];
+
+        $pageStart = self::checkTypes($pageStart, $types);
+
+        $this->pageStart = $pageStart;
     }
 
 }

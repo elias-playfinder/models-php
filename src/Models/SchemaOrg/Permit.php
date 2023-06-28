@@ -17,41 +17,17 @@ class Permit extends \OpenActive\Models\SchemaOrg\Intangible
 
     public static function fieldList() {
         $fields = [
-            "validFor" => "validFor",
-            "issuedBy" => "issuedBy",
-            "validUntil" => "validUntil",
             "validFrom" => "validFrom",
-            "issuedThrough" => "issuedThrough",
-            "validIn" => "validIn",
             "permitAudience" => "permitAudience",
+            "issuedThrough" => "issuedThrough",
+            "validUntil" => "validUntil",
+            "issuedBy" => "issuedBy",
+            "validFor" => "validFor",
+            "validIn" => "validIn",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * The duration of validity of a permit or similar thing.
-     *
-     *
-     * @var DateInterval|string|null
-     */
-    protected $validFor;
-
-    /**
-     * The organization issuing the ticket or permit.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Organization|string
-     */
-    protected $issuedBy;
-
-    /**
-     * The date when the item is no longer valid.
-     *
-     *
-     * @var Date|null
-     */
-    protected $validUntil;
 
     /**
      * The date when the item becomes valid.
@@ -62,22 +38,6 @@ class Permit extends \OpenActive\Models\SchemaOrg\Intangible
     protected $validFrom;
 
     /**
-     * The service through with the permit was granted.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Service|string
-     */
-    protected $issuedThrough;
-
-    /**
-     * The geographic area where a permit or similar thing is valid.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\AdministrativeArea|string
-     */
-    protected $validIn;
-
-    /**
      * The target audience for this permit.
      *
      *
@@ -86,80 +46,44 @@ class Permit extends \OpenActive\Models\SchemaOrg\Intangible
     protected $permitAudience;
 
     /**
-     * @return DateInterval|string|null
+     * The service through which the permit was granted.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Service|string
      */
-    public function getValidFor()
-    {
-        return $this->validFor;
-    }
+    protected $issuedThrough;
 
     /**
-     * @param DateInterval|string|null $validFor
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     * The date when the item is no longer valid.
+     *
+     *
+     * @var Date|null
      */
-    public function setValidFor($validFor)
-    {
-        $types = [
-            "DateInterval",
-            "string",
-            "null",
-        ];
-
-        $validFor = self::checkTypes($validFor, $types);
-
-        $this->validFor = $validFor;
-    }
+    protected $validUntil;
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\Organization|string
+     * The organization issuing the ticket or permit.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Organization|string
      */
-    public function getIssuedBy()
-    {
-        return $this->issuedBy;
-    }
+    protected $issuedBy;
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\Organization|string $issuedBy
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     * The duration of validity of a permit or similar thing.
+     *
+     *
+     * @var DateInterval|string|null
      */
-    public function setIssuedBy($issuedBy)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Organization",
-            "string",
-        ];
-
-        $issuedBy = self::checkTypes($issuedBy, $types);
-
-        $this->issuedBy = $issuedBy;
-    }
+    protected $validFor;
 
     /**
-     * @return Date|null
+     * The geographic area where a permit or similar thing is valid.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\AdministrativeArea|string
      */
-    public function getValidUntil()
-    {
-        return $this->validUntil;
-    }
-
-    /**
-     * @param Date|null $validUntil
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setValidUntil($validUntil)
-    {
-        $types = [
-            "Date",
-            "null",
-        ];
-
-        $validUntil = self::checkTypes($validUntil, $types);
-
-        $this->validUntil = $validUntil;
-    }
+    protected $validIn;
 
     /**
      * @return Date|DateTime|null
@@ -188,6 +112,31 @@ class Permit extends \OpenActive\Models\SchemaOrg\Intangible
     }
 
     /**
+     * @return \OpenActive\Models\SchemaOrg\Audience|string
+     */
+    public function getPermitAudience()
+    {
+        return $this->permitAudience;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Audience|string $permitAudience
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setPermitAudience($permitAudience)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Audience",
+            "string",
+        ];
+
+        $permitAudience = self::checkTypes($permitAudience, $types);
+
+        $this->permitAudience = $permitAudience;
+    }
+
+    /**
      * @return \OpenActive\Models\SchemaOrg\Service|string
      */
     public function getIssuedThrough()
@@ -213,6 +162,82 @@ class Permit extends \OpenActive\Models\SchemaOrg\Intangible
     }
 
     /**
+     * @return Date|null
+     */
+    public function getValidUntil()
+    {
+        return $this->validUntil;
+    }
+
+    /**
+     * @param Date|null $validUntil
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setValidUntil($validUntil)
+    {
+        $types = [
+            "Date",
+            "null",
+        ];
+
+        $validUntil = self::checkTypes($validUntil, $types);
+
+        $this->validUntil = $validUntil;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Organization|string
+     */
+    public function getIssuedBy()
+    {
+        return $this->issuedBy;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Organization|string $issuedBy
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setIssuedBy($issuedBy)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Organization",
+            "string",
+        ];
+
+        $issuedBy = self::checkTypes($issuedBy, $types);
+
+        $this->issuedBy = $issuedBy;
+    }
+
+    /**
+     * @return DateInterval|string|null
+     */
+    public function getValidFor()
+    {
+        return $this->validFor;
+    }
+
+    /**
+     * @param DateInterval|string|null $validFor
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setValidFor($validFor)
+    {
+        $types = [
+            "DateInterval",
+            "string",
+            "null",
+        ];
+
+        $validFor = self::checkTypes($validFor, $types);
+
+        $this->validFor = $validFor;
+    }
+
+    /**
      * @return \OpenActive\Models\SchemaOrg\AdministrativeArea|string
      */
     public function getValidIn()
@@ -235,31 +260,6 @@ class Permit extends \OpenActive\Models\SchemaOrg\Intangible
         $validIn = self::checkTypes($validIn, $types);
 
         $this->validIn = $validIn;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\Audience|string
-     */
-    public function getPermitAudience()
-    {
-        return $this->permitAudience;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Audience|string $permitAudience
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setPermitAudience($permitAudience)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Audience",
-            "string",
-        ];
-
-        $permitAudience = self::checkTypes($permitAudience, $types);
-
-        $this->permitAudience = $permitAudience;
     }
 
 }

@@ -18,9 +18,9 @@ class Seat extends \OpenActive\Models\SchemaOrg\Intangible
     public static function fieldList() {
         $fields = [
             "seatingType" => "seatingType",
-            "seatSection" => "seatSection",
             "seatRow" => "seatRow",
             "seatNumber" => "seatNumber",
+            "seatSection" => "seatSection",
         ];
 
         return array_merge(parent::fieldList(), $fields);
@@ -30,17 +30,9 @@ class Seat extends \OpenActive\Models\SchemaOrg\Intangible
      * The type/class of the seat.
      *
      *
-     * @var \OpenActive\Enums\SchemaOrg\QualitativeValue|string|null
+     * @var string|\OpenActive\Enums\SchemaOrg\QualitativeValue|null
      */
     protected $seatingType;
-
-    /**
-     * The section location of the reserved seat (e.g. Orchestra).
-     *
-     *
-     * @var string
-     */
-    protected $seatSection;
 
     /**
      * The row location of the reserved seat (e.g., B).
@@ -59,7 +51,15 @@ class Seat extends \OpenActive\Models\SchemaOrg\Intangible
     protected $seatNumber;
 
     /**
-     * @return \OpenActive\Enums\SchemaOrg\QualitativeValue|string|null
+     * The section location of the reserved seat (e.g. Orchestra).
+     *
+     *
+     * @var string
+     */
+    protected $seatSection;
+
+    /**
+     * @return string|\OpenActive\Enums\SchemaOrg\QualitativeValue|null
      */
     public function getSeatingType()
     {
@@ -67,45 +67,21 @@ class Seat extends \OpenActive\Models\SchemaOrg\Intangible
     }
 
     /**
-     * @param \OpenActive\Enums\SchemaOrg\QualitativeValue|string|null $seatingType
+     * @param string|\OpenActive\Enums\SchemaOrg\QualitativeValue|null $seatingType
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setSeatingType($seatingType)
     {
         $types = [
-            "\OpenActive\Enums\SchemaOrg\QualitativeValue",
             "string",
+            "\OpenActive\Enums\SchemaOrg\QualitativeValue",
             "null",
         ];
 
         $seatingType = self::checkTypes($seatingType, $types);
 
         $this->seatingType = $seatingType;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSeatSection()
-    {
-        return $this->seatSection;
-    }
-
-    /**
-     * @param string $seatSection
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setSeatSection($seatSection)
-    {
-        $types = [
-            "string",
-        ];
-
-        $seatSection = self::checkTypes($seatSection, $types);
-
-        $this->seatSection = $seatSection;
     }
 
     /**
@@ -154,6 +130,30 @@ class Seat extends \OpenActive\Models\SchemaOrg\Intangible
         $seatNumber = self::checkTypes($seatNumber, $types);
 
         $this->seatNumber = $seatNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSeatSection()
+    {
+        return $this->seatSection;
+    }
+
+    /**
+     * @param string $seatSection
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setSeatSection($seatSection)
+    {
+        $types = [
+            "string",
+        ];
+
+        $seatSection = self::checkTypes($seatSection, $types);
+
+        $this->seatSection = $seatSection;
     }
 
 }

@@ -17,50 +17,18 @@ class ExercisePlan extends \OpenActive\Models\SchemaOrg\CreativeWork
 
     public static function fieldList() {
         $fields = [
-            "repetitions" => "repetitions",
-            "intensity" => "intensity",
-            "workload" => "workload",
-            "activityDuration" => "activityDuration",
             "restPeriods" => "restPeriods",
+            "repetitions" => "repetitions",
+            "exerciseType" => "exerciseType",
+            "intensity" => "intensity",
             "activityFrequency" => "activityFrequency",
             "additionalVariable" => "additionalVariable",
-            "exerciseType" => "exerciseType",
+            "activityDuration" => "activityDuration",
+            "workload" => "workload",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * Number of times one should repeat the activity.
-     *
-     *
-     * @var Number|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null
-     */
-    protected $repetitions;
-
-    /**
-     * Quantitative measure gauging the degree of force involved in the exercise, for example, heartbeats per minute. May include the velocity of the movement.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|string
-     */
-    protected $intensity;
-
-    /**
-     * Quantitative measure of the physiologic output of the exercise; also referred to as energy expenditure.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|\OpenActive\Models\SchemaOrg\Energy|string
-     */
-    protected $workload;
-
-    /**
-     * Length of time to engage in the activity.
-     *
-     *
-     * @var DateInterval|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null
-     */
-    protected $activityDuration;
 
     /**
      * How often one should break from the activity.
@@ -71,10 +39,34 @@ class ExercisePlan extends \OpenActive\Models\SchemaOrg\CreativeWork
     protected $restPeriods;
 
     /**
+     * Number of times one should repeat the activity.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|string|Number|null
+     */
+    protected $repetitions;
+
+    /**
+     * Type(s) of exercise or activity, such as strength training, flexibility training, aerobics, cardiac rehabilitation, etc.
+     *
+     *
+     * @var string
+     */
+    protected $exerciseType;
+
+    /**
+     * Quantitative measure gauging the degree of force involved in the exercise, for example, heartbeats per minute. May include the velocity of the movement.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|string
+     */
+    protected $intensity;
+
+    /**
      * How often one should engage in the activity.
      *
      *
-     * @var string|\OpenActive\Models\SchemaOrg\QuantitativeValue
+     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|string
      */
     protected $activityFrequency;
 
@@ -87,15 +79,48 @@ class ExercisePlan extends \OpenActive\Models\SchemaOrg\CreativeWork
     protected $additionalVariable;
 
     /**
-     * Type(s) of exercise or activity, such as strength training, flexibility training, aerobics, cardiac rehabilitation, etc.
+     * Length of time to engage in the activity.
      *
      *
-     * @var string
+     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|DateInterval|string|null
      */
-    protected $exerciseType;
+    protected $activityDuration;
 
     /**
-     * @return Number|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null
+     * Quantitative measure of the physiologic output of the exercise; also referred to as energy expenditure.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|\OpenActive\Models\SchemaOrg\Energy|string
+     */
+    protected $workload;
+
+    /**
+     * @return string|\OpenActive\Models\SchemaOrg\QuantitativeValue
+     */
+    public function getRestPeriods()
+    {
+        return $this->restPeriods;
+    }
+
+    /**
+     * @param string|\OpenActive\Models\SchemaOrg\QuantitativeValue $restPeriods
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setRestPeriods($restPeriods)
+    {
+        $types = [
+            "string",
+            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
+        ];
+
+        $restPeriods = self::checkTypes($restPeriods, $types);
+
+        $this->restPeriods = $restPeriods;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\QuantitativeValue|string|Number|null
      */
     public function getRepetitions()
     {
@@ -103,22 +128,46 @@ class ExercisePlan extends \OpenActive\Models\SchemaOrg\CreativeWork
     }
 
     /**
-     * @param Number|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null $repetitions
+     * @param \OpenActive\Models\SchemaOrg\QuantitativeValue|string|Number|null $repetitions
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setRepetitions($repetitions)
     {
         $types = [
-            "Number",
             "\OpenActive\Models\SchemaOrg\QuantitativeValue",
             "string",
+            "Number",
             "null",
         ];
 
         $repetitions = self::checkTypes($repetitions, $types);
 
         $this->repetitions = $repetitions;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExerciseType()
+    {
+        return $this->exerciseType;
+    }
+
+    /**
+     * @param string $exerciseType
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setExerciseType($exerciseType)
+    {
+        $types = [
+            "string",
+        ];
+
+        $exerciseType = self::checkTypes($exerciseType, $types);
+
+        $this->exerciseType = $exerciseType;
     }
 
     /**
@@ -147,85 +196,7 @@ class ExercisePlan extends \OpenActive\Models\SchemaOrg\CreativeWork
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\QuantitativeValue|\OpenActive\Models\SchemaOrg\Energy|string
-     */
-    public function getWorkload()
-    {
-        return $this->workload;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\QuantitativeValue|\OpenActive\Models\SchemaOrg\Energy|string $workload
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setWorkload($workload)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
-            "\OpenActive\Models\SchemaOrg\Energy",
-            "string",
-        ];
-
-        $workload = self::checkTypes($workload, $types);
-
-        $this->workload = $workload;
-    }
-
-    /**
-     * @return DateInterval|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null
-     */
-    public function getActivityDuration()
-    {
-        return $this->activityDuration;
-    }
-
-    /**
-     * @param DateInterval|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null $activityDuration
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setActivityDuration($activityDuration)
-    {
-        $types = [
-            "DateInterval",
-            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
-            "string",
-            "null",
-        ];
-
-        $activityDuration = self::checkTypes($activityDuration, $types);
-
-        $this->activityDuration = $activityDuration;
-    }
-
-    /**
-     * @return string|\OpenActive\Models\SchemaOrg\QuantitativeValue
-     */
-    public function getRestPeriods()
-    {
-        return $this->restPeriods;
-    }
-
-    /**
-     * @param string|\OpenActive\Models\SchemaOrg\QuantitativeValue $restPeriods
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setRestPeriods($restPeriods)
-    {
-        $types = [
-            "string",
-            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
-        ];
-
-        $restPeriods = self::checkTypes($restPeriods, $types);
-
-        $this->restPeriods = $restPeriods;
-    }
-
-    /**
-     * @return string|\OpenActive\Models\SchemaOrg\QuantitativeValue
+     * @return \OpenActive\Models\SchemaOrg\QuantitativeValue|string
      */
     public function getActivityFrequency()
     {
@@ -233,15 +204,15 @@ class ExercisePlan extends \OpenActive\Models\SchemaOrg\CreativeWork
     }
 
     /**
-     * @param string|\OpenActive\Models\SchemaOrg\QuantitativeValue $activityFrequency
+     * @param \OpenActive\Models\SchemaOrg\QuantitativeValue|string $activityFrequency
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setActivityFrequency($activityFrequency)
     {
         $types = [
-            "string",
             "\OpenActive\Models\SchemaOrg\QuantitativeValue",
+            "string",
         ];
 
         $activityFrequency = self::checkTypes($activityFrequency, $types);
@@ -274,27 +245,56 @@ class ExercisePlan extends \OpenActive\Models\SchemaOrg\CreativeWork
     }
 
     /**
-     * @return string
+     * @return \OpenActive\Models\SchemaOrg\QuantitativeValue|DateInterval|string|null
      */
-    public function getExerciseType()
+    public function getActivityDuration()
     {
-        return $this->exerciseType;
+        return $this->activityDuration;
     }
 
     /**
-     * @param string $exerciseType
+     * @param \OpenActive\Models\SchemaOrg\QuantitativeValue|DateInterval|string|null $activityDuration
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setExerciseType($exerciseType)
+    public function setActivityDuration($activityDuration)
     {
         $types = [
+            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
+            "DateInterval",
+            "string",
+            "null",
+        ];
+
+        $activityDuration = self::checkTypes($activityDuration, $types);
+
+        $this->activityDuration = $activityDuration;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\QuantitativeValue|\OpenActive\Models\SchemaOrg\Energy|string
+     */
+    public function getWorkload()
+    {
+        return $this->workload;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\QuantitativeValue|\OpenActive\Models\SchemaOrg\Energy|string $workload
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setWorkload($workload)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
+            "\OpenActive\Models\SchemaOrg\Energy",
             "string",
         ];
 
-        $exerciseType = self::checkTypes($exerciseType, $types);
+        $workload = self::checkTypes($workload, $types);
 
-        $this->exerciseType = $exerciseType;
+        $this->workload = $workload;
     }
 
 }

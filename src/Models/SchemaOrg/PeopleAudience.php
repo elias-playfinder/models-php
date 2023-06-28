@@ -18,14 +18,14 @@ class PeopleAudience extends \OpenActive\Models\SchemaOrg\Audience
     public static function fieldList() {
         $fields = [
             "requiredMinAge" => "requiredMinAge",
-            "suggestedMaxAge" => "suggestedMaxAge",
-            "healthCondition" => "healthCondition",
             "suggestedMeasurement" => "suggestedMeasurement",
-            "suggestedAge" => "suggestedAge",
-            "requiredMaxAge" => "requiredMaxAge",
-            "suggestedMinAge" => "suggestedMinAge",
             "requiredGender" => "requiredGender",
+            "suggestedAge" => "suggestedAge",
             "suggestedGender" => "suggestedGender",
+            "healthCondition" => "healthCondition",
+            "suggestedMaxAge" => "suggestedMaxAge",
+            "suggestedMinAge" => "suggestedMinAge",
+            "requiredMaxAge" => "requiredMaxAge",
         ];
 
         return array_merge(parent::fieldList(), $fields);
@@ -40,52 +40,12 @@ class PeopleAudience extends \OpenActive\Models\SchemaOrg\Audience
     protected $requiredMinAge;
 
     /**
-     * Maximum recommended age in years for the audience or user.
-     *
-     *
-     * @var Number|null
-     */
-    protected $suggestedMaxAge;
-
-    /**
-     * Specifying the health condition(s) of a patient, medical study, or other target audience.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\MedicalCondition|string
-     */
-    protected $healthCondition;
-
-    /**
      * A suggested range of body measurements for the intended audience or person, for example inseam between 32 and 34 inches or height between 170 and 190 cm. Typically found on a size chart for wearable products.
      *
      *
      * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|string
      */
     protected $suggestedMeasurement;
-
-    /**
-     * The age or age range for the intended audience or person, for example 3-12 months for infants, 1-5 years for toddlers.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|string
-     */
-    protected $suggestedAge;
-
-    /**
-     * Audiences defined by a person's maximum age.
-     *
-     *
-     * @var int|null
-     */
-    protected $requiredMaxAge;
-
-    /**
-     * Minimum recommended age in years for the audience or user.
-     *
-     *
-     * @var Number|null
-     */
-    protected $suggestedMinAge;
 
     /**
      * Audiences defined by a person's gender.
@@ -96,12 +56,52 @@ class PeopleAudience extends \OpenActive\Models\SchemaOrg\Audience
     protected $requiredGender;
 
     /**
+     * The age or age range for the intended audience or person, for example 3-12 months for infants, 1-5 years for toddlers.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|string
+     */
+    protected $suggestedAge;
+
+    /**
      * The suggested gender of the intended person or audience, for example "male", "female", or "unisex".
      *
      *
-     * @var \OpenActive\Enums\SchemaOrg\GenderType|string|null
+     * @var string|\OpenActive\Enums\SchemaOrg\GenderType|null
      */
     protected $suggestedGender;
+
+    /**
+     * Specifying the health condition(s) of a patient, medical study, or other target audience.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\MedicalCondition|string
+     */
+    protected $healthCondition;
+
+    /**
+     * Maximum recommended age in years for the audience or user.
+     *
+     *
+     * @var Number|null
+     */
+    protected $suggestedMaxAge;
+
+    /**
+     * Minimum recommended age in years for the audience or user.
+     *
+     *
+     * @var Number|null
+     */
+    protected $suggestedMinAge;
+
+    /**
+     * Audiences defined by a person's maximum age.
+     *
+     *
+     * @var int|null
+     */
+    protected $requiredMaxAge;
 
     /**
      * @return int|null
@@ -126,56 +126,6 @@ class PeopleAudience extends \OpenActive\Models\SchemaOrg\Audience
         $requiredMinAge = self::checkTypes($requiredMinAge, $types);
 
         $this->requiredMinAge = $requiredMinAge;
-    }
-
-    /**
-     * @return Number|null
-     */
-    public function getSuggestedMaxAge()
-    {
-        return $this->suggestedMaxAge;
-    }
-
-    /**
-     * @param Number|null $suggestedMaxAge
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setSuggestedMaxAge($suggestedMaxAge)
-    {
-        $types = [
-            "Number",
-            "null",
-        ];
-
-        $suggestedMaxAge = self::checkTypes($suggestedMaxAge, $types);
-
-        $this->suggestedMaxAge = $suggestedMaxAge;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\MedicalCondition|string
-     */
-    public function getHealthCondition()
-    {
-        return $this->healthCondition;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\MedicalCondition|string $healthCondition
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setHealthCondition($healthCondition)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\MedicalCondition",
-            "string",
-        ];
-
-        $healthCondition = self::checkTypes($healthCondition, $types);
-
-        $this->healthCondition = $healthCondition;
     }
 
     /**
@@ -204,6 +154,30 @@ class PeopleAudience extends \OpenActive\Models\SchemaOrg\Audience
     }
 
     /**
+     * @return string
+     */
+    public function getRequiredGender()
+    {
+        return $this->requiredGender;
+    }
+
+    /**
+     * @param string $requiredGender
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setRequiredGender($requiredGender)
+    {
+        $types = [
+            "string",
+        ];
+
+        $requiredGender = self::checkTypes($requiredGender, $types);
+
+        $this->requiredGender = $requiredGender;
+    }
+
+    /**
      * @return \OpenActive\Models\SchemaOrg\QuantitativeValue|string
      */
     public function getSuggestedAge()
@@ -229,28 +203,79 @@ class PeopleAudience extends \OpenActive\Models\SchemaOrg\Audience
     }
 
     /**
-     * @return int|null
+     * @return string|\OpenActive\Enums\SchemaOrg\GenderType|null
      */
-    public function getRequiredMaxAge()
+    public function getSuggestedGender()
     {
-        return $this->requiredMaxAge;
+        return $this->suggestedGender;
     }
 
     /**
-     * @param int|null $requiredMaxAge
+     * @param string|\OpenActive\Enums\SchemaOrg\GenderType|null $suggestedGender
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setRequiredMaxAge($requiredMaxAge)
+    public function setSuggestedGender($suggestedGender)
     {
         $types = [
-            "int",
+            "string",
+            "\OpenActive\Enums\SchemaOrg\GenderType",
             "null",
         ];
 
-        $requiredMaxAge = self::checkTypes($requiredMaxAge, $types);
+        $suggestedGender = self::checkTypes($suggestedGender, $types);
 
-        $this->requiredMaxAge = $requiredMaxAge;
+        $this->suggestedGender = $suggestedGender;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\MedicalCondition|string
+     */
+    public function getHealthCondition()
+    {
+        return $this->healthCondition;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\MedicalCondition|string $healthCondition
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setHealthCondition($healthCondition)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\MedicalCondition",
+            "string",
+        ];
+
+        $healthCondition = self::checkTypes($healthCondition, $types);
+
+        $this->healthCondition = $healthCondition;
+    }
+
+    /**
+     * @return Number|null
+     */
+    public function getSuggestedMaxAge()
+    {
+        return $this->suggestedMaxAge;
+    }
+
+    /**
+     * @param Number|null $suggestedMaxAge
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setSuggestedMaxAge($suggestedMaxAge)
+    {
+        $types = [
+            "Number",
+            "null",
+        ];
+
+        $suggestedMaxAge = self::checkTypes($suggestedMaxAge, $types);
+
+        $this->suggestedMaxAge = $suggestedMaxAge;
     }
 
     /**
@@ -279,53 +304,28 @@ class PeopleAudience extends \OpenActive\Models\SchemaOrg\Audience
     }
 
     /**
-     * @return string
+     * @return int|null
      */
-    public function getRequiredGender()
+    public function getRequiredMaxAge()
     {
-        return $this->requiredGender;
+        return $this->requiredMaxAge;
     }
 
     /**
-     * @param string $requiredGender
+     * @param int|null $requiredMaxAge
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setRequiredGender($requiredGender)
+    public function setRequiredMaxAge($requiredMaxAge)
     {
         $types = [
-            "string",
-        ];
-
-        $requiredGender = self::checkTypes($requiredGender, $types);
-
-        $this->requiredGender = $requiredGender;
-    }
-
-    /**
-     * @return \OpenActive\Enums\SchemaOrg\GenderType|string|null
-     */
-    public function getSuggestedGender()
-    {
-        return $this->suggestedGender;
-    }
-
-    /**
-     * @param \OpenActive\Enums\SchemaOrg\GenderType|string|null $suggestedGender
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setSuggestedGender($suggestedGender)
-    {
-        $types = [
-            "\OpenActive\Enums\SchemaOrg\GenderType",
-            "string",
+            "int",
             "null",
         ];
 
-        $suggestedGender = self::checkTypes($suggestedGender, $types);
+        $requiredMaxAge = self::checkTypes($requiredMaxAge, $types);
 
-        $this->suggestedGender = $suggestedGender;
+        $this->requiredMaxAge = $requiredMaxAge;
     }
 
 }

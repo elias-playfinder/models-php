@@ -42,7 +42,7 @@ class HealthPlanFormulary extends \OpenActive\Models\SchemaOrg\Intangible
     protected $healthPlanDrugTier;
 
     /**
-     * Whether The costs to the patient for services under this network or formulary.
+     * The costs to the patient for services under this network or formulary.
      *
      *
      * @var bool|null

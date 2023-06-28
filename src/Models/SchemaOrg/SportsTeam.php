@@ -17,27 +17,19 @@ class SportsTeam extends \OpenActive\Models\SchemaOrg\SportsOrganization
 
     public static function fieldList() {
         $fields = [
-            "athlete" => "athlete",
             "gender" => "gender",
             "coach" => "coach",
+            "athlete" => "athlete",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
 
     /**
-     * A person that acts as performing member of a sports team; a player as opposed to a coach.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Person|string
-     */
-    protected $athlete;
-
-    /**
      * Gender of something, typically a [[Person]], but possibly also fictional characters, animals, etc. While https://schema.org/Male and https://schema.org/Female may be used, text strings are also acceptable for people who do not identify as a binary gender. The [[gender]] property can also be used in an extended sense to cover e.g. the gender of sports teams. As with the gender of individuals, we do not try to enumerate all possibilities. A mixed-gender [[SportsTeam]] can be indicated with a text value of "Mixed".
      *
      *
-     * @var \OpenActive\Enums\SchemaOrg\GenderType|string|null
+     * @var string|\OpenActive\Enums\SchemaOrg\GenderType|null
      */
     protected $gender;
 
@@ -50,32 +42,15 @@ class SportsTeam extends \OpenActive\Models\SchemaOrg\SportsOrganization
     protected $coach;
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\Person|string
+     * A person that acts as performing member of a sports team; a player as opposed to a coach.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Person|string
      */
-    public function getAthlete()
-    {
-        return $this->athlete;
-    }
+    protected $athlete;
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\Person|string $athlete
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setAthlete($athlete)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Person",
-            "string",
-        ];
-
-        $athlete = self::checkTypes($athlete, $types);
-
-        $this->athlete = $athlete;
-    }
-
-    /**
-     * @return \OpenActive\Enums\SchemaOrg\GenderType|string|null
+     * @return string|\OpenActive\Enums\SchemaOrg\GenderType|null
      */
     public function getGender()
     {
@@ -83,15 +58,15 @@ class SportsTeam extends \OpenActive\Models\SchemaOrg\SportsOrganization
     }
 
     /**
-     * @param \OpenActive\Enums\SchemaOrg\GenderType|string|null $gender
+     * @param string|\OpenActive\Enums\SchemaOrg\GenderType|null $gender
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setGender($gender)
     {
         $types = [
-            "\OpenActive\Enums\SchemaOrg\GenderType",
             "string",
+            "\OpenActive\Enums\SchemaOrg\GenderType",
             "null",
         ];
 
@@ -123,6 +98,31 @@ class SportsTeam extends \OpenActive\Models\SchemaOrg\SportsOrganization
         $coach = self::checkTypes($coach, $types);
 
         $this->coach = $coach;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Person|string
+     */
+    public function getAthlete()
+    {
+        return $this->athlete;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Person|string $athlete
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setAthlete($athlete)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Person",
+            "string",
+        ];
+
+        $athlete = self::checkTypes($athlete, $types);
+
+        $this->athlete = $athlete;
     }
 
 }

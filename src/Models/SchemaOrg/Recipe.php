@@ -17,28 +17,20 @@ class Recipe extends \OpenActive\Models\SchemaOrg\HowTo
 
     public static function fieldList() {
         $fields = [
-            "recipeInstructions" => "recipeInstructions",
             "ingredients" => "ingredients",
-            "recipeCuisine" => "recipeCuisine",
-            "suitableForDiet" => "suitableForDiet",
-            "nutrition" => "nutrition",
-            "cookingMethod" => "cookingMethod",
-            "recipeIngredient" => "recipeIngredient",
-            "recipeYield" => "recipeYield",
-            "cookTime" => "cookTime",
             "recipeCategory" => "recipeCategory",
+            "recipeIngredient" => "recipeIngredient",
+            "suitableForDiet" => "suitableForDiet",
+            "recipeYield" => "recipeYield",
+            "recipeInstructions" => "recipeInstructions",
+            "cookingMethod" => "cookingMethod",
+            "recipeCuisine" => "recipeCuisine",
+            "nutrition" => "nutrition",
+            "cookTime" => "cookTime",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * A step in making the recipe, in the form of a single item (document, video, etc.) or an ordered list with HowToStep and/or HowToSection items.
-     *
-     *
-     * @var string|\OpenActive\Models\SchemaOrg\CreativeWork|\OpenActive\Models\SchemaOrg\ItemList
-     */
-    protected $recipeInstructions;
 
     /**
      * A single ingredient used in the recipe, e.g. sugar, flour or garlic.
@@ -49,36 +41,12 @@ class Recipe extends \OpenActive\Models\SchemaOrg\HowTo
     protected $ingredients;
 
     /**
-     * The cuisine of the recipe (for example, French or Ethiopian).
+     * The category of the recipe—for example, appetizer, entree, etc.
      *
      *
      * @var string
      */
-    protected $recipeCuisine;
-
-    /**
-     * Indicates a dietary restriction or guideline for which this recipe or menu item is suitable, e.g. diabetic, halal etc.
-     *
-     *
-     * @var \OpenActive\Enums\SchemaOrg\RestrictedDiet|null
-     */
-    protected $suitableForDiet;
-
-    /**
-     * Nutrition information about the recipe or menu item.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\NutritionInformation|string
-     */
-    protected $nutrition;
-
-    /**
-     * The method of cooking, such as Frying, Steaming, ...
-     *
-     *
-     * @var string
-     */
-    protected $cookingMethod;
+    protected $recipeCategory;
 
     /**
      * A single ingredient used in the recipe, e.g. sugar, flour or garlic.
@@ -89,6 +57,14 @@ class Recipe extends \OpenActive\Models\SchemaOrg\HowTo
     protected $recipeIngredient;
 
     /**
+     * Indicates a dietary restriction or guideline for which this recipe or menu item is suitable, e.g. diabetic, halal etc.
+     *
+     *
+     * @var \OpenActive\Enums\SchemaOrg\RestrictedDiet|null
+     */
+    protected $suitableForDiet;
+
+    /**
      * The quantity produced by the recipe (for example, number of people served, number of servings, etc).
      *
      *
@@ -97,46 +73,44 @@ class Recipe extends \OpenActive\Models\SchemaOrg\HowTo
     protected $recipeYield;
 
     /**
+     * A step in making the recipe, in the form of a single item (document, video, etc.) or an ordered list with HowToStep and/or HowToSection items.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\ItemList|string|\OpenActive\Models\SchemaOrg\CreativeWork
+     */
+    protected $recipeInstructions;
+
+    /**
+     * The method of cooking, such as Frying, Steaming, ...
+     *
+     *
+     * @var string
+     */
+    protected $cookingMethod;
+
+    /**
+     * The cuisine of the recipe (for example, French or Ethiopian).
+     *
+     *
+     * @var string
+     */
+    protected $recipeCuisine;
+
+    /**
+     * Nutrition information about the recipe or menu item.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\NutritionInformation|string
+     */
+    protected $nutrition;
+
+    /**
      * The time it takes to actually cook the dish, in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
      *
      *
      * @var DateInterval|string|null
      */
     protected $cookTime;
-
-    /**
-     * The category of the recipe—for example, appetizer, entree, etc.
-     *
-     *
-     * @var string
-     */
-    protected $recipeCategory;
-
-    /**
-     * @return string|\OpenActive\Models\SchemaOrg\CreativeWork|\OpenActive\Models\SchemaOrg\ItemList
-     */
-    public function getRecipeInstructions()
-    {
-        return $this->recipeInstructions;
-    }
-
-    /**
-     * @param string|\OpenActive\Models\SchemaOrg\CreativeWork|\OpenActive\Models\SchemaOrg\ItemList $recipeInstructions
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setRecipeInstructions($recipeInstructions)
-    {
-        $types = [
-            "string",
-            "\OpenActive\Models\SchemaOrg\CreativeWork",
-            "\OpenActive\Models\SchemaOrg\ItemList",
-        ];
-
-        $recipeInstructions = self::checkTypes($recipeInstructions, $types);
-
-        $this->recipeInstructions = $recipeInstructions;
-    }
 
     /**
      * @return string
@@ -165,25 +139,49 @@ class Recipe extends \OpenActive\Models\SchemaOrg\HowTo
     /**
      * @return string
      */
-    public function getRecipeCuisine()
+    public function getRecipeCategory()
     {
-        return $this->recipeCuisine;
+        return $this->recipeCategory;
     }
 
     /**
-     * @param string $recipeCuisine
+     * @param string $recipeCategory
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setRecipeCuisine($recipeCuisine)
+    public function setRecipeCategory($recipeCategory)
     {
         $types = [
             "string",
         ];
 
-        $recipeCuisine = self::checkTypes($recipeCuisine, $types);
+        $recipeCategory = self::checkTypes($recipeCategory, $types);
 
-        $this->recipeCuisine = $recipeCuisine;
+        $this->recipeCategory = $recipeCategory;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRecipeIngredient()
+    {
+        return $this->recipeIngredient;
+    }
+
+    /**
+     * @param string $recipeIngredient
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setRecipeIngredient($recipeIngredient)
+    {
+        $types = [
+            "string",
+        ];
+
+        $recipeIngredient = self::checkTypes($recipeIngredient, $types);
+
+        $this->recipeIngredient = $recipeIngredient;
     }
 
     /**
@@ -212,28 +210,54 @@ class Recipe extends \OpenActive\Models\SchemaOrg\HowTo
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\NutritionInformation|string
+     * @return string|\OpenActive\Models\SchemaOrg\QuantitativeValue
      */
-    public function getNutrition()
+    public function getRecipeYield()
     {
-        return $this->nutrition;
+        return $this->recipeYield;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\NutritionInformation|string $nutrition
+     * @param string|\OpenActive\Models\SchemaOrg\QuantitativeValue $recipeYield
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setNutrition($nutrition)
+    public function setRecipeYield($recipeYield)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\NutritionInformation",
             "string",
+            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
         ];
 
-        $nutrition = self::checkTypes($nutrition, $types);
+        $recipeYield = self::checkTypes($recipeYield, $types);
 
-        $this->nutrition = $nutrition;
+        $this->recipeYield = $recipeYield;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\ItemList|string|\OpenActive\Models\SchemaOrg\CreativeWork
+     */
+    public function getRecipeInstructions()
+    {
+        return $this->recipeInstructions;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\ItemList|string|\OpenActive\Models\SchemaOrg\CreativeWork $recipeInstructions
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setRecipeInstructions($recipeInstructions)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\ItemList",
+            "string",
+            "\OpenActive\Models\SchemaOrg\CreativeWork",
+        ];
+
+        $recipeInstructions = self::checkTypes($recipeInstructions, $types);
+
+        $this->recipeInstructions = $recipeInstructions;
     }
 
     /**
@@ -263,50 +287,50 @@ class Recipe extends \OpenActive\Models\SchemaOrg\HowTo
     /**
      * @return string
      */
-    public function getRecipeIngredient()
+    public function getRecipeCuisine()
     {
-        return $this->recipeIngredient;
+        return $this->recipeCuisine;
     }
 
     /**
-     * @param string $recipeIngredient
+     * @param string $recipeCuisine
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setRecipeIngredient($recipeIngredient)
+    public function setRecipeCuisine($recipeCuisine)
     {
         $types = [
             "string",
         ];
 
-        $recipeIngredient = self::checkTypes($recipeIngredient, $types);
+        $recipeCuisine = self::checkTypes($recipeCuisine, $types);
 
-        $this->recipeIngredient = $recipeIngredient;
+        $this->recipeCuisine = $recipeCuisine;
     }
 
     /**
-     * @return string|\OpenActive\Models\SchemaOrg\QuantitativeValue
+     * @return \OpenActive\Models\SchemaOrg\NutritionInformation|string
      */
-    public function getRecipeYield()
+    public function getNutrition()
     {
-        return $this->recipeYield;
+        return $this->nutrition;
     }
 
     /**
-     * @param string|\OpenActive\Models\SchemaOrg\QuantitativeValue $recipeYield
+     * @param \OpenActive\Models\SchemaOrg\NutritionInformation|string $nutrition
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setRecipeYield($recipeYield)
+    public function setNutrition($nutrition)
     {
         $types = [
+            "\OpenActive\Models\SchemaOrg\NutritionInformation",
             "string",
-            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
         ];
 
-        $recipeYield = self::checkTypes($recipeYield, $types);
+        $nutrition = self::checkTypes($nutrition, $types);
 
-        $this->recipeYield = $recipeYield;
+        $this->nutrition = $nutrition;
     }
 
     /**
@@ -333,30 +357,6 @@ class Recipe extends \OpenActive\Models\SchemaOrg\HowTo
         $cookTime = self::checkTypes($cookTime, $types);
 
         $this->cookTime = $cookTime;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRecipeCategory()
-    {
-        return $this->recipeCategory;
-    }
-
-    /**
-     * @param string $recipeCategory
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setRecipeCategory($recipeCategory)
-    {
-        $types = [
-            "string",
-        ];
-
-        $recipeCategory = self::checkTypes($recipeCategory, $types);
-
-        $this->recipeCategory = $recipeCategory;
     }
 
 }

@@ -18,21 +18,29 @@ class MusicAlbum extends \OpenActive\Models\SchemaOrg\MusicPlaylist
     public static function fieldList() {
         $fields = [
             "albumProductionType" => "albumProductionType",
+            "byArtist" => "byArtist",
             "albumReleaseType" => "albumReleaseType",
             "albumRelease" => "albumRelease",
-            "byArtist" => "byArtist",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
 
     /**
-     * Classification of the album by it's type of content: soundtrack, live album, studio album, etc.
+     * Classification of the album by its type of content: soundtrack, live album, studio album, etc.
      *
      *
      * @var \OpenActive\Enums\SchemaOrg\MusicAlbumProductionType|null
      */
     protected $albumProductionType;
+
+    /**
+     * The artist that performed this album or recording.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\MusicGroup|\OpenActive\Models\SchemaOrg\Person|string
+     */
+    protected $byArtist;
 
     /**
      * The kind of release which this album is: single, EP or album.
@@ -49,14 +57,6 @@ class MusicAlbum extends \OpenActive\Models\SchemaOrg\MusicPlaylist
      * @var \OpenActive\Models\SchemaOrg\MusicRelease|string
      */
     protected $albumRelease;
-
-    /**
-     * The artist that performed this album or recording.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\MusicGroup|string
-     */
-    protected $byArtist;
 
     /**
      * @return \OpenActive\Enums\SchemaOrg\MusicAlbumProductionType|null
@@ -81,6 +81,32 @@ class MusicAlbum extends \OpenActive\Models\SchemaOrg\MusicPlaylist
         $albumProductionType = self::checkTypes($albumProductionType, $types);
 
         $this->albumProductionType = $albumProductionType;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\MusicGroup|\OpenActive\Models\SchemaOrg\Person|string
+     */
+    public function getByArtist()
+    {
+        return $this->byArtist;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\MusicGroup|\OpenActive\Models\SchemaOrg\Person|string $byArtist
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setByArtist($byArtist)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\MusicGroup",
+            "\OpenActive\Models\SchemaOrg\Person",
+            "string",
+        ];
+
+        $byArtist = self::checkTypes($byArtist, $types);
+
+        $this->byArtist = $byArtist;
     }
 
     /**
@@ -131,32 +157,6 @@ class MusicAlbum extends \OpenActive\Models\SchemaOrg\MusicPlaylist
         $albumRelease = self::checkTypes($albumRelease, $types);
 
         $this->albumRelease = $albumRelease;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\MusicGroup|string
-     */
-    public function getByArtist()
-    {
-        return $this->byArtist;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\MusicGroup|string $byArtist
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setByArtist($byArtist)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Person",
-            "\OpenActive\Models\SchemaOrg\MusicGroup",
-            "string",
-        ];
-
-        $byArtist = self::checkTypes($byArtist, $types);
-
-        $this->byArtist = $byArtist;
     }
 
 }

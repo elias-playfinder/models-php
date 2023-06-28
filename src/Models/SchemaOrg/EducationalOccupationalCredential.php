@@ -17,24 +17,16 @@ class EducationalOccupationalCredential extends \OpenActive\Models\SchemaOrg\Cre
 
     public static function fieldList() {
         $fields = [
-            "validFor" => "validFor",
             "educationalLevel" => "educationalLevel",
+            "competencyRequired" => "competencyRequired",
             "credentialCategory" => "credentialCategory",
             "recognizedBy" => "recognizedBy",
-            "competencyRequired" => "competencyRequired",
+            "validFor" => "validFor",
             "validIn" => "validIn",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * The duration of validity of a permit or similar thing.
-     *
-     *
-     * @var DateInterval|string|null
-     */
-    protected $validFor;
 
     /**
      * The level in terms of progression through an educational or training context. Examples of educational levels include 'beginner', 'intermediate' or 'advanced', and formal sets of level indicators.
@@ -43,6 +35,14 @@ class EducationalOccupationalCredential extends \OpenActive\Models\SchemaOrg\Cre
      * @var string|\OpenActive\Models\SchemaOrg\DefinedTerm
      */
     protected $educationalLevel;
+
+    /**
+     * Knowledge, skill, ability or personal attribute that must be demonstrated by a person or other entity in order to do something such as earn an Educational Occupational Credential or understand a LearningResource.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\DefinedTerm|string
+     */
+    protected $competencyRequired;
 
     /**
      * The category or type of credential being described, for example "degree”, “certificate”, “badge”, or more specific term.
@@ -61,12 +61,12 @@ class EducationalOccupationalCredential extends \OpenActive\Models\SchemaOrg\Cre
     protected $recognizedBy;
 
     /**
-     * Knowledge, skill, ability or personal attribute that must be demonstrated by a person or other entity in order to do something such as earn an Educational Occupational Credential or understand a LearningResource.
+     * The duration of validity of a permit or similar thing.
      *
      *
-     * @var string|\OpenActive\Models\SchemaOrg\DefinedTerm
+     * @var DateInterval|string|null
      */
-    protected $competencyRequired;
+    protected $validFor;
 
     /**
      * The geographic area where a permit or similar thing is valid.
@@ -75,32 +75,6 @@ class EducationalOccupationalCredential extends \OpenActive\Models\SchemaOrg\Cre
      * @var \OpenActive\Models\SchemaOrg\AdministrativeArea|string
      */
     protected $validIn;
-
-    /**
-     * @return DateInterval|string|null
-     */
-    public function getValidFor()
-    {
-        return $this->validFor;
-    }
-
-    /**
-     * @param DateInterval|string|null $validFor
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setValidFor($validFor)
-    {
-        $types = [
-            "DateInterval",
-            "string",
-            "null",
-        ];
-
-        $validFor = self::checkTypes($validFor, $types);
-
-        $this->validFor = $validFor;
-    }
 
     /**
      * @return string|\OpenActive\Models\SchemaOrg\DefinedTerm
@@ -125,6 +99,31 @@ class EducationalOccupationalCredential extends \OpenActive\Models\SchemaOrg\Cre
         $educationalLevel = self::checkTypes($educationalLevel, $types);
 
         $this->educationalLevel = $educationalLevel;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\DefinedTerm|string
+     */
+    public function getCompetencyRequired()
+    {
+        return $this->competencyRequired;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\DefinedTerm|string $competencyRequired
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setCompetencyRequired($competencyRequired)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\DefinedTerm",
+            "string",
+        ];
+
+        $competencyRequired = self::checkTypes($competencyRequired, $types);
+
+        $this->competencyRequired = $competencyRequired;
     }
 
     /**
@@ -178,28 +177,29 @@ class EducationalOccupationalCredential extends \OpenActive\Models\SchemaOrg\Cre
     }
 
     /**
-     * @return string|\OpenActive\Models\SchemaOrg\DefinedTerm
+     * @return DateInterval|string|null
      */
-    public function getCompetencyRequired()
+    public function getValidFor()
     {
-        return $this->competencyRequired;
+        return $this->validFor;
     }
 
     /**
-     * @param string|\OpenActive\Models\SchemaOrg\DefinedTerm $competencyRequired
+     * @param DateInterval|string|null $validFor
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setCompetencyRequired($competencyRequired)
+    public function setValidFor($validFor)
     {
         $types = [
+            "DateInterval",
             "string",
-            "\OpenActive\Models\SchemaOrg\DefinedTerm",
+            "null",
         ];
 
-        $competencyRequired = self::checkTypes($competencyRequired, $types);
+        $validFor = self::checkTypes($validFor, $types);
 
-        $this->competencyRequired = $competencyRequired;
+        $this->validFor = $validFor;
     }
 
     /**

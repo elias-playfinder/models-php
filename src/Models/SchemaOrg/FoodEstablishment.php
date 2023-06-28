@@ -18,10 +18,10 @@ class FoodEstablishment extends \OpenActive\Models\SchemaOrg\LocalBusiness
     public static function fieldList() {
         $fields = [
             "starRating" => "starRating",
-            "servesCuisine" => "servesCuisine",
             "acceptsReservations" => "acceptsReservations",
-            "hasMenu" => "hasMenu",
             "menu" => "menu",
+            "hasMenu" => "hasMenu",
+            "servesCuisine" => "servesCuisine",
         ];
 
         return array_merge(parent::fieldList(), $fields);
@@ -36,14 +36,6 @@ class FoodEstablishment extends \OpenActive\Models\SchemaOrg\LocalBusiness
     protected $starRating;
 
     /**
-     * The cuisine of the restaurant.
-     *
-     *
-     * @var string
-     */
-    protected $servesCuisine;
-
-    /**
      * Indicates whether a FoodEstablishment accepts reservations. Values can be Boolean, an URL at which reservations can be made or (for backwards compatibility) the strings ```Yes``` or ```No```.
      *
      *
@@ -55,17 +47,25 @@ class FoodEstablishment extends \OpenActive\Models\SchemaOrg\LocalBusiness
      * Either the actual menu as a structured representation, as text, or a URL of the menu.
      *
      *
-     * @var string|\OpenActive\Models\SchemaOrg\Menu
+     * @var \OpenActive\Models\SchemaOrg\Menu|string
      */
-    protected $hasMenu;
+    protected $menu;
 
     /**
      * Either the actual menu as a structured representation, as text, or a URL of the menu.
      *
      *
-     * @var string|\OpenActive\Models\SchemaOrg\Menu
+     * @var \OpenActive\Models\SchemaOrg\Menu|string
      */
-    protected $menu;
+    protected $hasMenu;
+
+    /**
+     * The cuisine of the restaurant.
+     *
+     *
+     * @var string
+     */
+    protected $servesCuisine;
 
     /**
      * @return \OpenActive\Models\SchemaOrg\Rating|string
@@ -90,30 +90,6 @@ class FoodEstablishment extends \OpenActive\Models\SchemaOrg\LocalBusiness
         $starRating = self::checkTypes($starRating, $types);
 
         $this->starRating = $starRating;
-    }
-
-    /**
-     * @return string
-     */
-    public function getServesCuisine()
-    {
-        return $this->servesCuisine;
-    }
-
-    /**
-     * @param string $servesCuisine
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setServesCuisine($servesCuisine)
-    {
-        $types = [
-            "string",
-        ];
-
-        $servesCuisine = self::checkTypes($servesCuisine, $types);
-
-        $this->servesCuisine = $servesCuisine;
     }
 
     /**
@@ -143,7 +119,32 @@ class FoodEstablishment extends \OpenActive\Models\SchemaOrg\LocalBusiness
     }
 
     /**
-     * @return string|\OpenActive\Models\SchemaOrg\Menu
+     * @return \OpenActive\Models\SchemaOrg\Menu|string
+     */
+    public function getMenu()
+    {
+        return $this->menu;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Menu|string $menu
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setMenu($menu)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Menu",
+            "string",
+        ];
+
+        $menu = self::checkTypes($menu, $types);
+
+        $this->menu = $menu;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Menu|string
      */
     public function getHasMenu()
     {
@@ -151,15 +152,15 @@ class FoodEstablishment extends \OpenActive\Models\SchemaOrg\LocalBusiness
     }
 
     /**
-     * @param string|\OpenActive\Models\SchemaOrg\Menu $hasMenu
+     * @param \OpenActive\Models\SchemaOrg\Menu|string $hasMenu
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setHasMenu($hasMenu)
     {
         $types = [
-            "string",
             "\OpenActive\Models\SchemaOrg\Menu",
+            "string",
         ];
 
         $hasMenu = self::checkTypes($hasMenu, $types);
@@ -168,28 +169,27 @@ class FoodEstablishment extends \OpenActive\Models\SchemaOrg\LocalBusiness
     }
 
     /**
-     * @return string|\OpenActive\Models\SchemaOrg\Menu
+     * @return string
      */
-    public function getMenu()
+    public function getServesCuisine()
     {
-        return $this->menu;
+        return $this->servesCuisine;
     }
 
     /**
-     * @param string|\OpenActive\Models\SchemaOrg\Menu $menu
+     * @param string $servesCuisine
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setMenu($menu)
+    public function setServesCuisine($servesCuisine)
     {
         $types = [
             "string",
-            "\OpenActive\Models\SchemaOrg\Menu",
         ];
 
-        $menu = self::checkTypes($menu, $types);
+        $servesCuisine = self::checkTypes($servesCuisine, $types);
 
-        $this->menu = $menu;
+        $this->servesCuisine = $servesCuisine;
     }
 
 }

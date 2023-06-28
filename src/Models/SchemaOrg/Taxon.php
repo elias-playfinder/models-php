@@ -19,8 +19,8 @@ class Taxon extends \OpenActive\Models\SchemaOrg\Thing
         $fields = [
             "parentTaxon" => "parentTaxon",
             "taxonRank" => "taxonRank",
-            "childTaxon" => "childTaxon",
             "hasDefinedTerm" => "hasDefinedTerm",
+            "childTaxon" => "childTaxon",
         ];
 
         return array_merge(parent::fieldList(), $fields);
@@ -35,20 +35,12 @@ class Taxon extends \OpenActive\Models\SchemaOrg\Thing
     protected $parentTaxon;
 
     /**
-     * The taxonomic rank of this taxon given preferably as a URI from a controlled vocabulary – (typically the ranks from TDWG TaxonRank ontology or equivalent Wikidata URIs).
+     * The taxonomic rank of this taxon given preferably as a URI from a controlled vocabulary – typically the ranks from TDWG TaxonRank ontology or equivalent Wikidata URIs.
      *
      *
      * @var \OpenActive\Models\SchemaOrg\PropertyValue|string
      */
     protected $taxonRank;
-
-    /**
-     * Closest child taxa of the taxon in question.
-     *
-     *
-     * @var string|\OpenActive\Models\SchemaOrg\Taxon
-     */
-    protected $childTaxon;
 
     /**
      * A Defined Term contained in this term set.
@@ -57,6 +49,14 @@ class Taxon extends \OpenActive\Models\SchemaOrg\Thing
      * @var \OpenActive\Models\SchemaOrg\DefinedTerm|string
      */
     protected $hasDefinedTerm;
+
+    /**
+     * Closest child taxa of the taxon in question.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Taxon|string
+     */
+    protected $childTaxon;
 
     /**
      * @return string|\OpenActive\Models\SchemaOrg\Taxon
@@ -109,31 +109,6 @@ class Taxon extends \OpenActive\Models\SchemaOrg\Thing
     }
 
     /**
-     * @return string|\OpenActive\Models\SchemaOrg\Taxon
-     */
-    public function getChildTaxon()
-    {
-        return $this->childTaxon;
-    }
-
-    /**
-     * @param string|\OpenActive\Models\SchemaOrg\Taxon $childTaxon
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setChildTaxon($childTaxon)
-    {
-        $types = [
-            "string",
-            "\OpenActive\Models\SchemaOrg\Taxon",
-        ];
-
-        $childTaxon = self::checkTypes($childTaxon, $types);
-
-        $this->childTaxon = $childTaxon;
-    }
-
-    /**
      * @return \OpenActive\Models\SchemaOrg\DefinedTerm|string
      */
     public function getHasDefinedTerm()
@@ -156,6 +131,31 @@ class Taxon extends \OpenActive\Models\SchemaOrg\Thing
         $hasDefinedTerm = self::checkTypes($hasDefinedTerm, $types);
 
         $this->hasDefinedTerm = $hasDefinedTerm;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Taxon|string
+     */
+    public function getChildTaxon()
+    {
+        return $this->childTaxon;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Taxon|string $childTaxon
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setChildTaxon($childTaxon)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Taxon",
+            "string",
+        ];
+
+        $childTaxon = self::checkTypes($childTaxon, $types);
+
+        $this->childTaxon = $childTaxon;
     }
 
 }

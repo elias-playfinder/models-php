@@ -17,30 +17,14 @@ class PaymentCard extends \OpenActive\Models\SchemaOrg\FinancialProduct
 
     public static function fieldList() {
         $fields = [
-            "cashBack" => "cashBack",
-            "monthlyMinimumRepaymentAmount" => "monthlyMinimumRepaymentAmount",
             "floorLimit" => "floorLimit",
+            "monthlyMinimumRepaymentAmount" => "monthlyMinimumRepaymentAmount",
+            "cashBack" => "cashBack",
             "contactlessPayment" => "contactlessPayment",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * A cardholder benefit that pays the cardholder a small percentage of their net expenditures.
-     *
-     *
-     * @var bool|Number|null
-     */
-    protected $cashBack;
-
-    /**
-     * The minimum payment is the lowest amount of money that one is required to pay on a credit card statement each month.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\MonetaryAmount|string|Number|null
-     */
-    protected $monthlyMinimumRepaymentAmount;
 
     /**
      * A floor limit is the amount of money above which credit card transactions must be authorized.
@@ -51,6 +35,22 @@ class PaymentCard extends \OpenActive\Models\SchemaOrg\FinancialProduct
     protected $floorLimit;
 
     /**
+     * The minimum payment is the lowest amount of money that one is required to pay on a credit card statement each month.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\MonetaryAmount|string|Number|null
+     */
+    protected $monthlyMinimumRepaymentAmount;
+
+    /**
+     * A cardholder benefit that pays the cardholder a small percentage of their net expenditures.
+     *
+     *
+     * @var bool|Number|null
+     */
+    protected $cashBack;
+
+    /**
      * A secure method for consumers to purchase products or services via debit, credit or smartcards by using RFID or NFC technology.
      *
      *
@@ -59,29 +59,28 @@ class PaymentCard extends \OpenActive\Models\SchemaOrg\FinancialProduct
     protected $contactlessPayment;
 
     /**
-     * @return bool|Number|null
+     * @return \OpenActive\Models\SchemaOrg\MonetaryAmount|string
      */
-    public function getCashBack()
+    public function getFloorLimit()
     {
-        return $this->cashBack;
+        return $this->floorLimit;
     }
 
     /**
-     * @param bool|Number|null $cashBack
+     * @param \OpenActive\Models\SchemaOrg\MonetaryAmount|string $floorLimit
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setCashBack($cashBack)
+    public function setFloorLimit($floorLimit)
     {
         $types = [
-            "bool",
-            "Number",
-            "null",
+            "\OpenActive\Models\SchemaOrg\MonetaryAmount",
+            "string",
         ];
 
-        $cashBack = self::checkTypes($cashBack, $types);
+        $floorLimit = self::checkTypes($floorLimit, $types);
 
-        $this->cashBack = $cashBack;
+        $this->floorLimit = $floorLimit;
     }
 
     /**
@@ -112,28 +111,29 @@ class PaymentCard extends \OpenActive\Models\SchemaOrg\FinancialProduct
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\MonetaryAmount|string
+     * @return bool|Number|null
      */
-    public function getFloorLimit()
+    public function getCashBack()
     {
-        return $this->floorLimit;
+        return $this->cashBack;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\MonetaryAmount|string $floorLimit
+     * @param bool|Number|null $cashBack
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setFloorLimit($floorLimit)
+    public function setCashBack($cashBack)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\MonetaryAmount",
-            "string",
+            "bool",
+            "Number",
+            "null",
         ];
 
-        $floorLimit = self::checkTypes($floorLimit, $types);
+        $cashBack = self::checkTypes($cashBack, $types);
 
-        $this->floorLimit = $floorLimit;
+        $this->cashBack = $cashBack;
     }
 
     /**

@@ -17,16 +17,24 @@ class PostalAddress extends \OpenActive\Models\SchemaOrg\ContactPoint
 
     public static function fieldList() {
         $fields = [
+            "postalCode" => "postalCode",
             "addressCountry" => "addressCountry",
             "addressRegion" => "addressRegion",
             "addressLocality" => "addressLocality",
-            "postalCode" => "postalCode",
             "postOfficeBoxNumber" => "postOfficeBoxNumber",
             "streetAddress" => "streetAddress",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
+
+    /**
+     * The postal code. For example, 94043.
+     *
+     *
+     * @var string
+     */
+    protected $postalCode;
 
     /**
      * The country. For example, USA. You can also provide the two-letter [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1).
@@ -37,7 +45,7 @@ class PostalAddress extends \OpenActive\Models\SchemaOrg\ContactPoint
     protected $addressCountry;
 
     /**
-     * The region in which the locality is, and which is in the country. For example, California or another appropriate first-level [Administrative division](https://en.wikipedia.org/wiki/List_of_administrative_divisions_by_country) 
+     * The region in which the locality is, and which is in the country. For example, California or another appropriate first-level [Administrative division](https://en.wikipedia.org/wiki/List_of_administrative_divisions_by_country).
      *
      *
      * @var string
@@ -51,14 +59,6 @@ class PostalAddress extends \OpenActive\Models\SchemaOrg\ContactPoint
      * @var string
      */
     protected $addressLocality;
-
-    /**
-     * The postal code. For example, 94043.
-     *
-     *
-     * @var string
-     */
-    protected $postalCode;
 
     /**
      * The post office box number for PO box addresses.
@@ -75,6 +75,30 @@ class PostalAddress extends \OpenActive\Models\SchemaOrg\ContactPoint
      * @var string
      */
     protected $streetAddress;
+
+    /**
+     * @return string
+     */
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * @param string $postalCode
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setPostalCode($postalCode)
+    {
+        $types = [
+            "string",
+        ];
+
+        $postalCode = self::checkTypes($postalCode, $types);
+
+        $this->postalCode = $postalCode;
+    }
 
     /**
      * @return \OpenActive\Models\SchemaOrg\Country|string
@@ -147,30 +171,6 @@ class PostalAddress extends \OpenActive\Models\SchemaOrg\ContactPoint
         $addressLocality = self::checkTypes($addressLocality, $types);
 
         $this->addressLocality = $addressLocality;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPostalCode()
-    {
-        return $this->postalCode;
-    }
-
-    /**
-     * @param string $postalCode
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setPostalCode($postalCode)
-    {
-        $types = [
-            "string",
-        ];
-
-        $postalCode = self::checkTypes($postalCode, $types);
-
-        $this->postalCode = $postalCode;
     }
 
     /**

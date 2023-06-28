@@ -19,9 +19,9 @@ class UserComments extends \OpenActive\Models\SchemaOrg\UserInteraction
         $fields = [
             "replyToUrl" => "replyToUrl",
             "discusses" => "discusses",
-            "commentTime" => "commentTime",
-            "commentText" => "commentText",
             "creator" => "creator",
+            "commentText" => "commentText",
+            "commentTime" => "commentTime",
         ];
 
         return array_merge(parent::fieldList(), $fields);
@@ -44,12 +44,12 @@ class UserComments extends \OpenActive\Models\SchemaOrg\UserInteraction
     protected $discusses;
 
     /**
-     * The time at which the UserComment was made.
+     * The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork.
      *
      *
-     * @var Date|DateTime|null
+     * @var \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\Organization|string
      */
-    protected $commentTime;
+    protected $creator;
 
     /**
      * The text of the UserComment.
@@ -60,12 +60,12 @@ class UserComments extends \OpenActive\Models\SchemaOrg\UserInteraction
     protected $commentText;
 
     /**
-     * The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork.
+     * The time at which the UserComment was made.
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string
+     * @var Date|DateTime|null
      */
-    protected $creator;
+    protected $commentTime;
 
     /**
      * @return string
@@ -117,29 +117,29 @@ class UserComments extends \OpenActive\Models\SchemaOrg\UserInteraction
     }
 
     /**
-     * @return Date|DateTime|null
+     * @return \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\Organization|string
      */
-    public function getCommentTime()
+    public function getCreator()
     {
-        return $this->commentTime;
+        return $this->creator;
     }
 
     /**
-     * @param Date|DateTime|null $commentTime
+     * @param \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\Organization|string $creator
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setCommentTime($commentTime)
+    public function setCreator($creator)
     {
         $types = [
-            "Date",
-            "DateTime",
-            "null",
+            "\OpenActive\Models\SchemaOrg\Person",
+            "\OpenActive\Models\SchemaOrg\Organization",
+            "string",
         ];
 
-        $commentTime = self::checkTypes($commentTime, $types);
+        $creator = self::checkTypes($creator, $types);
 
-        $this->commentTime = $commentTime;
+        $this->creator = $creator;
     }
 
     /**
@@ -167,29 +167,29 @@ class UserComments extends \OpenActive\Models\SchemaOrg\UserInteraction
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string
+     * @return Date|DateTime|null
      */
-    public function getCreator()
+    public function getCommentTime()
     {
-        return $this->creator;
+        return $this->commentTime;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string $creator
+     * @param Date|DateTime|null $commentTime
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setCreator($creator)
+    public function setCommentTime($commentTime)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\Organization",
-            "\OpenActive\Models\SchemaOrg\Person",
-            "string",
+            "Date",
+            "DateTime",
+            "null",
         ];
 
-        $creator = self::checkTypes($creator, $types);
+        $commentTime = self::checkTypes($commentTime, $types);
 
-        $this->creator = $creator;
+        $this->commentTime = $commentTime;
     }
 
 }

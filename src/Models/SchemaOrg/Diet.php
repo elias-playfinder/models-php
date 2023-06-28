@@ -17,47 +17,15 @@ class Diet extends \OpenActive\Models\SchemaOrg\LifestyleModification
 
     public static function fieldList() {
         $fields = [
-            "expertConsiderations" => "expertConsiderations",
-            "risks" => "risks",
-            "physiologicalBenefits" => "physiologicalBenefits",
-            "endorsers" => "endorsers",
             "dietFeatures" => "dietFeatures",
+            "endorsers" => "endorsers",
+            "risks" => "risks",
+            "expertConsiderations" => "expertConsiderations",
+            "physiologicalBenefits" => "physiologicalBenefits",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * Medical expert advice related to the plan.
-     *
-     *
-     * @var string
-     */
-    protected $expertConsiderations;
-
-    /**
-     * Specific physiologic risks associated to the diet plan.
-     *
-     *
-     * @var string
-     */
-    protected $risks;
-
-    /**
-     * Specific physiologic benefits associated to the plan.
-     *
-     *
-     * @var string
-     */
-    protected $physiologicalBenefits;
-
-    /**
-     * People or organizations that endorse the plan.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\Organization|string
-     */
-    protected $endorsers;
 
     /**
      * Nutritional information specific to the dietary plan. May include dietary recommendations on what foods to avoid, what foods to consume, and specific alterations/deviations from the USDA or other regulatory body's approved dietary guidelines.
@@ -68,75 +36,59 @@ class Diet extends \OpenActive\Models\SchemaOrg\LifestyleModification
     protected $dietFeatures;
 
     /**
+     * People or organizations that endorse the plan.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\Organization|string
+     */
+    protected $endorsers;
+
+    /**
+     * Specific physiologic risks associated to the diet plan.
+     *
+     *
+     * @var string
+     */
+    protected $risks;
+
+    /**
+     * Medical expert advice related to the plan.
+     *
+     *
+     * @var string
+     */
+    protected $expertConsiderations;
+
+    /**
+     * Specific physiologic benefits associated to the plan.
+     *
+     *
+     * @var string
+     */
+    protected $physiologicalBenefits;
+
+    /**
      * @return string
      */
-    public function getExpertConsiderations()
+    public function getDietFeatures()
     {
-        return $this->expertConsiderations;
+        return $this->dietFeatures;
     }
 
     /**
-     * @param string $expertConsiderations
+     * @param string $dietFeatures
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setExpertConsiderations($expertConsiderations)
+    public function setDietFeatures($dietFeatures)
     {
         $types = [
             "string",
         ];
 
-        $expertConsiderations = self::checkTypes($expertConsiderations, $types);
+        $dietFeatures = self::checkTypes($dietFeatures, $types);
 
-        $this->expertConsiderations = $expertConsiderations;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRisks()
-    {
-        return $this->risks;
-    }
-
-    /**
-     * @param string $risks
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setRisks($risks)
-    {
-        $types = [
-            "string",
-        ];
-
-        $risks = self::checkTypes($risks, $types);
-
-        $this->risks = $risks;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhysiologicalBenefits()
-    {
-        return $this->physiologicalBenefits;
-    }
-
-    /**
-     * @param string $physiologicalBenefits
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setPhysiologicalBenefits($physiologicalBenefits)
-    {
-        $types = [
-            "string",
-        ];
-
-        $physiologicalBenefits = self::checkTypes($physiologicalBenefits, $types);
-
-        $this->physiologicalBenefits = $physiologicalBenefits;
+        $this->dietFeatures = $dietFeatures;
     }
 
     /**
@@ -168,25 +120,73 @@ class Diet extends \OpenActive\Models\SchemaOrg\LifestyleModification
     /**
      * @return string
      */
-    public function getDietFeatures()
+    public function getRisks()
     {
-        return $this->dietFeatures;
+        return $this->risks;
     }
 
     /**
-     * @param string $dietFeatures
+     * @param string $risks
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setDietFeatures($dietFeatures)
+    public function setRisks($risks)
     {
         $types = [
             "string",
         ];
 
-        $dietFeatures = self::checkTypes($dietFeatures, $types);
+        $risks = self::checkTypes($risks, $types);
 
-        $this->dietFeatures = $dietFeatures;
+        $this->risks = $risks;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExpertConsiderations()
+    {
+        return $this->expertConsiderations;
+    }
+
+    /**
+     * @param string $expertConsiderations
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setExpertConsiderations($expertConsiderations)
+    {
+        $types = [
+            "string",
+        ];
+
+        $expertConsiderations = self::checkTypes($expertConsiderations, $types);
+
+        $this->expertConsiderations = $expertConsiderations;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhysiologicalBenefits()
+    {
+        return $this->physiologicalBenefits;
+    }
+
+    /**
+     * @param string $physiologicalBenefits
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setPhysiologicalBenefits($physiologicalBenefits)
+    {
+        $types = [
+            "string",
+        ];
+
+        $physiologicalBenefits = self::checkTypes($physiologicalBenefits, $types);
+
+        $this->physiologicalBenefits = $physiologicalBenefits;
     }
 
 }

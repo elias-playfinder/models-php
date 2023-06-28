@@ -17,40 +17,16 @@ class MedicalProcedure extends \OpenActive\Models\SchemaOrg\MedicalEntity
 
     public static function fieldList() {
         $fields = [
-            "procedureType" => "procedureType",
-            "preparation" => "preparation",
-            "bodyLocation" => "bodyLocation",
             "status" => "status",
-            "howPerformed" => "howPerformed",
+            "procedureType" => "procedureType",
             "followup" => "followup",
+            "bodyLocation" => "bodyLocation",
+            "preparation" => "preparation",
+            "howPerformed" => "howPerformed",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * The type of procedure, for example Surgical, Noninvasive, or Percutaneous.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\MedicalProcedureType|string
-     */
-    protected $procedureType;
-
-    /**
-     * Typical preparation that a patient must undergo before having the procedure performed.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\MedicalEntity|string
-     */
-    protected $preparation;
-
-    /**
-     * Location in the body of the anatomical structure.
-     *
-     *
-     * @var string
-     */
-    protected $bodyLocation;
 
     /**
      * The status of the study (enumerated).
@@ -61,12 +37,12 @@ class MedicalProcedure extends \OpenActive\Models\SchemaOrg\MedicalEntity
     protected $status;
 
     /**
-     * How the procedure is performed.
+     * The type of procedure, for example Surgical, Noninvasive, or Percutaneous.
      *
      *
-     * @var string
+     * @var \OpenActive\Models\SchemaOrg\MedicalProcedureType|string
      */
-    protected $howPerformed;
+    protected $procedureType;
 
     /**
      * Typical or recommended followup care after the procedure is performed.
@@ -77,78 +53,28 @@ class MedicalProcedure extends \OpenActive\Models\SchemaOrg\MedicalEntity
     protected $followup;
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\MedicalProcedureType|string
+     * Location in the body of the anatomical structure.
+     *
+     *
+     * @var string
      */
-    public function getProcedureType()
-    {
-        return $this->procedureType;
-    }
+    protected $bodyLocation;
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\MedicalProcedureType|string $procedureType
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     * Typical preparation that a patient must undergo before having the procedure performed.
+     *
+     *
+     * @var string|\OpenActive\Models\SchemaOrg\MedicalEntity
      */
-    public function setProcedureType($procedureType)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\MedicalProcedureType",
-            "string",
-        ];
-
-        $procedureType = self::checkTypes($procedureType, $types);
-
-        $this->procedureType = $procedureType;
-    }
+    protected $preparation;
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\MedicalEntity|string
+     * How the procedure is performed.
+     *
+     *
+     * @var string
      */
-    public function getPreparation()
-    {
-        return $this->preparation;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\MedicalEntity|string $preparation
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setPreparation($preparation)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\MedicalEntity",
-            "string",
-        ];
-
-        $preparation = self::checkTypes($preparation, $types);
-
-        $this->preparation = $preparation;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBodyLocation()
-    {
-        return $this->bodyLocation;
-    }
-
-    /**
-     * @param string $bodyLocation
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setBodyLocation($bodyLocation)
-    {
-        $types = [
-            "string",
-        ];
-
-        $bodyLocation = self::checkTypes($bodyLocation, $types);
-
-        $this->bodyLocation = $bodyLocation;
-    }
+    protected $howPerformed;
 
     /**
      * @return string|\OpenActive\Enums\SchemaOrg\EventStatusType|\OpenActive\Models\SchemaOrg\MedicalStudyStatus|null
@@ -178,27 +104,28 @@ class MedicalProcedure extends \OpenActive\Models\SchemaOrg\MedicalEntity
     }
 
     /**
-     * @return string
+     * @return \OpenActive\Models\SchemaOrg\MedicalProcedureType|string
      */
-    public function getHowPerformed()
+    public function getProcedureType()
     {
-        return $this->howPerformed;
+        return $this->procedureType;
     }
 
     /**
-     * @param string $howPerformed
+     * @param \OpenActive\Models\SchemaOrg\MedicalProcedureType|string $procedureType
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setHowPerformed($howPerformed)
+    public function setProcedureType($procedureType)
     {
         $types = [
+            "\OpenActive\Models\SchemaOrg\MedicalProcedureType",
             "string",
         ];
 
-        $howPerformed = self::checkTypes($howPerformed, $types);
+        $procedureType = self::checkTypes($procedureType, $types);
 
-        $this->howPerformed = $howPerformed;
+        $this->procedureType = $procedureType;
     }
 
     /**
@@ -223,6 +150,79 @@ class MedicalProcedure extends \OpenActive\Models\SchemaOrg\MedicalEntity
         $followup = self::checkTypes($followup, $types);
 
         $this->followup = $followup;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBodyLocation()
+    {
+        return $this->bodyLocation;
+    }
+
+    /**
+     * @param string $bodyLocation
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setBodyLocation($bodyLocation)
+    {
+        $types = [
+            "string",
+        ];
+
+        $bodyLocation = self::checkTypes($bodyLocation, $types);
+
+        $this->bodyLocation = $bodyLocation;
+    }
+
+    /**
+     * @return string|\OpenActive\Models\SchemaOrg\MedicalEntity
+     */
+    public function getPreparation()
+    {
+        return $this->preparation;
+    }
+
+    /**
+     * @param string|\OpenActive\Models\SchemaOrg\MedicalEntity $preparation
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setPreparation($preparation)
+    {
+        $types = [
+            "string",
+            "\OpenActive\Models\SchemaOrg\MedicalEntity",
+        ];
+
+        $preparation = self::checkTypes($preparation, $types);
+
+        $this->preparation = $preparation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHowPerformed()
+    {
+        return $this->howPerformed;
+    }
+
+    /**
+     * @param string $howPerformed
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setHowPerformed($howPerformed)
+    {
+        $types = [
+            "string",
+        ];
+
+        $howPerformed = self::checkTypes($howPerformed, $types);
+
+        $this->howPerformed = $howPerformed;
     }
 
 }

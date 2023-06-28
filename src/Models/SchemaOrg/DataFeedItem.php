@@ -18,9 +18,9 @@ class DataFeedItem extends \OpenActive\Models\SchemaOrg\Intangible
     public static function fieldList() {
         $fields = [
             "dateDeleted" => "dateDeleted",
+            "item" => "item",
             "dateCreated" => "dateCreated",
             "dateModified" => "dateModified",
-            "item" => "item",
         ];
 
         return array_merge(parent::fieldList(), $fields);
@@ -33,6 +33,14 @@ class DataFeedItem extends \OpenActive\Models\SchemaOrg\Intangible
      * @var Date|DateTime|null
      */
     protected $dateDeleted;
+
+    /**
+     * An entity represented by an entry in a list or data feed (e.g. an 'artist' in a list of 'artists').
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Thing|string
+     */
+    protected $item;
 
     /**
      * The date on which the CreativeWork was created or the item was added to a DataFeed.
@@ -49,14 +57,6 @@ class DataFeedItem extends \OpenActive\Models\SchemaOrg\Intangible
      * @var Date|DateTime|null
      */
     protected $dateModified;
-
-    /**
-     * An entity represented by an entry in a list or data feed (e.g. an 'artist' in a list of 'artists')’.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Thing|string
-     */
-    protected $item;
 
     /**
      * @return Date|DateTime|null
@@ -82,6 +82,31 @@ class DataFeedItem extends \OpenActive\Models\SchemaOrg\Intangible
         $dateDeleted = self::checkTypes($dateDeleted, $types);
 
         $this->dateDeleted = $dateDeleted;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Thing|string
+     */
+    public function getItem()
+    {
+        return $this->item;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Thing|string $item
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setItem($item)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Thing",
+            "string",
+        ];
+
+        $item = self::checkTypes($item, $types);
+
+        $this->item = $item;
     }
 
     /**
@@ -134,31 +159,6 @@ class DataFeedItem extends \OpenActive\Models\SchemaOrg\Intangible
         $dateModified = self::checkTypes($dateModified, $types);
 
         $this->dateModified = $dateModified;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\Thing|string
-     */
-    public function getItem()
-    {
-        return $this->item;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Thing|string $item
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setItem($item)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Thing",
-            "string",
-        ];
-
-        $item = self::checkTypes($item, $types);
-
-        $this->item = $item;
     }
 
 }

@@ -17,29 +17,13 @@ class Hospital extends \OpenActive\Models\SchemaOrg\MedicalOrganization
 
     public static function fieldList() {
         $fields = [
-            "availableService" => "availableService",
-            "healthcareReportingData" => "healthcareReportingData",
             "medicalSpecialty" => "medicalSpecialty",
+            "healthcareReportingData" => "healthcareReportingData",
+            "availableService" => "availableService",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * A medical service available from this provider.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\MedicalTest|\OpenActive\Models\SchemaOrg\MedicalProcedure|\OpenActive\Models\SchemaOrg\MedicalTherapy|string
-     */
-    protected $availableService;
-
-    /**
-     * Indicates data describing a hospital, e.g. a CDC [[CDCPMDRecord]] or as some kind of [[Dataset]].
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Dataset|\OpenActive\Models\SchemaOrg\CDCPMDRecord|string
-     */
-    protected $healthcareReportingData;
 
     /**
      * A medical specialty of the provider.
@@ -50,30 +34,44 @@ class Hospital extends \OpenActive\Models\SchemaOrg\MedicalOrganization
     protected $medicalSpecialty;
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\MedicalTest|\OpenActive\Models\SchemaOrg\MedicalProcedure|\OpenActive\Models\SchemaOrg\MedicalTherapy|string
+     * Indicates data describing a hospital, e.g. a CDC [[CDCPMDRecord]] or as some kind of [[Dataset]].
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Dataset|\OpenActive\Models\SchemaOrg\CDCPMDRecord|string
      */
-    public function getAvailableService()
+    protected $healthcareReportingData;
+
+    /**
+     * A medical service available from this provider.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\MedicalProcedure|\OpenActive\Models\SchemaOrg\MedicalTherapy|\OpenActive\Models\SchemaOrg\MedicalTest|string
+     */
+    protected $availableService;
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\MedicalSpecialty|string
+     */
+    public function getMedicalSpecialty()
     {
-        return $this->availableService;
+        return $this->medicalSpecialty;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\MedicalTest|\OpenActive\Models\SchemaOrg\MedicalProcedure|\OpenActive\Models\SchemaOrg\MedicalTherapy|string $availableService
+     * @param \OpenActive\Models\SchemaOrg\MedicalSpecialty|string $medicalSpecialty
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setAvailableService($availableService)
+    public function setMedicalSpecialty($medicalSpecialty)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\MedicalTest",
-            "\OpenActive\Models\SchemaOrg\MedicalProcedure",
-            "\OpenActive\Models\SchemaOrg\MedicalTherapy",
+            "\OpenActive\Models\SchemaOrg\MedicalSpecialty",
             "string",
         ];
 
-        $availableService = self::checkTypes($availableService, $types);
+        $medicalSpecialty = self::checkTypes($medicalSpecialty, $types);
 
-        $this->availableService = $availableService;
+        $this->medicalSpecialty = $medicalSpecialty;
     }
 
     /**
@@ -103,28 +101,30 @@ class Hospital extends \OpenActive\Models\SchemaOrg\MedicalOrganization
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\MedicalSpecialty|string
+     * @return \OpenActive\Models\SchemaOrg\MedicalProcedure|\OpenActive\Models\SchemaOrg\MedicalTherapy|\OpenActive\Models\SchemaOrg\MedicalTest|string
      */
-    public function getMedicalSpecialty()
+    public function getAvailableService()
     {
-        return $this->medicalSpecialty;
+        return $this->availableService;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\MedicalSpecialty|string $medicalSpecialty
+     * @param \OpenActive\Models\SchemaOrg\MedicalProcedure|\OpenActive\Models\SchemaOrg\MedicalTherapy|\OpenActive\Models\SchemaOrg\MedicalTest|string $availableService
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setMedicalSpecialty($medicalSpecialty)
+    public function setAvailableService($availableService)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\MedicalSpecialty",
+            "\OpenActive\Models\SchemaOrg\MedicalProcedure",
+            "\OpenActive\Models\SchemaOrg\MedicalTherapy",
+            "\OpenActive\Models\SchemaOrg\MedicalTest",
             "string",
         ];
 
-        $medicalSpecialty = self::checkTypes($medicalSpecialty, $types);
+        $availableService = self::checkTypes($availableService, $types);
 
-        $this->medicalSpecialty = $medicalSpecialty;
+        $this->availableService = $availableService;
     }
 
 }

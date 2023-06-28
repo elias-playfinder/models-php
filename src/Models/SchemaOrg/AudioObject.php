@@ -17,13 +17,21 @@ class AudioObject extends \OpenActive\Models\SchemaOrg\MediaObject
 
     public static function fieldList() {
         $fields = [
+            "transcript" => "transcript",
             "embeddedTextCaption" => "embeddedTextCaption",
             "caption" => "caption",
-            "transcript" => "transcript",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
+
+    /**
+     * If this MediaObject is an AudioObject or VideoObject, the transcript of that object.
+     *
+     *
+     * @var string
+     */
+    protected $transcript;
 
     /**
      * Represents textual captioning from a [[MediaObject]], e.g. text of a 'meme'.
@@ -42,12 +50,28 @@ class AudioObject extends \OpenActive\Models\SchemaOrg\MediaObject
     protected $caption;
 
     /**
-     * If this MediaObject is an AudioObject or VideoObject, the transcript of that object.
-     *
-     *
-     * @var string
+     * @return string
      */
-    protected $transcript;
+    public function getTranscript()
+    {
+        return $this->transcript;
+    }
+
+    /**
+     * @param string $transcript
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setTranscript($transcript)
+    {
+        $types = [
+            "string",
+        ];
+
+        $transcript = self::checkTypes($transcript, $types);
+
+        $this->transcript = $transcript;
+    }
 
     /**
      * @return string
@@ -96,30 +120,6 @@ class AudioObject extends \OpenActive\Models\SchemaOrg\MediaObject
         $caption = self::checkTypes($caption, $types);
 
         $this->caption = $caption;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTranscript()
-    {
-        return $this->transcript;
-    }
-
-    /**
-     * @param string $transcript
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setTranscript($transcript)
-    {
-        $types = [
-            "string",
-        ];
-
-        $transcript = self::checkTypes($transcript, $types);
-
-        $this->transcript = $transcript;
     }
 
 }

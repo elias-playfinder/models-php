@@ -35,7 +35,7 @@ class Gene extends \OpenActive\Models\SchemaOrg\BioChemEntity
     protected $alternativeOf;
 
     /**
-     * A symbolic representation of a BioChemEnity. For example, a nucleotide sequence of a Gene or an amino acid sequence of a Protein.
+     * A symbolic representation of a BioChemEntity. For example, a nucleotide sequence of a Gene or an amino acid sequence of a Protein.
      *
      *
      * @var string
@@ -54,7 +54,7 @@ class Gene extends \OpenActive\Models\SchemaOrg\BioChemEntity
      * Tissue, organ, biological sample, etc in which activity of this gene has been observed experimentally. For example brain, digestive system.
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\AnatomicalStructure|\OpenActive\Models\SchemaOrg\BioChemEntity|\OpenActive\Models\SchemaOrg\DefinedTerm|\OpenActive\Models\SchemaOrg\AnatomicalSystem|string
+     * @var \OpenActive\Models\SchemaOrg\BioChemEntity|\OpenActive\Models\SchemaOrg\AnatomicalStructure|\OpenActive\Models\SchemaOrg\DefinedTerm|\OpenActive\Models\SchemaOrg\AnatomicalSystem|string
      */
     protected $expressedIn;
 
@@ -133,7 +133,7 @@ class Gene extends \OpenActive\Models\SchemaOrg\BioChemEntity
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\AnatomicalStructure|\OpenActive\Models\SchemaOrg\BioChemEntity|\OpenActive\Models\SchemaOrg\DefinedTerm|\OpenActive\Models\SchemaOrg\AnatomicalSystem|string
+     * @return \OpenActive\Models\SchemaOrg\BioChemEntity|\OpenActive\Models\SchemaOrg\AnatomicalStructure|\OpenActive\Models\SchemaOrg\DefinedTerm|\OpenActive\Models\SchemaOrg\AnatomicalSystem|string
      */
     public function getExpressedIn()
     {
@@ -141,15 +141,15 @@ class Gene extends \OpenActive\Models\SchemaOrg\BioChemEntity
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\AnatomicalStructure|\OpenActive\Models\SchemaOrg\BioChemEntity|\OpenActive\Models\SchemaOrg\DefinedTerm|\OpenActive\Models\SchemaOrg\AnatomicalSystem|string $expressedIn
+     * @param \OpenActive\Models\SchemaOrg\BioChemEntity|\OpenActive\Models\SchemaOrg\AnatomicalStructure|\OpenActive\Models\SchemaOrg\DefinedTerm|\OpenActive\Models\SchemaOrg\AnatomicalSystem|string $expressedIn
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setExpressedIn($expressedIn)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\AnatomicalStructure",
             "\OpenActive\Models\SchemaOrg\BioChemEntity",
+            "\OpenActive\Models\SchemaOrg\AnatomicalStructure",
             "\OpenActive\Models\SchemaOrg\DefinedTerm",
             "\OpenActive\Models\SchemaOrg\AnatomicalSystem",
             "string",

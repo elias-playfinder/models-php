@@ -17,14 +17,22 @@ class Brand extends \OpenActive\Models\SchemaOrg\Intangible
 
     public static function fieldList() {
         $fields = [
+            "logo" => "logo",
             "review" => "review",
             "aggregateRating" => "aggregateRating",
             "slogan" => "slogan",
-            "logo" => "logo",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
+
+    /**
+     * An associated logo.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\ImageObject|string
+     */
+    protected $logo;
 
     /**
      * A review of the item.
@@ -51,12 +59,29 @@ class Brand extends \OpenActive\Models\SchemaOrg\Intangible
     protected $slogan;
 
     /**
-     * An associated logo.
-     *
-     *
-     * @var string|\OpenActive\Models\SchemaOrg\ImageObject
+     * @return \OpenActive\Models\SchemaOrg\ImageObject|string
      */
-    protected $logo;
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\ImageObject|string $logo
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setLogo($logo)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\ImageObject",
+            "string",
+        ];
+
+        $logo = self::checkTypes($logo, $types);
+
+        $this->logo = $logo;
+    }
 
     /**
      * @return \OpenActive\Models\SchemaOrg\Review|string
@@ -130,31 +155,6 @@ class Brand extends \OpenActive\Models\SchemaOrg\Intangible
         $slogan = self::checkTypes($slogan, $types);
 
         $this->slogan = $slogan;
-    }
-
-    /**
-     * @return string|\OpenActive\Models\SchemaOrg\ImageObject
-     */
-    public function getLogo()
-    {
-        return $this->logo;
-    }
-
-    /**
-     * @param string|\OpenActive\Models\SchemaOrg\ImageObject $logo
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setLogo($logo)
-    {
-        $types = [
-            "string",
-            "\OpenActive\Models\SchemaOrg\ImageObject",
-        ];
-
-        $logo = self::checkTypes($logo, $types);
-
-        $this->logo = $logo;
     }
 
 }

@@ -17,69 +17,20 @@ class VideoObject extends \OpenActive\Models\SchemaOrg\MediaObject
 
     public static function fieldList() {
         $fields = [
-            "embeddedTextCaption" => "embeddedTextCaption",
-            "director" => "director",
-            "actor" => "actor",
-            "caption" => "caption",
-            "thumbnail" => "thumbnail",
-            "transcript" => "transcript",
             "videoQuality" => "videoQuality",
-            "videoFrameSize" => "videoFrameSize",
-            "actors" => "actors",
-            "musicBy" => "musicBy",
             "directors" => "directors",
+            "director" => "director",
+            "actors" => "actors",
+            "transcript" => "transcript",
+            "actor" => "actor",
+            "videoFrameSize" => "videoFrameSize",
+            "musicBy" => "musicBy",
+            "embeddedTextCaption" => "embeddedTextCaption",
+            "caption" => "caption",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * Represents textual captioning from a [[MediaObject]], e.g. text of a 'meme'.
-     *
-     *
-     * @var string
-     */
-    protected $embeddedTextCaption;
-
-    /**
-     * A director of e.g. tv, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Person|string
-     */
-    protected $director;
-
-    /**
-     * An actor, e.g. in tv, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Person|string
-     */
-    protected $actor;
-
-    /**
-     * The caption for this object. For downloadable machine formats (closed caption, subtitles etc.) use MediaObject and indicate the [[encodingFormat]].
-     *
-     *
-     * @var string|\OpenActive\Models\SchemaOrg\MediaObject
-     */
-    protected $caption;
-
-    /**
-     * Thumbnail image for an image or video.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\ImageObject|string
-     */
-    protected $thumbnail;
-
-    /**
-     * If this MediaObject is an AudioObject or VideoObject, the transcript of that object.
-     *
-     *
-     * @var string
-     */
-    protected $transcript;
 
     /**
      * The quality of the video.
@@ -90,6 +41,46 @@ class VideoObject extends \OpenActive\Models\SchemaOrg\MediaObject
     protected $videoQuality;
 
     /**
+     * A director of e.g. TV, radio, movie, video games etc. content. Directors can be associated with individual items or with a series, episode, clip.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Person|string
+     */
+    protected $directors;
+
+    /**
+     * A director of e.g. TV, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Person|string
+     */
+    protected $director;
+
+    /**
+     * An actor, e.g. in TV, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Person|string
+     */
+    protected $actors;
+
+    /**
+     * If this MediaObject is an AudioObject or VideoObject, the transcript of that object.
+     *
+     *
+     * @var string
+     */
+    protected $transcript;
+
+    /**
+     * An actor, e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Person|string
+     */
+    protected $actor;
+
+    /**
      * The frame size of the video.
      *
      *
@@ -98,51 +89,76 @@ class VideoObject extends \OpenActive\Models\SchemaOrg\MediaObject
     protected $videoFrameSize;
 
     /**
-     * An actor, e.g. in tv, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Person|string
-     */
-    protected $actors;
-
-    /**
      * The composer of the soundtrack.
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\MusicGroup|string
+     * @var \OpenActive\Models\SchemaOrg\MusicGroup|\OpenActive\Models\SchemaOrg\Person|string
      */
     protected $musicBy;
 
     /**
-     * A director of e.g. tv, radio, movie, video games etc. content. Directors can be associated with individual items or with a series, episode, clip.
+     * Represents textual captioning from a [[MediaObject]], e.g. text of a 'meme'.
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\Person|string
+     * @var string
      */
-    protected $directors;
+    protected $embeddedTextCaption;
+
+    /**
+     * The caption for this object. For downloadable machine formats (closed caption, subtitles etc.) use MediaObject and indicate the [[encodingFormat]].
+     *
+     *
+     * @var string|\OpenActive\Models\SchemaOrg\MediaObject
+     */
+    protected $caption;
 
     /**
      * @return string
      */
-    public function getEmbeddedTextCaption()
+    public function getVideoQuality()
     {
-        return $this->embeddedTextCaption;
+        return $this->videoQuality;
     }
 
     /**
-     * @param string $embeddedTextCaption
+     * @param string $videoQuality
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setEmbeddedTextCaption($embeddedTextCaption)
+    public function setVideoQuality($videoQuality)
     {
         $types = [
             "string",
         ];
 
-        $embeddedTextCaption = self::checkTypes($embeddedTextCaption, $types);
+        $videoQuality = self::checkTypes($videoQuality, $types);
 
-        $this->embeddedTextCaption = $embeddedTextCaption;
+        $this->videoQuality = $videoQuality;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Person|string
+     */
+    public function getDirectors()
+    {
+        return $this->directors;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Person|string $directors
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setDirectors($directors)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Person",
+            "string",
+        ];
+
+        $directors = self::checkTypes($directors, $types);
+
+        $this->directors = $directors;
     }
 
     /**
@@ -173,76 +189,26 @@ class VideoObject extends \OpenActive\Models\SchemaOrg\MediaObject
     /**
      * @return \OpenActive\Models\SchemaOrg\Person|string
      */
-    public function getActor()
+    public function getActors()
     {
-        return $this->actor;
+        return $this->actors;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\Person|string $actor
+     * @param \OpenActive\Models\SchemaOrg\Person|string $actors
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setActor($actor)
+    public function setActors($actors)
     {
         $types = [
             "\OpenActive\Models\SchemaOrg\Person",
             "string",
         ];
 
-        $actor = self::checkTypes($actor, $types);
+        $actors = self::checkTypes($actors, $types);
 
-        $this->actor = $actor;
-    }
-
-    /**
-     * @return string|\OpenActive\Models\SchemaOrg\MediaObject
-     */
-    public function getCaption()
-    {
-        return $this->caption;
-    }
-
-    /**
-     * @param string|\OpenActive\Models\SchemaOrg\MediaObject $caption
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setCaption($caption)
-    {
-        $types = [
-            "string",
-            "\OpenActive\Models\SchemaOrg\MediaObject",
-        ];
-
-        $caption = self::checkTypes($caption, $types);
-
-        $this->caption = $caption;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\ImageObject|string
-     */
-    public function getThumbnail()
-    {
-        return $this->thumbnail;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\ImageObject|string $thumbnail
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setThumbnail($thumbnail)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\ImageObject",
-            "string",
-        ];
-
-        $thumbnail = self::checkTypes($thumbnail, $types);
-
-        $this->thumbnail = $thumbnail;
+        $this->actors = $actors;
     }
 
     /**
@@ -270,27 +236,28 @@ class VideoObject extends \OpenActive\Models\SchemaOrg\MediaObject
     }
 
     /**
-     * @return string
+     * @return \OpenActive\Models\SchemaOrg\Person|string
      */
-    public function getVideoQuality()
+    public function getActor()
     {
-        return $this->videoQuality;
+        return $this->actor;
     }
 
     /**
-     * @param string $videoQuality
+     * @param \OpenActive\Models\SchemaOrg\Person|string $actor
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setVideoQuality($videoQuality)
+    public function setActor($actor)
     {
         $types = [
+            "\OpenActive\Models\SchemaOrg\Person",
             "string",
         ];
 
-        $videoQuality = self::checkTypes($videoQuality, $types);
+        $actor = self::checkTypes($actor, $types);
 
-        $this->videoQuality = $videoQuality;
+        $this->actor = $actor;
     }
 
     /**
@@ -318,32 +285,7 @@ class VideoObject extends \OpenActive\Models\SchemaOrg\MediaObject
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\Person|string
-     */
-    public function getActors()
-    {
-        return $this->actors;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Person|string $actors
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setActors($actors)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Person",
-            "string",
-        ];
-
-        $actors = self::checkTypes($actors, $types);
-
-        $this->actors = $actors;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\MusicGroup|string
+     * @return \OpenActive\Models\SchemaOrg\MusicGroup|\OpenActive\Models\SchemaOrg\Person|string
      */
     public function getMusicBy()
     {
@@ -351,15 +293,15 @@ class VideoObject extends \OpenActive\Models\SchemaOrg\MediaObject
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\MusicGroup|string $musicBy
+     * @param \OpenActive\Models\SchemaOrg\MusicGroup|\OpenActive\Models\SchemaOrg\Person|string $musicBy
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setMusicBy($musicBy)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\Person",
             "\OpenActive\Models\SchemaOrg\MusicGroup",
+            "\OpenActive\Models\SchemaOrg\Person",
             "string",
         ];
 
@@ -369,28 +311,52 @@ class VideoObject extends \OpenActive\Models\SchemaOrg\MediaObject
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\Person|string
+     * @return string
      */
-    public function getDirectors()
+    public function getEmbeddedTextCaption()
     {
-        return $this->directors;
+        return $this->embeddedTextCaption;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\Person|string $directors
+     * @param string $embeddedTextCaption
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setDirectors($directors)
+    public function setEmbeddedTextCaption($embeddedTextCaption)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\Person",
             "string",
         ];
 
-        $directors = self::checkTypes($directors, $types);
+        $embeddedTextCaption = self::checkTypes($embeddedTextCaption, $types);
 
-        $this->directors = $directors;
+        $this->embeddedTextCaption = $embeddedTextCaption;
+    }
+
+    /**
+     * @return string|\OpenActive\Models\SchemaOrg\MediaObject
+     */
+    public function getCaption()
+    {
+        return $this->caption;
+    }
+
+    /**
+     * @param string|\OpenActive\Models\SchemaOrg\MediaObject $caption
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setCaption($caption)
+    {
+        $types = [
+            "string",
+            "\OpenActive\Models\SchemaOrg\MediaObject",
+        ];
+
+        $caption = self::checkTypes($caption, $types);
+
+        $this->caption = $caption;
     }
 
 }

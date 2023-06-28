@@ -17,66 +17,74 @@ class SoftwareApplication extends \OpenActive\Models\SchemaOrg\CreativeWork
 
     public static function fieldList() {
         $fields = [
-            "countriesSupported" => "countriesSupported",
-            "installUrl" => "installUrl",
-            "operatingSystem" => "operatingSystem",
-            "memoryRequirements" => "memoryRequirements",
+            "screenshot" => "screenshot",
+            "requirements" => "requirements",
+            "device" => "device",
+            "applicationSubCategory" => "applicationSubCategory",
+            "softwareHelp" => "softwareHelp",
             "softwareVersion" => "softwareVersion",
             "storageRequirements" => "storageRequirements",
-            "softwareHelp" => "softwareHelp",
-            "applicationSubCategory" => "applicationSubCategory",
-            "downloadUrl" => "downloadUrl",
-            "applicationCategory" => "applicationCategory",
-            "countriesNotSupported" => "countriesNotSupported",
-            "softwareRequirements" => "softwareRequirements",
-            "softwareAddOn" => "softwareAddOn",
-            "applicationSuite" => "applicationSuite",
-            "requirements" => "requirements",
-            "permissions" => "permissions",
-            "processorRequirements" => "processorRequirements",
-            "screenshot" => "screenshot",
-            "featureList" => "featureList",
+            "availableOnDevice" => "availableOnDevice",
+            "installUrl" => "installUrl",
             "releaseNotes" => "releaseNotes",
             "supportingData" => "supportingData",
             "fileSize" => "fileSize",
-            "device" => "device",
-            "availableOnDevice" => "availableOnDevice",
+            "applicationSuite" => "applicationSuite",
+            "countriesNotSupported" => "countriesNotSupported",
+            "memoryRequirements" => "memoryRequirements",
+            "operatingSystem" => "operatingSystem",
+            "permissions" => "permissions",
+            "featureList" => "featureList",
+            "countriesSupported" => "countriesSupported",
+            "processorRequirements" => "processorRequirements",
+            "softwareRequirements" => "softwareRequirements",
+            "softwareAddOn" => "softwareAddOn",
+            "applicationCategory" => "applicationCategory",
+            "downloadUrl" => "downloadUrl",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
 
     /**
-     * Countries for which the application is supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code.
+     * A link to a screenshot image of the app.
      *
      *
-     * @var string
+     * @var \OpenActive\Models\SchemaOrg\ImageObject|string
      */
-    protected $countriesSupported;
+    protected $screenshot;
 
     /**
-     * URL at which the app may be installed, if different from the URL of the item.
+     * Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (examples: DirectX, Java or .NET runtime).
      *
      *
      * @var string
      */
-    protected $installUrl;
+    protected $requirements;
 
     /**
-     * Operating systems supported (Windows 7, OSX 10.6, Android 1.6).
+     * Device required to run the application. Used in cases where a specific make/model is required to run the application.
      *
      *
      * @var string
      */
-    protected $operatingSystem;
+    protected $device;
 
     /**
-     * Minimum memory requirements.
+     * Subcategory of the application, e.g. 'Arcade Game'.
      *
      *
      * @var string
      */
-    protected $memoryRequirements;
+    protected $applicationSubCategory;
+
+    /**
+     * Software application help.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\CreativeWork|string
+     */
+    protected $softwareHelp;
 
     /**
      * Version of the software instance.
@@ -95,108 +103,20 @@ class SoftwareApplication extends \OpenActive\Models\SchemaOrg\CreativeWork
     protected $storageRequirements;
 
     /**
-     * Software application help.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\CreativeWork|string
-     */
-    protected $softwareHelp;
-
-    /**
-     * Subcategory of the application, e.g. 'Arcade Game'.
+     * Device required to run the application. Used in cases where a specific make/model is required to run the application.
      *
      *
      * @var string
      */
-    protected $applicationSubCategory;
+    protected $availableOnDevice;
 
     /**
-     * If the file can be downloaded, URL to download the binary.
+     * URL at which the app may be installed, if different from the URL of the item.
      *
      *
      * @var string
      */
-    protected $downloadUrl;
-
-    /**
-     * Type of software application, e.g. 'Game, Multimedia'.
-     *
-     *
-     * @var string
-     */
-    protected $applicationCategory;
-
-    /**
-     * Countries for which the application is not supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code.
-     *
-     *
-     * @var string
-     */
-    protected $countriesNotSupported;
-
-    /**
-     * Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (Examples: DirectX, Java or .NET runtime).
-     *
-     *
-     * @var string
-     */
-    protected $softwareRequirements;
-
-    /**
-     * Additional content for a software application.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\SoftwareApplication|string
-     */
-    protected $softwareAddOn;
-
-    /**
-     * The name of the application suite to which the application belongs (e.g. Excel belongs to Office).
-     *
-     *
-     * @var string
-     */
-    protected $applicationSuite;
-
-    /**
-     * Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (Examples: DirectX, Java or .NET runtime).
-     *
-     *
-     * @var string
-     */
-    protected $requirements;
-
-    /**
-     * Permission(s) required to run the app (for example, a mobile app may require full internet access or may run only on wifi).
-     *
-     *
-     * @var string
-     */
-    protected $permissions;
-
-    /**
-     * Processor architecture required to run the application (e.g. IA64).
-     *
-     *
-     * @var string
-     */
-    protected $processorRequirements;
-
-    /**
-     * A link to a screenshot image of the app.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\ImageObject|string
-     */
-    protected $screenshot;
-
-    /**
-     * Features or modules provided by this application (and possibly required by other applications).
-     *
-     *
-     * @var string
-     */
-    protected $featureList;
+    protected $installUrl;
 
     /**
      * Description of what changed in this version.
@@ -223,115 +143,221 @@ class SoftwareApplication extends \OpenActive\Models\SchemaOrg\CreativeWork
     protected $fileSize;
 
     /**
-     * Device required to run the application. Used in cases where a specific make/model is required to run the application.
+     * The name of the application suite to which the application belongs (e.g. Excel belongs to Office).
      *
      *
      * @var string
      */
-    protected $device;
+    protected $applicationSuite;
 
     /**
-     * Device required to run the application. Used in cases where a specific make/model is required to run the application.
+     * Countries for which the application is not supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code.
      *
      *
      * @var string
      */
-    protected $availableOnDevice;
+    protected $countriesNotSupported;
+
+    /**
+     * Minimum memory requirements.
+     *
+     *
+     * @var string
+     */
+    protected $memoryRequirements;
+
+    /**
+     * Operating systems supported (Windows 7, OS X 10.6, Android 1.6).
+     *
+     *
+     * @var string
+     */
+    protected $operatingSystem;
+
+    /**
+     * Permission(s) required to run the app (for example, a mobile app may require full internet access or may run only on wifi).
+     *
+     *
+     * @var string
+     */
+    protected $permissions;
+
+    /**
+     * Features or modules provided by this application (and possibly required by other applications).
+     *
+     *
+     * @var string
+     */
+    protected $featureList;
+
+    /**
+     * Countries for which the application is supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code.
+     *
+     *
+     * @var string
+     */
+    protected $countriesSupported;
+
+    /**
+     * Processor architecture required to run the application (e.g. IA64).
+     *
+     *
+     * @var string
+     */
+    protected $processorRequirements;
+
+    /**
+     * Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (examples: DirectX, Java or .NET runtime).
+     *
+     *
+     * @var string
+     */
+    protected $softwareRequirements;
+
+    /**
+     * Additional content for a software application.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\SoftwareApplication|string
+     */
+    protected $softwareAddOn;
+
+    /**
+     * Type of software application, e.g. 'Game, Multimedia'.
+     *
+     *
+     * @var string
+     */
+    protected $applicationCategory;
+
+    /**
+     * If the file can be downloaded, URL to download the binary.
+     *
+     *
+     * @var string
+     */
+    protected $downloadUrl;
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\ImageObject|string
+     */
+    public function getScreenshot()
+    {
+        return $this->screenshot;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\ImageObject|string $screenshot
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setScreenshot($screenshot)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\ImageObject",
+            "string",
+        ];
+
+        $screenshot = self::checkTypes($screenshot, $types);
+
+        $this->screenshot = $screenshot;
+    }
 
     /**
      * @return string
      */
-    public function getCountriesSupported()
+    public function getRequirements()
     {
-        return $this->countriesSupported;
+        return $this->requirements;
     }
 
     /**
-     * @param string $countriesSupported
+     * @param string $requirements
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setCountriesSupported($countriesSupported)
+    public function setRequirements($requirements)
     {
         $types = [
             "string",
         ];
 
-        $countriesSupported = self::checkTypes($countriesSupported, $types);
+        $requirements = self::checkTypes($requirements, $types);
 
-        $this->countriesSupported = $countriesSupported;
+        $this->requirements = $requirements;
     }
 
     /**
      * @return string
      */
-    public function getInstallUrl()
+    public function getDevice()
     {
-        return $this->installUrl;
+        return $this->device;
     }
 
     /**
-     * @param string $installUrl
+     * @param string $device
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setInstallUrl($installUrl)
+    public function setDevice($device)
     {
         $types = [
             "string",
         ];
 
-        $installUrl = self::checkTypes($installUrl, $types);
+        $device = self::checkTypes($device, $types);
 
-        $this->installUrl = $installUrl;
+        $this->device = $device;
     }
 
     /**
      * @return string
      */
-    public function getOperatingSystem()
+    public function getApplicationSubCategory()
     {
-        return $this->operatingSystem;
+        return $this->applicationSubCategory;
     }
 
     /**
-     * @param string $operatingSystem
+     * @param string $applicationSubCategory
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setOperatingSystem($operatingSystem)
+    public function setApplicationSubCategory($applicationSubCategory)
     {
         $types = [
             "string",
         ];
 
-        $operatingSystem = self::checkTypes($operatingSystem, $types);
+        $applicationSubCategory = self::checkTypes($applicationSubCategory, $types);
 
-        $this->operatingSystem = $operatingSystem;
+        $this->applicationSubCategory = $applicationSubCategory;
     }
 
     /**
-     * @return string
+     * @return \OpenActive\Models\SchemaOrg\CreativeWork|string
      */
-    public function getMemoryRequirements()
+    public function getSoftwareHelp()
     {
-        return $this->memoryRequirements;
+        return $this->softwareHelp;
     }
 
     /**
-     * @param string $memoryRequirements
+     * @param \OpenActive\Models\SchemaOrg\CreativeWork|string $softwareHelp
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setMemoryRequirements($memoryRequirements)
+    public function setSoftwareHelp($softwareHelp)
     {
         $types = [
+            "\OpenActive\Models\SchemaOrg\CreativeWork",
             "string",
         ];
 
-        $memoryRequirements = self::checkTypes($memoryRequirements, $types);
+        $softwareHelp = self::checkTypes($softwareHelp, $types);
 
-        $this->memoryRequirements = $memoryRequirements;
+        $this->softwareHelp = $softwareHelp;
     }
 
     /**
@@ -383,318 +409,51 @@ class SoftwareApplication extends \OpenActive\Models\SchemaOrg\CreativeWork
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\CreativeWork|string
+     * @return string
      */
-    public function getSoftwareHelp()
+    public function getAvailableOnDevice()
     {
-        return $this->softwareHelp;
+        return $this->availableOnDevice;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\CreativeWork|string $softwareHelp
+     * @param string $availableOnDevice
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setSoftwareHelp($softwareHelp)
+    public function setAvailableOnDevice($availableOnDevice)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\CreativeWork",
             "string",
         ];
 
-        $softwareHelp = self::checkTypes($softwareHelp, $types);
+        $availableOnDevice = self::checkTypes($availableOnDevice, $types);
 
-        $this->softwareHelp = $softwareHelp;
+        $this->availableOnDevice = $availableOnDevice;
     }
 
     /**
      * @return string
      */
-    public function getApplicationSubCategory()
+    public function getInstallUrl()
     {
-        return $this->applicationSubCategory;
+        return $this->installUrl;
     }
 
     /**
-     * @param string $applicationSubCategory
+     * @param string $installUrl
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setApplicationSubCategory($applicationSubCategory)
+    public function setInstallUrl($installUrl)
     {
         $types = [
             "string",
         ];
 
-        $applicationSubCategory = self::checkTypes($applicationSubCategory, $types);
+        $installUrl = self::checkTypes($installUrl, $types);
 
-        $this->applicationSubCategory = $applicationSubCategory;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDownloadUrl()
-    {
-        return $this->downloadUrl;
-    }
-
-    /**
-     * @param string $downloadUrl
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setDownloadUrl($downloadUrl)
-    {
-        $types = [
-            "string",
-        ];
-
-        $downloadUrl = self::checkTypes($downloadUrl, $types);
-
-        $this->downloadUrl = $downloadUrl;
-    }
-
-    /**
-     * @return string
-     */
-    public function getApplicationCategory()
-    {
-        return $this->applicationCategory;
-    }
-
-    /**
-     * @param string $applicationCategory
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setApplicationCategory($applicationCategory)
-    {
-        $types = [
-            "string",
-        ];
-
-        $applicationCategory = self::checkTypes($applicationCategory, $types);
-
-        $this->applicationCategory = $applicationCategory;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCountriesNotSupported()
-    {
-        return $this->countriesNotSupported;
-    }
-
-    /**
-     * @param string $countriesNotSupported
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setCountriesNotSupported($countriesNotSupported)
-    {
-        $types = [
-            "string",
-        ];
-
-        $countriesNotSupported = self::checkTypes($countriesNotSupported, $types);
-
-        $this->countriesNotSupported = $countriesNotSupported;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSoftwareRequirements()
-    {
-        return $this->softwareRequirements;
-    }
-
-    /**
-     * @param string $softwareRequirements
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setSoftwareRequirements($softwareRequirements)
-    {
-        $types = [
-            "string",
-        ];
-
-        $softwareRequirements = self::checkTypes($softwareRequirements, $types);
-
-        $this->softwareRequirements = $softwareRequirements;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\SoftwareApplication|string
-     */
-    public function getSoftwareAddOn()
-    {
-        return $this->softwareAddOn;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\SoftwareApplication|string $softwareAddOn
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setSoftwareAddOn($softwareAddOn)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\SoftwareApplication",
-            "string",
-        ];
-
-        $softwareAddOn = self::checkTypes($softwareAddOn, $types);
-
-        $this->softwareAddOn = $softwareAddOn;
-    }
-
-    /**
-     * @return string
-     */
-    public function getApplicationSuite()
-    {
-        return $this->applicationSuite;
-    }
-
-    /**
-     * @param string $applicationSuite
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setApplicationSuite($applicationSuite)
-    {
-        $types = [
-            "string",
-        ];
-
-        $applicationSuite = self::checkTypes($applicationSuite, $types);
-
-        $this->applicationSuite = $applicationSuite;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRequirements()
-    {
-        return $this->requirements;
-    }
-
-    /**
-     * @param string $requirements
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setRequirements($requirements)
-    {
-        $types = [
-            "string",
-        ];
-
-        $requirements = self::checkTypes($requirements, $types);
-
-        $this->requirements = $requirements;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPermissions()
-    {
-        return $this->permissions;
-    }
-
-    /**
-     * @param string $permissions
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setPermissions($permissions)
-    {
-        $types = [
-            "string",
-        ];
-
-        $permissions = self::checkTypes($permissions, $types);
-
-        $this->permissions = $permissions;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProcessorRequirements()
-    {
-        return $this->processorRequirements;
-    }
-
-    /**
-     * @param string $processorRequirements
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setProcessorRequirements($processorRequirements)
-    {
-        $types = [
-            "string",
-        ];
-
-        $processorRequirements = self::checkTypes($processorRequirements, $types);
-
-        $this->processorRequirements = $processorRequirements;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\ImageObject|string
-     */
-    public function getScreenshot()
-    {
-        return $this->screenshot;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\ImageObject|string $screenshot
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setScreenshot($screenshot)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\ImageObject",
-            "string",
-        ];
-
-        $screenshot = self::checkTypes($screenshot, $types);
-
-        $this->screenshot = $screenshot;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFeatureList()
-    {
-        return $this->featureList;
-    }
-
-    /**
-     * @param string $featureList
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setFeatureList($featureList)
-    {
-        $types = [
-            "string",
-        ];
-
-        $featureList = self::checkTypes($featureList, $types);
-
-        $this->featureList = $featureList;
+        $this->installUrl = $installUrl;
     }
 
     /**
@@ -773,49 +532,290 @@ class SoftwareApplication extends \OpenActive\Models\SchemaOrg\CreativeWork
     /**
      * @return string
      */
-    public function getDevice()
+    public function getApplicationSuite()
     {
-        return $this->device;
+        return $this->applicationSuite;
     }
 
     /**
-     * @param string $device
+     * @param string $applicationSuite
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setDevice($device)
+    public function setApplicationSuite($applicationSuite)
     {
         $types = [
             "string",
         ];
 
-        $device = self::checkTypes($device, $types);
+        $applicationSuite = self::checkTypes($applicationSuite, $types);
 
-        $this->device = $device;
+        $this->applicationSuite = $applicationSuite;
     }
 
     /**
      * @return string
      */
-    public function getAvailableOnDevice()
+    public function getCountriesNotSupported()
     {
-        return $this->availableOnDevice;
+        return $this->countriesNotSupported;
     }
 
     /**
-     * @param string $availableOnDevice
+     * @param string $countriesNotSupported
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setAvailableOnDevice($availableOnDevice)
+    public function setCountriesNotSupported($countriesNotSupported)
     {
         $types = [
             "string",
         ];
 
-        $availableOnDevice = self::checkTypes($availableOnDevice, $types);
+        $countriesNotSupported = self::checkTypes($countriesNotSupported, $types);
 
-        $this->availableOnDevice = $availableOnDevice;
+        $this->countriesNotSupported = $countriesNotSupported;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMemoryRequirements()
+    {
+        return $this->memoryRequirements;
+    }
+
+    /**
+     * @param string $memoryRequirements
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setMemoryRequirements($memoryRequirements)
+    {
+        $types = [
+            "string",
+        ];
+
+        $memoryRequirements = self::checkTypes($memoryRequirements, $types);
+
+        $this->memoryRequirements = $memoryRequirements;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperatingSystem()
+    {
+        return $this->operatingSystem;
+    }
+
+    /**
+     * @param string $operatingSystem
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setOperatingSystem($operatingSystem)
+    {
+        $types = [
+            "string",
+        ];
+
+        $operatingSystem = self::checkTypes($operatingSystem, $types);
+
+        $this->operatingSystem = $operatingSystem;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
+
+    /**
+     * @param string $permissions
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setPermissions($permissions)
+    {
+        $types = [
+            "string",
+        ];
+
+        $permissions = self::checkTypes($permissions, $types);
+
+        $this->permissions = $permissions;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFeatureList()
+    {
+        return $this->featureList;
+    }
+
+    /**
+     * @param string $featureList
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setFeatureList($featureList)
+    {
+        $types = [
+            "string",
+        ];
+
+        $featureList = self::checkTypes($featureList, $types);
+
+        $this->featureList = $featureList;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountriesSupported()
+    {
+        return $this->countriesSupported;
+    }
+
+    /**
+     * @param string $countriesSupported
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setCountriesSupported($countriesSupported)
+    {
+        $types = [
+            "string",
+        ];
+
+        $countriesSupported = self::checkTypes($countriesSupported, $types);
+
+        $this->countriesSupported = $countriesSupported;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProcessorRequirements()
+    {
+        return $this->processorRequirements;
+    }
+
+    /**
+     * @param string $processorRequirements
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setProcessorRequirements($processorRequirements)
+    {
+        $types = [
+            "string",
+        ];
+
+        $processorRequirements = self::checkTypes($processorRequirements, $types);
+
+        $this->processorRequirements = $processorRequirements;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSoftwareRequirements()
+    {
+        return $this->softwareRequirements;
+    }
+
+    /**
+     * @param string $softwareRequirements
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setSoftwareRequirements($softwareRequirements)
+    {
+        $types = [
+            "string",
+        ];
+
+        $softwareRequirements = self::checkTypes($softwareRequirements, $types);
+
+        $this->softwareRequirements = $softwareRequirements;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\SoftwareApplication|string
+     */
+    public function getSoftwareAddOn()
+    {
+        return $this->softwareAddOn;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\SoftwareApplication|string $softwareAddOn
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setSoftwareAddOn($softwareAddOn)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\SoftwareApplication",
+            "string",
+        ];
+
+        $softwareAddOn = self::checkTypes($softwareAddOn, $types);
+
+        $this->softwareAddOn = $softwareAddOn;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApplicationCategory()
+    {
+        return $this->applicationCategory;
+    }
+
+    /**
+     * @param string $applicationCategory
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setApplicationCategory($applicationCategory)
+    {
+        $types = [
+            "string",
+        ];
+
+        $applicationCategory = self::checkTypes($applicationCategory, $types);
+
+        $this->applicationCategory = $applicationCategory;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDownloadUrl()
+    {
+        return $this->downloadUrl;
+    }
+
+    /**
+     * @param string $downloadUrl
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setDownloadUrl($downloadUrl)
+    {
+        $types = [
+            "string",
+        ];
+
+        $downloadUrl = self::checkTypes($downloadUrl, $types);
+
+        $this->downloadUrl = $downloadUrl;
     }
 
 }

@@ -17,40 +17,16 @@ class Book extends \OpenActive\Models\SchemaOrg\CreativeWork
 
     public static function fieldList() {
         $fields = [
-            "isbn" => "isbn",
-            "illustrator" => "illustrator",
-            "numberOfPages" => "numberOfPages",
             "abridged" => "abridged",
+            "isbn" => "isbn",
+            "numberOfPages" => "numberOfPages",
             "bookFormat" => "bookFormat",
+            "illustrator" => "illustrator",
             "bookEdition" => "bookEdition",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * The ISBN of the book.
-     *
-     *
-     * @var string
-     */
-    protected $isbn;
-
-    /**
-     * The illustrator of the book.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Person|string
-     */
-    protected $illustrator;
-
-    /**
-     * The number of pages in the book.
-     *
-     *
-     * @var int|null
-     */
-    protected $numberOfPages;
 
     /**
      * Indicates whether the book is an abridged edition.
@@ -61,6 +37,22 @@ class Book extends \OpenActive\Models\SchemaOrg\CreativeWork
     protected $abridged;
 
     /**
+     * The ISBN of the book.
+     *
+     *
+     * @var string
+     */
+    protected $isbn;
+
+    /**
+     * The number of pages in the book.
+     *
+     *
+     * @var int|null
+     */
+    protected $numberOfPages;
+
+    /**
      * The format of the book.
      *
      *
@@ -69,12 +61,45 @@ class Book extends \OpenActive\Models\SchemaOrg\CreativeWork
     protected $bookFormat;
 
     /**
+     * The illustrator of the book.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Person|string
+     */
+    protected $illustrator;
+
+    /**
      * The edition of the book.
      *
      *
      * @var string
      */
     protected $bookEdition;
+
+    /**
+     * @return bool|null
+     */
+    public function getAbridged()
+    {
+        return $this->abridged;
+    }
+
+    /**
+     * @param bool|null $abridged
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setAbridged($abridged)
+    {
+        $types = [
+            "bool",
+            "null",
+        ];
+
+        $abridged = self::checkTypes($abridged, $types);
+
+        $this->abridged = $abridged;
+    }
 
     /**
      * @return string
@@ -98,31 +123,6 @@ class Book extends \OpenActive\Models\SchemaOrg\CreativeWork
         $isbn = self::checkTypes($isbn, $types);
 
         $this->isbn = $isbn;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\Person|string
-     */
-    public function getIllustrator()
-    {
-        return $this->illustrator;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Person|string $illustrator
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setIllustrator($illustrator)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Person",
-            "string",
-        ];
-
-        $illustrator = self::checkTypes($illustrator, $types);
-
-        $this->illustrator = $illustrator;
     }
 
     /**
@@ -151,31 +151,6 @@ class Book extends \OpenActive\Models\SchemaOrg\CreativeWork
     }
 
     /**
-     * @return bool|null
-     */
-    public function getAbridged()
-    {
-        return $this->abridged;
-    }
-
-    /**
-     * @param bool|null $abridged
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setAbridged($abridged)
-    {
-        $types = [
-            "bool",
-            "null",
-        ];
-
-        $abridged = self::checkTypes($abridged, $types);
-
-        $this->abridged = $abridged;
-    }
-
-    /**
      * @return \OpenActive\Enums\SchemaOrg\BookFormatType|null
      */
     public function getBookFormat()
@@ -198,6 +173,31 @@ class Book extends \OpenActive\Models\SchemaOrg\CreativeWork
         $bookFormat = self::checkTypes($bookFormat, $types);
 
         $this->bookFormat = $bookFormat;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Person|string
+     */
+    public function getIllustrator()
+    {
+        return $this->illustrator;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Person|string $illustrator
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setIllustrator($illustrator)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Person",
+            "string",
+        ];
+
+        $illustrator = self::checkTypes($illustrator, $types);
+
+        $this->illustrator = $illustrator;
     }
 
     /**

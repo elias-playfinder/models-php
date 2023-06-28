@@ -17,14 +17,22 @@ class BroadcastEvent extends \OpenActive\Models\SchemaOrg\PublicationEvent
 
     public static function fieldList() {
         $fields = [
+            "isLiveBroadcast" => "isLiveBroadcast",
             "subtitleLanguage" => "subtitleLanguage",
             "videoFormat" => "videoFormat",
             "broadcastOfEvent" => "broadcastOfEvent",
-            "isLiveBroadcast" => "isLiveBroadcast",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
+
+    /**
+     * True if the broadcast is of a live event.
+     *
+     *
+     * @var bool|null
+     */
+    protected $isLiveBroadcast;
 
     /**
      * Languages in which subtitles/captions are available, in [IETF BCP 47 standard format](http://tools.ietf.org/html/bcp47).
@@ -51,12 +59,29 @@ class BroadcastEvent extends \OpenActive\Models\SchemaOrg\PublicationEvent
     protected $broadcastOfEvent;
 
     /**
-     * True if the broadcast is of a live event.
-     *
-     *
-     * @var bool|null
+     * @return bool|null
      */
-    protected $isLiveBroadcast;
+    public function getIsLiveBroadcast()
+    {
+        return $this->isLiveBroadcast;
+    }
+
+    /**
+     * @param bool|null $isLiveBroadcast
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setIsLiveBroadcast($isLiveBroadcast)
+    {
+        $types = [
+            "bool",
+            "null",
+        ];
+
+        $isLiveBroadcast = self::checkTypes($isLiveBroadcast, $types);
+
+        $this->isLiveBroadcast = $isLiveBroadcast;
+    }
 
     /**
      * @return \OpenActive\Models\SchemaOrg\Language|string
@@ -130,31 +155,6 @@ class BroadcastEvent extends \OpenActive\Models\SchemaOrg\PublicationEvent
         $broadcastOfEvent = self::checkTypes($broadcastOfEvent, $types);
 
         $this->broadcastOfEvent = $broadcastOfEvent;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getIsLiveBroadcast()
-    {
-        return $this->isLiveBroadcast;
-    }
-
-    /**
-     * @param bool|null $isLiveBroadcast
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setIsLiveBroadcast($isLiveBroadcast)
-    {
-        $types = [
-            "bool",
-            "null",
-        ];
-
-        $isLiveBroadcast = self::checkTypes($isLiveBroadcast, $types);
-
-        $this->isLiveBroadcast = $isLiveBroadcast;
     }
 
 }

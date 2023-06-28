@@ -18,8 +18,8 @@ class Property extends \OpenActive\Models\SchemaOrg\Intangible
     public static function fieldList() {
         $fields = [
             "domainIncludes" => "domainIncludes",
-            "supersededBy" => "supersededBy",
             "rangeIncludes" => "rangeIncludes",
+            "supersededBy" => "supersededBy",
             "inverseOf" => "inverseOf",
         ];
 
@@ -35,20 +35,20 @@ class Property extends \OpenActive\Models\SchemaOrg\Intangible
     protected $domainIncludes;
 
     /**
-     * Relates a term (i.e. a property, class or enumeration) to one that supersedes it.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Enumeration|\OpenActive\Models\SchemaOrg\Class|string|\OpenActive\Enums\PropertyEnumeration|null
-     */
-    protected $supersededBy;
-
-    /**
      * Relates a property to a class that constitutes (one of) the expected type(s) for values of the property.
      *
      *
      * @var \OpenActive\Models\SchemaOrg\Class|string
      */
     protected $rangeIncludes;
+
+    /**
+     * Relates a term (i.e. a property, class or enumeration) to one that supersedes it.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Enumeration|\OpenActive\Enums\PropertyEnumeration|\OpenActive\Models\SchemaOrg\Class|string|null
+     */
+    protected $supersededBy;
 
     /**
      * Relates a property to a property that is its inverse. Inverse properties relate the same pairs of items to each other, but in reversed direction. For example, the 'alumni' and 'alumniOf' properties are inverseOf each other. Some properties don't have explicit inverses; in these situations RDFa and JSON-LD syntax for reverse properties can be used.
@@ -84,34 +84,6 @@ class Property extends \OpenActive\Models\SchemaOrg\Intangible
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\Enumeration|\OpenActive\Models\SchemaOrg\Class|string|\OpenActive\Enums\PropertyEnumeration|null
-     */
-    public function getSupersededBy()
-    {
-        return $this->supersededBy;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Enumeration|\OpenActive\Models\SchemaOrg\Class|string|\OpenActive\Enums\PropertyEnumeration|null $supersededBy
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setSupersededBy($supersededBy)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Enumeration",
-            "\OpenActive\Models\SchemaOrg\Class",
-            "string",
-            "\OpenActive\Enums\PropertyEnumeration",
-            "null",
-        ];
-
-        $supersededBy = self::checkTypes($supersededBy, $types);
-
-        $this->supersededBy = $supersededBy;
-    }
-
-    /**
      * @return \OpenActive\Models\SchemaOrg\Class|string
      */
     public function getRangeIncludes()
@@ -134,6 +106,34 @@ class Property extends \OpenActive\Models\SchemaOrg\Intangible
         $rangeIncludes = self::checkTypes($rangeIncludes, $types);
 
         $this->rangeIncludes = $rangeIncludes;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Enumeration|\OpenActive\Enums\PropertyEnumeration|\OpenActive\Models\SchemaOrg\Class|string|null
+     */
+    public function getSupersededBy()
+    {
+        return $this->supersededBy;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Enumeration|\OpenActive\Enums\PropertyEnumeration|\OpenActive\Models\SchemaOrg\Class|string|null $supersededBy
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setSupersededBy($supersededBy)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Enumeration",
+            "\OpenActive\Enums\PropertyEnumeration",
+            "\OpenActive\Models\SchemaOrg\Class",
+            "string",
+            "null",
+        ];
+
+        $supersededBy = self::checkTypes($supersededBy, $types);
+
+        $this->supersededBy = $supersededBy;
     }
 
     /**

@@ -17,68 +17,28 @@ class GeospatialGeometry extends \OpenActive\Models\SchemaOrg\Intangible
 
     public static function fieldList() {
         $fields = [
-            "geoContains" => "geoContains",
-            "geoIntersects" => "geoIntersects",
-            "geoTouches" => "geoTouches",
-            "geoCoveredBy" => "geoCoveredBy",
-            "geoEquals" => "geoEquals",
-            "geoCrosses" => "geoCrosses",
-            "geoCovers" => "geoCovers",
-            "geoWithin" => "geoWithin",
             "geoDisjoint" => "geoDisjoint",
+            "geoCovers" => "geoCovers",
+            "geoTouches" => "geoTouches",
+            "geoCrosses" => "geoCrosses",
+            "geoContains" => "geoContains",
             "geoOverlaps" => "geoOverlaps",
+            "geoCoveredBy" => "geoCoveredBy",
+            "geoIntersects" => "geoIntersects",
+            "geoEquals" => "geoEquals",
+            "geoWithin" => "geoWithin",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
 
     /**
-     * Represents a relationship between two geometries (or the places they represent), relating a containing geometry to a contained geometry. "a contains b iff no points of b lie in the exterior of a, and at least one point of the interior of b lies in the interior of a". As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     * Represents spatial relations in which two geometries (or the places they represent) are topologically disjoint: "they have no point in common. They form a set of disconnected geometries." (A symmetric relationship, as defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).)
      *
      *
      * @var \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string
      */
-    protected $geoContains;
-
-    /**
-     * Represents spatial relations in which two geometries (or the places they represent) have at least one point in common. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
-     */
-    protected $geoIntersects;
-
-    /**
-     * Represents spatial relations in which two geometries (or the places they represent) touch: they have at least one boundary point in common, but no interior points." (a symmetric relationship, as defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM) )
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string
-     */
-    protected $geoTouches;
-
-    /**
-     * Represents a relationship between two geometries (or the places they represent), relating a geometry to another that covers it. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string
-     */
-    protected $geoCoveredBy;
-
-    /**
-     * Represents spatial relations in which two geometries (or the places they represent) are topologically equal, as defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM). "Two geometries are topologically equal if their interiors intersect and no part of the interior or boundary of one geometry intersects the exterior of the other" (a symmetric relationship)
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string
-     */
-    protected $geoEquals;
-
-    /**
-     * Represents a relationship between two geometries (or the places they represent), relating a geometry to another that crosses it: "a crosses b: they have some but not all interior points in common, and the dimension of the intersection is less than that of at least one of them". As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
-     */
-    protected $geoCrosses;
+    protected $geoDisjoint;
 
     /**
      * Represents a relationship between two geometries (or the places they represent), relating a covering geometry to a covered geometry. "Every point of b is a point of (the interior or boundary of) a". As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
@@ -89,43 +49,83 @@ class GeospatialGeometry extends \OpenActive\Models\SchemaOrg\Intangible
     protected $geoCovers;
 
     /**
-     * Represents a relationship between two geometries (or the places they represent), relating a geometry to one that contains it, i.e. it is inside (i.e. within) its interior. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string
-     */
-    protected $geoWithin;
-
-    /**
-     * Represents spatial relations in which two geometries (or the places they represent) are topologically disjoint: they have no point in common. They form a set of disconnected geometries." (a symmetric relationship, as defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM))
+     * Represents spatial relations in which two geometries (or the places they represent) touch: "they have at least one boundary point in common, but no interior points." (A symmetric relationship, as defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).)
      *
      *
      * @var \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
      */
-    protected $geoDisjoint;
+    protected $geoTouches;
+
+    /**
+     * Represents a relationship between two geometries (or the places they represent), relating a geometry to another that crosses it: "a crosses b: they have some but not all interior points in common, and the dimension of the intersection is less than that of at least one of them". As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
+     */
+    protected $geoCrosses;
+
+    /**
+     * Represents a relationship between two geometries (or the places they represent), relating a containing geometry to a contained geometry. "a contains b iff no points of b lie in the exterior of a, and at least one point of the interior of b lies in the interior of a". As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
+     */
+    protected $geoContains;
 
     /**
      * Represents a relationship between two geometries (or the places they represent), relating a geometry to another that geospatially overlaps it, i.e. they have some but not all points in common. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
+     * @var \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string
      */
     protected $geoOverlaps;
 
     /**
+     * Represents a relationship between two geometries (or the places they represent), relating a geometry to another that covers it. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
+     */
+    protected $geoCoveredBy;
+
+    /**
+     * Represents spatial relations in which two geometries (or the places they represent) have at least one point in common. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
+     */
+    protected $geoIntersects;
+
+    /**
+     * Represents spatial relations in which two geometries (or the places they represent) are topologically equal, as defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM). "Two geometries are topologically equal if their interiors intersect and no part of the interior or boundary of one geometry intersects the exterior of the other" (a symmetric relationship).
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
+     */
+    protected $geoEquals;
+
+    /**
+     * Represents a relationship between two geometries (or the places they represent), relating a geometry to one that contains it, i.e. it is inside (i.e. within) its interior. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
+     */
+    protected $geoWithin;
+
+    /**
      * @return \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string
      */
-    public function getGeoContains()
+    public function getGeoDisjoint()
     {
-        return $this->geoContains;
+        return $this->geoDisjoint;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string $geoContains
+     * @param \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string $geoDisjoint
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setGeoContains($geoContains)
+    public function setGeoDisjoint($geoDisjoint)
     {
         $types = [
             "\OpenActive\Models\SchemaOrg\Place",
@@ -133,25 +133,25 @@ class GeospatialGeometry extends \OpenActive\Models\SchemaOrg\Intangible
             "string",
         ];
 
-        $geoContains = self::checkTypes($geoContains, $types);
+        $geoDisjoint = self::checkTypes($geoDisjoint, $types);
 
-        $this->geoContains = $geoContains;
+        $this->geoDisjoint = $geoDisjoint;
     }
 
     /**
      * @return \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
      */
-    public function getGeoIntersects()
+    public function getGeoCovers()
     {
-        return $this->geoIntersects;
+        return $this->geoCovers;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string $geoIntersects
+     * @param \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string $geoCovers
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setGeoIntersects($geoIntersects)
+    public function setGeoCovers($geoCovers)
     {
         $types = [
             "\OpenActive\Models\SchemaOrg\GeospatialGeometry",
@@ -159,13 +159,13 @@ class GeospatialGeometry extends \OpenActive\Models\SchemaOrg\Intangible
             "string",
         ];
 
-        $geoIntersects = self::checkTypes($geoIntersects, $types);
+        $geoCovers = self::checkTypes($geoCovers, $types);
 
-        $this->geoIntersects = $geoIntersects;
+        $this->geoCovers = $geoCovers;
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string
+     * @return \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
      */
     public function getGeoTouches()
     {
@@ -173,73 +173,21 @@ class GeospatialGeometry extends \OpenActive\Models\SchemaOrg\Intangible
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string $geoTouches
+     * @param \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string $geoTouches
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setGeoTouches($geoTouches)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\Place",
             "\OpenActive\Models\SchemaOrg\GeospatialGeometry",
+            "\OpenActive\Models\SchemaOrg\Place",
             "string",
         ];
 
         $geoTouches = self::checkTypes($geoTouches, $types);
 
         $this->geoTouches = $geoTouches;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string
-     */
-    public function getGeoCoveredBy()
-    {
-        return $this->geoCoveredBy;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string $geoCoveredBy
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setGeoCoveredBy($geoCoveredBy)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Place",
-            "\OpenActive\Models\SchemaOrg\GeospatialGeometry",
-            "string",
-        ];
-
-        $geoCoveredBy = self::checkTypes($geoCoveredBy, $types);
-
-        $this->geoCoveredBy = $geoCoveredBy;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string
-     */
-    public function getGeoEquals()
-    {
-        return $this->geoEquals;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string $geoEquals
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setGeoEquals($geoEquals)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Place",
-            "\OpenActive\Models\SchemaOrg\GeospatialGeometry",
-            "string",
-        ];
-
-        $geoEquals = self::checkTypes($geoEquals, $types);
-
-        $this->geoEquals = $geoEquals;
     }
 
     /**
@@ -271,17 +219,17 @@ class GeospatialGeometry extends \OpenActive\Models\SchemaOrg\Intangible
     /**
      * @return \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
      */
-    public function getGeoCovers()
+    public function getGeoContains()
     {
-        return $this->geoCovers;
+        return $this->geoContains;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string $geoCovers
+     * @param \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string $geoContains
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setGeoCovers($geoCovers)
+    public function setGeoContains($geoContains)
     {
         $types = [
             "\OpenActive\Models\SchemaOrg\GeospatialGeometry",
@@ -289,65 +237,13 @@ class GeospatialGeometry extends \OpenActive\Models\SchemaOrg\Intangible
             "string",
         ];
 
-        $geoCovers = self::checkTypes($geoCovers, $types);
+        $geoContains = self::checkTypes($geoContains, $types);
 
-        $this->geoCovers = $geoCovers;
+        $this->geoContains = $geoContains;
     }
 
     /**
      * @return \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string
-     */
-    public function getGeoWithin()
-    {
-        return $this->geoWithin;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string $geoWithin
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setGeoWithin($geoWithin)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Place",
-            "\OpenActive\Models\SchemaOrg\GeospatialGeometry",
-            "string",
-        ];
-
-        $geoWithin = self::checkTypes($geoWithin, $types);
-
-        $this->geoWithin = $geoWithin;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
-     */
-    public function getGeoDisjoint()
-    {
-        return $this->geoDisjoint;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string $geoDisjoint
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setGeoDisjoint($geoDisjoint)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\GeospatialGeometry",
-            "\OpenActive\Models\SchemaOrg\Place",
-            "string",
-        ];
-
-        $geoDisjoint = self::checkTypes($geoDisjoint, $types);
-
-        $this->geoDisjoint = $geoDisjoint;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
      */
     public function getGeoOverlaps()
     {
@@ -355,11 +251,37 @@ class GeospatialGeometry extends \OpenActive\Models\SchemaOrg\Intangible
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string $geoOverlaps
+     * @param \OpenActive\Models\SchemaOrg\Place|\OpenActive\Models\SchemaOrg\GeospatialGeometry|string $geoOverlaps
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setGeoOverlaps($geoOverlaps)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Place",
+            "\OpenActive\Models\SchemaOrg\GeospatialGeometry",
+            "string",
+        ];
+
+        $geoOverlaps = self::checkTypes($geoOverlaps, $types);
+
+        $this->geoOverlaps = $geoOverlaps;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
+     */
+    public function getGeoCoveredBy()
+    {
+        return $this->geoCoveredBy;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string $geoCoveredBy
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setGeoCoveredBy($geoCoveredBy)
     {
         $types = [
             "\OpenActive\Models\SchemaOrg\GeospatialGeometry",
@@ -367,9 +289,87 @@ class GeospatialGeometry extends \OpenActive\Models\SchemaOrg\Intangible
             "string",
         ];
 
-        $geoOverlaps = self::checkTypes($geoOverlaps, $types);
+        $geoCoveredBy = self::checkTypes($geoCoveredBy, $types);
 
-        $this->geoOverlaps = $geoOverlaps;
+        $this->geoCoveredBy = $geoCoveredBy;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
+     */
+    public function getGeoIntersects()
+    {
+        return $this->geoIntersects;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string $geoIntersects
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setGeoIntersects($geoIntersects)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\GeospatialGeometry",
+            "\OpenActive\Models\SchemaOrg\Place",
+            "string",
+        ];
+
+        $geoIntersects = self::checkTypes($geoIntersects, $types);
+
+        $this->geoIntersects = $geoIntersects;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
+     */
+    public function getGeoEquals()
+    {
+        return $this->geoEquals;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string $geoEquals
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setGeoEquals($geoEquals)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\GeospatialGeometry",
+            "\OpenActive\Models\SchemaOrg\Place",
+            "string",
+        ];
+
+        $geoEquals = self::checkTypes($geoEquals, $types);
+
+        $this->geoEquals = $geoEquals;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string
+     */
+    public function getGeoWithin()
+    {
+        return $this->geoWithin;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\GeospatialGeometry|\OpenActive\Models\SchemaOrg\Place|string $geoWithin
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setGeoWithin($geoWithin)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\GeospatialGeometry",
+            "\OpenActive\Models\SchemaOrg\Place",
+            "string",
+        ];
+
+        $geoWithin = self::checkTypes($geoWithin, $types);
+
+        $this->geoWithin = $geoWithin;
     }
 
 }

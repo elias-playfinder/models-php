@@ -17,22 +17,14 @@ class BusTrip extends \OpenActive\Models\SchemaOrg\Trip
 
     public static function fieldList() {
         $fields = [
-            "departureBusStop" => "departureBusStop",
             "busName" => "busName",
-            "arrivalBusStop" => "arrivalBusStop",
             "busNumber" => "busNumber",
+            "departureBusStop" => "departureBusStop",
+            "arrivalBusStop" => "arrivalBusStop",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * The stop or station from which the bus departs.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\BusStop|\OpenActive\Models\SchemaOrg\BusStation|string
-     */
-    protected $departureBusStop;
 
     /**
      * The name of the bus (e.g. Bolt Express).
@@ -43,14 +35,6 @@ class BusTrip extends \OpenActive\Models\SchemaOrg\Trip
     protected $busName;
 
     /**
-     * The stop or station from which the bus arrives.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\BusStation|\OpenActive\Models\SchemaOrg\BusStop|string
-     */
-    protected $arrivalBusStop;
-
-    /**
      * The unique identifier for the bus.
      *
      *
@@ -59,30 +43,20 @@ class BusTrip extends \OpenActive\Models\SchemaOrg\Trip
     protected $busNumber;
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\BusStop|\OpenActive\Models\SchemaOrg\BusStation|string
+     * The stop or station from which the bus departs.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\BusStation|\OpenActive\Models\SchemaOrg\BusStop|string
      */
-    public function getDepartureBusStop()
-    {
-        return $this->departureBusStop;
-    }
+    protected $departureBusStop;
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\BusStop|\OpenActive\Models\SchemaOrg\BusStation|string $departureBusStop
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     * The stop or station from which the bus arrives.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\BusStation|\OpenActive\Models\SchemaOrg\BusStop|string
      */
-    public function setDepartureBusStop($departureBusStop)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\BusStop",
-            "\OpenActive\Models\SchemaOrg\BusStation",
-            "string",
-        ];
-
-        $departureBusStop = self::checkTypes($departureBusStop, $types);
-
-        $this->departureBusStop = $departureBusStop;
-    }
+    protected $arrivalBusStop;
 
     /**
      * @return string
@@ -109,6 +83,56 @@ class BusTrip extends \OpenActive\Models\SchemaOrg\Trip
     }
 
     /**
+     * @return string
+     */
+    public function getBusNumber()
+    {
+        return $this->busNumber;
+    }
+
+    /**
+     * @param string $busNumber
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setBusNumber($busNumber)
+    {
+        $types = [
+            "string",
+        ];
+
+        $busNumber = self::checkTypes($busNumber, $types);
+
+        $this->busNumber = $busNumber;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\BusStation|\OpenActive\Models\SchemaOrg\BusStop|string
+     */
+    public function getDepartureBusStop()
+    {
+        return $this->departureBusStop;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\BusStation|\OpenActive\Models\SchemaOrg\BusStop|string $departureBusStop
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setDepartureBusStop($departureBusStop)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\BusStation",
+            "\OpenActive\Models\SchemaOrg\BusStop",
+            "string",
+        ];
+
+        $departureBusStop = self::checkTypes($departureBusStop, $types);
+
+        $this->departureBusStop = $departureBusStop;
+    }
+
+    /**
      * @return \OpenActive\Models\SchemaOrg\BusStation|\OpenActive\Models\SchemaOrg\BusStop|string
      */
     public function getArrivalBusStop()
@@ -132,30 +156,6 @@ class BusTrip extends \OpenActive\Models\SchemaOrg\Trip
         $arrivalBusStop = self::checkTypes($arrivalBusStop, $types);
 
         $this->arrivalBusStop = $arrivalBusStop;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBusNumber()
-    {
-        return $this->busNumber;
-    }
-
-    /**
-     * @param string $busNumber
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setBusNumber($busNumber)
-    {
-        $types = [
-            "string",
-        ];
-
-        $busNumber = self::checkTypes($busNumber, $types);
-
-        $this->busNumber = $busNumber;
     }
 
 }

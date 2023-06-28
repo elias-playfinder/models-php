@@ -17,50 +17,50 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
 
     public static function fieldList() {
         $fields = [
-            "programPrerequisites" => "programPrerequisites",
-            "hasCourse" => "hasCourse",
+            "termDuration" => "termDuration",
+            "trainingSalary" => "trainingSalary",
             "startDate" => "startDate",
-            "salaryUponCompletion" => "salaryUponCompletion",
-            "termsPerYear" => "termsPerYear",
-            "dayOfWeek" => "dayOfWeek",
-            "offers" => "offers",
-            "typicalCreditsPerTerm" => "typicalCreditsPerTerm",
-            "applicationStartDate" => "applicationStartDate",
             "timeOfDay" => "timeOfDay",
+            "timeToComplete" => "timeToComplete",
+            "typicalCreditsPerTerm" => "typicalCreditsPerTerm",
+            "educationalProgramMode" => "educationalProgramMode",
+            "numberOfCredits" => "numberOfCredits",
+            "offers" => "offers",
+            "programType" => "programType",
+            "financialAidEligible" => "financialAidEligible",
+            "occupationalCredentialAwarded" => "occupationalCredentialAwarded",
+            "applicationDeadline" => "applicationDeadline",
+            "hasCourse" => "hasCourse",
+            "occupationalCategory" => "occupationalCategory",
+            "programPrerequisites" => "programPrerequisites",
+            "applicationStartDate" => "applicationStartDate",
+            "educationalCredentialAwarded" => "educationalCredentialAwarded",
+            "dayOfWeek" => "dayOfWeek",
             "endDate" => "endDate",
             "provider" => "provider",
-            "trainingSalary" => "trainingSalary",
-            "educationalCredentialAwarded" => "educationalCredentialAwarded",
-            "numberOfCredits" => "numberOfCredits",
-            "timeToComplete" => "timeToComplete",
-            "occupationalCredentialAwarded" => "occupationalCredentialAwarded",
-            "termDuration" => "termDuration",
-            "educationalProgramMode" => "educationalProgramMode",
-            "programType" => "programType",
+            "salaryUponCompletion" => "salaryUponCompletion",
             "maximumEnrollment" => "maximumEnrollment",
-            "financialAidEligible" => "financialAidEligible",
-            "applicationDeadline" => "applicationDeadline",
-            "occupationalCategory" => "occupationalCategory",
+            "termsPerYear" => "termsPerYear",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
 
     /**
-     * Prerequisites for enrolling in the program.
+     * The amount of time in a term as defined by the institution. A term is a length of time where students take one or more classes. Semesters and quarters are common units for term.
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\AlignmentObject|\OpenActive\Models\SchemaOrg\Course|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential|string
+     * @var DateInterval|string|null
      */
-    protected $programPrerequisites;
+    protected $termDuration;
 
     /**
-     * A course or class that is one of the learning opportunities that constitute an educational / occupational program. No information is implied about whether the course is mandatory or optional; no guarantee is implied about whether the course will be available to everyone on the program.
+     * The estimated salary earned while in the program.
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\Course|string
+     * @var \OpenActive\Models\SchemaOrg\MonetaryAmountDistribution|string
      */
-    protected $hasCourse;
+    protected $trainingSalary;
 
     /**
      * The start date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601)).
@@ -71,28 +71,44 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
     protected $startDate;
 
     /**
-     * The expected salary upon completing the training.
+     * The time of day the program normally runs. For example, "evenings".
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\MonetaryAmountDistribution|string
+     * @var string
      */
-    protected $salaryUponCompletion;
+    protected $timeOfDay;
 
     /**
-     * The number of times terms of study are offered per year. Semesters and quarters are common units for term. For example, if the student can only take 2 semesters for the program in one year, then termsPerYear should be 2.
+     * The expected length of time to complete the program if attending full-time.
      *
      *
-     * @var Number|null
+     * @var DateInterval|string|null
      */
-    protected $termsPerYear;
+    protected $timeToComplete;
 
     /**
-     * The day of the week for which these opening hours are valid.
+     * The number of credits or units a full-time student would be expected to take in 1 term however 'term' is defined by the institution.
      *
      *
-     * @var \OpenActive\Enums\SchemaOrg\DayOfWeek|null
+     * @var \OpenActive\Models\SchemaOrg\StructuredValue|string|int|null
      */
-    protected $dayOfWeek;
+    protected $typicalCreditsPerTerm;
+
+    /**
+     * Similar to courseMode, the medium or means of delivery of the program as a whole. The value may either be a text label (e.g. "online", "onsite" or "blended"; "synchronous" or "asynchronous"; "full-time" or "part-time") or a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous ).
+     *
+     *
+     * @var string
+     */
+    protected $educationalProgramMode;
+
+    /**
+     * The number of credits or units awarded by a Course or required to complete an EducationalOccupationalProgram.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\StructuredValue|string|int|null
+     */
+    protected $numberOfCredits;
 
     /**
      * An offer to provide this item&#x2014;for example, an offer to sell a product, rent the DVD of a movie, perform a service, or give away tickets to an event. Use [[businessFunction]] to indicate the kind of transaction offered, i.e. sell, lease, etc. This property can also be used to describe a [[Demand]]. While this property is listed as expected on a number of common types, it can be used in others. In that case, using a second type, such as Product or a subtype of Product, can clarify the nature of the offer.
@@ -104,12 +120,61 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
     protected $offers;
 
     /**
-     * The number of credits or units a full-time student would be expected to take in 1 term however 'term' is defined by the institution.
+     * The type of educational or occupational program. For example, classroom, internship, alternance, etc.
      *
      *
-     * @var int|\OpenActive\Models\SchemaOrg\StructuredValue|string|null
+     * @var \OpenActive\Models\SchemaOrg\DefinedTerm|string
      */
-    protected $typicalCreditsPerTerm;
+    protected $programType;
+
+    /**
+     * A financial aid type or program which students may use to pay for tuition or fees associated with the program.
+     *
+     *
+     * @var string|\OpenActive\Models\SchemaOrg\DefinedTerm
+     */
+    protected $financialAidEligible;
+
+    /**
+     * A description of the qualification, award, certificate, diploma or other occupational credential awarded as a consequence of successful completion of this course or program.
+     *
+     *
+     * @var string|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential
+     */
+    protected $occupationalCredentialAwarded;
+
+    /**
+     * The date at which the program stops collecting applications for the next enrollment cycle.
+     *
+     *
+     * @var Date|null
+     */
+    protected $applicationDeadline;
+
+    /**
+     * A course or class that is one of the learning opportunities that constitute an educational / occupational program. No information is implied about whether the course is mandatory or optional; no guarantee is implied about whether the course will be available to everyone on the program.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Course|string
+     */
+    protected $hasCourse;
+
+    /**
+     * A category describing the job, preferably using a term from a taxonomy such as [BLS O*NET-SOC](http://www.onetcenter.org/taxonomy.html), [ISCO-08](https://www.ilo.org/public/english/bureau/stat/isco/isco08/) or similar, with the property repeated for each applicable value. Ideally the taxonomy should be identified, and both the textual label and formal code for the category should be provided.\n
+     * Note: for historical reasons, any textual label and formal code provided as a literal may be assumed to be from O*NET-SOC.
+     *
+     *
+     * @var string|\OpenActive\Models\SchemaOrg\CategoryCode
+     */
+    protected $occupationalCategory;
+
+    /**
+     * Prerequisites for enrolling in the program.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Course|\OpenActive\Models\SchemaOrg\AlignmentObject|string|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential
+     */
+    protected $programPrerequisites;
 
     /**
      * The date at which the program begins collecting applications for the next enrollment cycle.
@@ -120,12 +185,20 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
     protected $applicationStartDate;
 
     /**
-     * The time of day the program normally runs. For example, "evenings".
+     * A description of the qualification, award, certificate, diploma or other educational credential awarded as a consequence of successful completion of this course or program.
      *
      *
-     * @var string
+     * @var string|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential
      */
-    protected $timeOfDay;
+    protected $educationalCredentialAwarded;
+
+    /**
+     * The day of the week for which these opening hours are valid.
+     *
+     *
+     * @var \OpenActive\Enums\SchemaOrg\DayOfWeek|null
+     */
+    protected $dayOfWeek;
 
     /**
      * The end date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601)).
@@ -139,73 +212,17 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
      * The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller.
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string
+     * @var \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\Organization|string
      */
     protected $provider;
 
     /**
-     * The estimated salary earned while in the program.
+     * The expected salary upon completing the training.
      *
      *
      * @var \OpenActive\Models\SchemaOrg\MonetaryAmountDistribution|string
      */
-    protected $trainingSalary;
-
-    /**
-     * A description of the qualification, award, certificate, diploma or other educational credential awarded as a consequence of successful completion of this course or program.
-     *
-     *
-     * @var string|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential
-     */
-    protected $educationalCredentialAwarded;
-
-    /**
-     * The number of credits or units awarded by a Course or required to complete an EducationalOccupationalProgram.
-     *
-     *
-     * @var int|\OpenActive\Models\SchemaOrg\StructuredValue|string|null
-     */
-    protected $numberOfCredits;
-
-    /**
-     * The expected length of time to complete the program if attending full-time.
-     *
-     *
-     * @var DateInterval|string|null
-     */
-    protected $timeToComplete;
-
-    /**
-     * A description of the qualification, award, certificate, diploma or other occupational credential awarded as a consequence of successful completion of this course or program.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\EducationalOccupationalCredential|string
-     */
-    protected $occupationalCredentialAwarded;
-
-    /**
-     * The amount of time in a term as defined by the institution. A term is a length of time where students take one or more classes. Semesters and quarters are common units for term.
-     *
-     *
-     * @var DateInterval|string|null
-     */
-    protected $termDuration;
-
-    /**
-     * Similar to courseMode, The medium or means of delivery of the program as a whole. The value may either be a text label (e.g. "online", "onsite" or "blended"; "synchronous" or "asynchronous"; "full-time" or "part-time") or a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous ).
-     *
-     *
-     * @var string
-     */
-    protected $educationalProgramMode;
-
-    /**
-     * The type of educational or occupational program. For example, classroom, internship, alternance, etc..
-     *
-     *
-     * @var string|\OpenActive\Models\SchemaOrg\DefinedTerm
-     */
-    protected $programType;
+    protected $salaryUponCompletion;
 
     /**
      * The maximum number of students who may be enrolled in the program.
@@ -216,80 +233,62 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
     protected $maximumEnrollment;
 
     /**
-     * A financial aid type or program which students may use to pay for tuition or fees associated with the program.
+     * The number of times terms of study are offered per year. Semesters and quarters are common units for term. For example, if the student can only take 2 semesters for the program in one year, then termsPerYear should be 2.
      *
      *
-     * @var string|\OpenActive\Models\SchemaOrg\DefinedTerm
+     * @var Number|null
      */
-    protected $financialAidEligible;
+    protected $termsPerYear;
 
     /**
-     * The date at which the program stops collecting applications for the next enrollment cycle.
-     *
-     *
-     * @var Date|null
+     * @return DateInterval|string|null
      */
-    protected $applicationDeadline;
-
-    /**
-     * A category describing the job, preferably using a term from a taxonomy such as [BLS O*NET-SOC](http://www.onetcenter.org/taxonomy.html), [ISCO-08](https://www.ilo.org/public/english/bureau/stat/isco/isco08/) or similar, with the property repeated for each applicable value. Ideally the taxonomy should be identified, and both the textual label and formal code for the category should be provided.\n
-     * Note: for historical reasons, any textual label and formal code provided as a literal may be assumed to be from O*NET-SOC.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\CategoryCode|string
-     */
-    protected $occupationalCategory;
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\AlignmentObject|\OpenActive\Models\SchemaOrg\Course|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential|string
-     */
-    public function getProgramPrerequisites()
+    public function getTermDuration()
     {
-        return $this->programPrerequisites;
+        return $this->termDuration;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\AlignmentObject|\OpenActive\Models\SchemaOrg\Course|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential|string $programPrerequisites
+     * @param DateInterval|string|null $termDuration
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setProgramPrerequisites($programPrerequisites)
+    public function setTermDuration($termDuration)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\AlignmentObject",
-            "\OpenActive\Models\SchemaOrg\Course",
-            "\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential",
+            "DateInterval",
             "string",
+            "null",
         ];
 
-        $programPrerequisites = self::checkTypes($programPrerequisites, $types);
+        $termDuration = self::checkTypes($termDuration, $types);
 
-        $this->programPrerequisites = $programPrerequisites;
+        $this->termDuration = $termDuration;
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\Course|string
+     * @return \OpenActive\Models\SchemaOrg\MonetaryAmountDistribution|string
      */
-    public function getHasCourse()
+    public function getTrainingSalary()
     {
-        return $this->hasCourse;
+        return $this->trainingSalary;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\Course|string $hasCourse
+     * @param \OpenActive\Models\SchemaOrg\MonetaryAmountDistribution|string $trainingSalary
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setHasCourse($hasCourse)
+    public function setTrainingSalary($trainingSalary)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\Course",
+            "\OpenActive\Models\SchemaOrg\MonetaryAmountDistribution",
             "string",
         ];
 
-        $hasCourse = self::checkTypes($hasCourse, $types);
+        $trainingSalary = self::checkTypes($trainingSalary, $types);
 
-        $this->hasCourse = $hasCourse;
+        $this->trainingSalary = $trainingSalary;
     }
 
     /**
@@ -319,159 +318,6 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\MonetaryAmountDistribution|string
-     */
-    public function getSalaryUponCompletion()
-    {
-        return $this->salaryUponCompletion;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\MonetaryAmountDistribution|string $salaryUponCompletion
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setSalaryUponCompletion($salaryUponCompletion)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\MonetaryAmountDistribution",
-            "string",
-        ];
-
-        $salaryUponCompletion = self::checkTypes($salaryUponCompletion, $types);
-
-        $this->salaryUponCompletion = $salaryUponCompletion;
-    }
-
-    /**
-     * @return Number|null
-     */
-    public function getTermsPerYear()
-    {
-        return $this->termsPerYear;
-    }
-
-    /**
-     * @param Number|null $termsPerYear
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setTermsPerYear($termsPerYear)
-    {
-        $types = [
-            "Number",
-            "null",
-        ];
-
-        $termsPerYear = self::checkTypes($termsPerYear, $types);
-
-        $this->termsPerYear = $termsPerYear;
-    }
-
-    /**
-     * @return \OpenActive\Enums\SchemaOrg\DayOfWeek|null
-     */
-    public function getDayOfWeek()
-    {
-        return $this->dayOfWeek;
-    }
-
-    /**
-     * @param \OpenActive\Enums\SchemaOrg\DayOfWeek|null $dayOfWeek
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setDayOfWeek($dayOfWeek)
-    {
-        $types = [
-            "\OpenActive\Enums\SchemaOrg\DayOfWeek",
-            "null",
-        ];
-
-        $dayOfWeek = self::checkTypes($dayOfWeek, $types);
-
-        $this->dayOfWeek = $dayOfWeek;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\Offer|\OpenActive\Models\SchemaOrg\Demand|string
-     */
-    public function getOffers()
-    {
-        return $this->offers;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Offer|\OpenActive\Models\SchemaOrg\Demand|string $offers
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setOffers($offers)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Offer",
-            "\OpenActive\Models\SchemaOrg\Demand",
-            "string",
-        ];
-
-        $offers = self::checkTypes($offers, $types);
-
-        $this->offers = $offers;
-    }
-
-    /**
-     * @return int|\OpenActive\Models\SchemaOrg\StructuredValue|string|null
-     */
-    public function getTypicalCreditsPerTerm()
-    {
-        return $this->typicalCreditsPerTerm;
-    }
-
-    /**
-     * @param int|\OpenActive\Models\SchemaOrg\StructuredValue|string|null $typicalCreditsPerTerm
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setTypicalCreditsPerTerm($typicalCreditsPerTerm)
-    {
-        $types = [
-            "int",
-            "\OpenActive\Models\SchemaOrg\StructuredValue",
-            "string",
-            "null",
-        ];
-
-        $typicalCreditsPerTerm = self::checkTypes($typicalCreditsPerTerm, $types);
-
-        $this->typicalCreditsPerTerm = $typicalCreditsPerTerm;
-    }
-
-    /**
-     * @return Date|null
-     */
-    public function getApplicationStartDate()
-    {
-        return $this->applicationStartDate;
-    }
-
-    /**
-     * @param Date|null $applicationStartDate
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setApplicationStartDate($applicationStartDate)
-    {
-        $types = [
-            "Date",
-            "null",
-        ];
-
-        $applicationStartDate = self::checkTypes($applicationStartDate, $types);
-
-        $this->applicationStartDate = $applicationStartDate;
-    }
-
-    /**
      * @return string
      */
     public function getTimeOfDay()
@@ -493,135 +339,6 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
         $timeOfDay = self::checkTypes($timeOfDay, $types);
 
         $this->timeOfDay = $timeOfDay;
-    }
-
-    /**
-     * @return Date|DateTime|null
-     */
-    public function getEndDate()
-    {
-        return $this->endDate;
-    }
-
-    /**
-     * @param Date|DateTime|null $endDate
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setEndDate($endDate)
-    {
-        $types = [
-            "Date",
-            "DateTime",
-            "null",
-        ];
-
-        $endDate = self::checkTypes($endDate, $types);
-
-        $this->endDate = $endDate;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string
-     */
-    public function getProvider()
-    {
-        return $this->provider;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\Organization|\OpenActive\Models\SchemaOrg\Person|string $provider
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setProvider($provider)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\Organization",
-            "\OpenActive\Models\SchemaOrg\Person",
-            "string",
-        ];
-
-        $provider = self::checkTypes($provider, $types);
-
-        $this->provider = $provider;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\MonetaryAmountDistribution|string
-     */
-    public function getTrainingSalary()
-    {
-        return $this->trainingSalary;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\MonetaryAmountDistribution|string $trainingSalary
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setTrainingSalary($trainingSalary)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\MonetaryAmountDistribution",
-            "string",
-        ];
-
-        $trainingSalary = self::checkTypes($trainingSalary, $types);
-
-        $this->trainingSalary = $trainingSalary;
-    }
-
-    /**
-     * @return string|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential
-     */
-    public function getEducationalCredentialAwarded()
-    {
-        return $this->educationalCredentialAwarded;
-    }
-
-    /**
-     * @param string|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential $educationalCredentialAwarded
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setEducationalCredentialAwarded($educationalCredentialAwarded)
-    {
-        $types = [
-            "string",
-            "\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential",
-        ];
-
-        $educationalCredentialAwarded = self::checkTypes($educationalCredentialAwarded, $types);
-
-        $this->educationalCredentialAwarded = $educationalCredentialAwarded;
-    }
-
-    /**
-     * @return int|\OpenActive\Models\SchemaOrg\StructuredValue|string|null
-     */
-    public function getNumberOfCredits()
-    {
-        return $this->numberOfCredits;
-    }
-
-    /**
-     * @param int|\OpenActive\Models\SchemaOrg\StructuredValue|string|null $numberOfCredits
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setNumberOfCredits($numberOfCredits)
-    {
-        $types = [
-            "int",
-            "\OpenActive\Models\SchemaOrg\StructuredValue",
-            "string",
-            "null",
-        ];
-
-        $numberOfCredits = self::checkTypes($numberOfCredits, $types);
-
-        $this->numberOfCredits = $numberOfCredits;
     }
 
     /**
@@ -651,54 +368,30 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\EducationalOccupationalCredential|string
+     * @return \OpenActive\Models\SchemaOrg\StructuredValue|string|int|null
      */
-    public function getOccupationalCredentialAwarded()
+    public function getTypicalCreditsPerTerm()
     {
-        return $this->occupationalCredentialAwarded;
+        return $this->typicalCreditsPerTerm;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\EducationalOccupationalCredential|string $occupationalCredentialAwarded
+     * @param \OpenActive\Models\SchemaOrg\StructuredValue|string|int|null $typicalCreditsPerTerm
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setOccupationalCredentialAwarded($occupationalCredentialAwarded)
+    public function setTypicalCreditsPerTerm($typicalCreditsPerTerm)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential",
+            "\OpenActive\Models\SchemaOrg\StructuredValue",
             "string",
-        ];
-
-        $occupationalCredentialAwarded = self::checkTypes($occupationalCredentialAwarded, $types);
-
-        $this->occupationalCredentialAwarded = $occupationalCredentialAwarded;
-    }
-
-    /**
-     * @return DateInterval|string|null
-     */
-    public function getTermDuration()
-    {
-        return $this->termDuration;
-    }
-
-    /**
-     * @param DateInterval|string|null $termDuration
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setTermDuration($termDuration)
-    {
-        $types = [
-            "DateInterval",
-            "string",
+            "int",
             "null",
         ];
 
-        $termDuration = self::checkTypes($termDuration, $types);
+        $typicalCreditsPerTerm = self::checkTypes($typicalCreditsPerTerm, $types);
 
-        $this->termDuration = $termDuration;
+        $this->typicalCreditsPerTerm = $typicalCreditsPerTerm;
     }
 
     /**
@@ -726,7 +419,60 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
     }
 
     /**
-     * @return string|\OpenActive\Models\SchemaOrg\DefinedTerm
+     * @return \OpenActive\Models\SchemaOrg\StructuredValue|string|int|null
+     */
+    public function getNumberOfCredits()
+    {
+        return $this->numberOfCredits;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\StructuredValue|string|int|null $numberOfCredits
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setNumberOfCredits($numberOfCredits)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\StructuredValue",
+            "string",
+            "int",
+            "null",
+        ];
+
+        $numberOfCredits = self::checkTypes($numberOfCredits, $types);
+
+        $this->numberOfCredits = $numberOfCredits;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Offer|\OpenActive\Models\SchemaOrg\Demand|string
+     */
+    public function getOffers()
+    {
+        return $this->offers;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Offer|\OpenActive\Models\SchemaOrg\Demand|string $offers
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setOffers($offers)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Offer",
+            "\OpenActive\Models\SchemaOrg\Demand",
+            "string",
+        ];
+
+        $offers = self::checkTypes($offers, $types);
+
+        $this->offers = $offers;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\DefinedTerm|string
      */
     public function getProgramType()
     {
@@ -734,45 +480,20 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
     }
 
     /**
-     * @param string|\OpenActive\Models\SchemaOrg\DefinedTerm $programType
+     * @param \OpenActive\Models\SchemaOrg\DefinedTerm|string $programType
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setProgramType($programType)
     {
         $types = [
-            "string",
             "\OpenActive\Models\SchemaOrg\DefinedTerm",
+            "string",
         ];
 
         $programType = self::checkTypes($programType, $types);
 
         $this->programType = $programType;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getMaximumEnrollment()
-    {
-        return $this->maximumEnrollment;
-    }
-
-    /**
-     * @param int|null $maximumEnrollment
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setMaximumEnrollment($maximumEnrollment)
-    {
-        $types = [
-            "int",
-            "null",
-        ];
-
-        $maximumEnrollment = self::checkTypes($maximumEnrollment, $types);
-
-        $this->maximumEnrollment = $maximumEnrollment;
     }
 
     /**
@@ -801,6 +522,31 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
     }
 
     /**
+     * @return string|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential
+     */
+    public function getOccupationalCredentialAwarded()
+    {
+        return $this->occupationalCredentialAwarded;
+    }
+
+    /**
+     * @param string|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential $occupationalCredentialAwarded
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setOccupationalCredentialAwarded($occupationalCredentialAwarded)
+    {
+        $types = [
+            "string",
+            "\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential",
+        ];
+
+        $occupationalCredentialAwarded = self::checkTypes($occupationalCredentialAwarded, $types);
+
+        $this->occupationalCredentialAwarded = $occupationalCredentialAwarded;
+    }
+
+    /**
      * @return Date|null
      */
     public function getApplicationDeadline()
@@ -826,7 +572,32 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\CategoryCode|string
+     * @return \OpenActive\Models\SchemaOrg\Course|string
+     */
+    public function getHasCourse()
+    {
+        return $this->hasCourse;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Course|string $hasCourse
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setHasCourse($hasCourse)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Course",
+            "string",
+        ];
+
+        $hasCourse = self::checkTypes($hasCourse, $types);
+
+        $this->hasCourse = $hasCourse;
+    }
+
+    /**
+     * @return string|\OpenActive\Models\SchemaOrg\CategoryCode
      */
     public function getOccupationalCategory()
     {
@@ -834,20 +605,249 @@ class EducationalOccupationalProgram extends \OpenActive\Models\SchemaOrg\Intang
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\CategoryCode|string $occupationalCategory
+     * @param string|\OpenActive\Models\SchemaOrg\CategoryCode $occupationalCategory
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setOccupationalCategory($occupationalCategory)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\CategoryCode",
             "string",
+            "\OpenActive\Models\SchemaOrg\CategoryCode",
         ];
 
         $occupationalCategory = self::checkTypes($occupationalCategory, $types);
 
         $this->occupationalCategory = $occupationalCategory;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Course|\OpenActive\Models\SchemaOrg\AlignmentObject|string|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential
+     */
+    public function getProgramPrerequisites()
+    {
+        return $this->programPrerequisites;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Course|\OpenActive\Models\SchemaOrg\AlignmentObject|string|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential $programPrerequisites
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setProgramPrerequisites($programPrerequisites)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Course",
+            "\OpenActive\Models\SchemaOrg\AlignmentObject",
+            "string",
+            "\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential",
+        ];
+
+        $programPrerequisites = self::checkTypes($programPrerequisites, $types);
+
+        $this->programPrerequisites = $programPrerequisites;
+    }
+
+    /**
+     * @return Date|null
+     */
+    public function getApplicationStartDate()
+    {
+        return $this->applicationStartDate;
+    }
+
+    /**
+     * @param Date|null $applicationStartDate
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setApplicationStartDate($applicationStartDate)
+    {
+        $types = [
+            "Date",
+            "null",
+        ];
+
+        $applicationStartDate = self::checkTypes($applicationStartDate, $types);
+
+        $this->applicationStartDate = $applicationStartDate;
+    }
+
+    /**
+     * @return string|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential
+     */
+    public function getEducationalCredentialAwarded()
+    {
+        return $this->educationalCredentialAwarded;
+    }
+
+    /**
+     * @param string|\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential $educationalCredentialAwarded
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setEducationalCredentialAwarded($educationalCredentialAwarded)
+    {
+        $types = [
+            "string",
+            "\OpenActive\Models\SchemaOrg\EducationalOccupationalCredential",
+        ];
+
+        $educationalCredentialAwarded = self::checkTypes($educationalCredentialAwarded, $types);
+
+        $this->educationalCredentialAwarded = $educationalCredentialAwarded;
+    }
+
+    /**
+     * @return \OpenActive\Enums\SchemaOrg\DayOfWeek|null
+     */
+    public function getDayOfWeek()
+    {
+        return $this->dayOfWeek;
+    }
+
+    /**
+     * @param \OpenActive\Enums\SchemaOrg\DayOfWeek|null $dayOfWeek
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setDayOfWeek($dayOfWeek)
+    {
+        $types = [
+            "\OpenActive\Enums\SchemaOrg\DayOfWeek",
+            "null",
+        ];
+
+        $dayOfWeek = self::checkTypes($dayOfWeek, $types);
+
+        $this->dayOfWeek = $dayOfWeek;
+    }
+
+    /**
+     * @return Date|DateTime|null
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
+
+    /**
+     * @param Date|DateTime|null $endDate
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setEndDate($endDate)
+    {
+        $types = [
+            "Date",
+            "DateTime",
+            "null",
+        ];
+
+        $endDate = self::checkTypes($endDate, $types);
+
+        $this->endDate = $endDate;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\Organization|string
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\Organization|string $provider
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setProvider($provider)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Person",
+            "\OpenActive\Models\SchemaOrg\Organization",
+            "string",
+        ];
+
+        $provider = self::checkTypes($provider, $types);
+
+        $this->provider = $provider;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\MonetaryAmountDistribution|string
+     */
+    public function getSalaryUponCompletion()
+    {
+        return $this->salaryUponCompletion;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\MonetaryAmountDistribution|string $salaryUponCompletion
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setSalaryUponCompletion($salaryUponCompletion)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\MonetaryAmountDistribution",
+            "string",
+        ];
+
+        $salaryUponCompletion = self::checkTypes($salaryUponCompletion, $types);
+
+        $this->salaryUponCompletion = $salaryUponCompletion;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMaximumEnrollment()
+    {
+        return $this->maximumEnrollment;
+    }
+
+    /**
+     * @param int|null $maximumEnrollment
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setMaximumEnrollment($maximumEnrollment)
+    {
+        $types = [
+            "int",
+            "null",
+        ];
+
+        $maximumEnrollment = self::checkTypes($maximumEnrollment, $types);
+
+        $this->maximumEnrollment = $maximumEnrollment;
+    }
+
+    /**
+     * @return Number|null
+     */
+    public function getTermsPerYear()
+    {
+        return $this->termsPerYear;
+    }
+
+    /**
+     * @param Number|null $termsPerYear
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setTermsPerYear($termsPerYear)
+    {
+        $types = [
+            "Number",
+            "null",
+        ];
+
+        $termsPerYear = self::checkTypes($termsPerYear, $types);
+
+        $this->termsPerYear = $termsPerYear;
     }
 
 }

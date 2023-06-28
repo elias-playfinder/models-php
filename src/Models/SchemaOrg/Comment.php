@@ -17,13 +17,21 @@ class Comment extends \OpenActive\Models\SchemaOrg\CreativeWork
 
     public static function fieldList() {
         $fields = [
+            "upvoteCount" => "upvoteCount",
             "parentItem" => "parentItem",
             "downvoteCount" => "downvoteCount",
-            "upvoteCount" => "upvoteCount",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
+
+    /**
+     * The number of upvotes this question, answer or comment has received from the community.
+     *
+     *
+     * @var int|null
+     */
+    protected $upvoteCount;
 
     /**
      * The parent of a question, answer or item in general.
@@ -42,12 +50,29 @@ class Comment extends \OpenActive\Models\SchemaOrg\CreativeWork
     protected $downvoteCount;
 
     /**
-     * The number of upvotes this question, answer or comment has received from the community.
-     *
-     *
-     * @var int|null
+     * @return int|null
      */
-    protected $upvoteCount;
+    public function getUpvoteCount()
+    {
+        return $this->upvoteCount;
+    }
+
+    /**
+     * @param int|null $upvoteCount
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setUpvoteCount($upvoteCount)
+    {
+        $types = [
+            "int",
+            "null",
+        ];
+
+        $upvoteCount = self::checkTypes($upvoteCount, $types);
+
+        $this->upvoteCount = $upvoteCount;
+    }
 
     /**
      * @return \OpenActive\Models\SchemaOrg\Comment|string
@@ -97,31 +122,6 @@ class Comment extends \OpenActive\Models\SchemaOrg\CreativeWork
         $downvoteCount = self::checkTypes($downvoteCount, $types);
 
         $this->downvoteCount = $downvoteCount;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getUpvoteCount()
-    {
-        return $this->upvoteCount;
-    }
-
-    /**
-     * @param int|null $upvoteCount
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setUpvoteCount($upvoteCount)
-    {
-        $types = [
-            "int",
-            "null",
-        ];
-
-        $upvoteCount = self::checkTypes($upvoteCount, $types);
-
-        $this->upvoteCount = $upvoteCount;
     }
 
 }

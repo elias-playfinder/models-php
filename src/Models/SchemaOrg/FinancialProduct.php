@@ -18,8 +18,8 @@ class FinancialProduct extends \OpenActive\Models\SchemaOrg\Service
     public static function fieldList() {
         $fields = [
             "annualPercentageRate" => "annualPercentageRate",
-            "feesAndCommissionsSpecification" => "feesAndCommissionsSpecification",
             "interestRate" => "interestRate",
+            "feesAndCommissionsSpecification" => "feesAndCommissionsSpecification",
         ];
 
         return array_merge(parent::fieldList(), $fields);
@@ -34,20 +34,20 @@ class FinancialProduct extends \OpenActive\Models\SchemaOrg\Service
     protected $annualPercentageRate;
 
     /**
+     * The interest rate, charged or paid, applicable to the financial product. Note: This is different from the calculated annualPercentageRate.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|string|Number|null
+     */
+    protected $interestRate;
+
+    /**
      * Description of fees, commissions, and other terms applied either to a class of financial product, or by a financial service organization.
      *
      *
      * @var string
      */
     protected $feesAndCommissionsSpecification;
-
-    /**
-     * The interest rate, charged or paid, applicable to the financial product. Note: This is different from the calculated annualPercentageRate.
-     *
-     *
-     * @var Number|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null
-     */
-    protected $interestRate;
 
     /**
      * @return Number|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null
@@ -77,6 +77,33 @@ class FinancialProduct extends \OpenActive\Models\SchemaOrg\Service
     }
 
     /**
+     * @return \OpenActive\Models\SchemaOrg\QuantitativeValue|string|Number|null
+     */
+    public function getInterestRate()
+    {
+        return $this->interestRate;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\QuantitativeValue|string|Number|null $interestRate
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setInterestRate($interestRate)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
+            "string",
+            "Number",
+            "null",
+        ];
+
+        $interestRate = self::checkTypes($interestRate, $types);
+
+        $this->interestRate = $interestRate;
+    }
+
+    /**
      * @return string
      */
     public function getFeesAndCommissionsSpecification()
@@ -98,33 +125,6 @@ class FinancialProduct extends \OpenActive\Models\SchemaOrg\Service
         $feesAndCommissionsSpecification = self::checkTypes($feesAndCommissionsSpecification, $types);
 
         $this->feesAndCommissionsSpecification = $feesAndCommissionsSpecification;
-    }
-
-    /**
-     * @return Number|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null
-     */
-    public function getInterestRate()
-    {
-        return $this->interestRate;
-    }
-
-    /**
-     * @param Number|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null $interestRate
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setInterestRate($interestRate)
-    {
-        $types = [
-            "Number",
-            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
-            "string",
-            "null",
-        ];
-
-        $interestRate = self::checkTypes($interestRate, $types);
-
-        $this->interestRate = $interestRate;
     }
 
 }

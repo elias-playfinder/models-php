@@ -17,22 +17,14 @@ class PublicationVolume extends \OpenActive\Models\SchemaOrg\CreativeWork
 
     public static function fieldList() {
         $fields = [
-            "pageStart" => "pageStart",
             "pageEnd" => "pageEnd",
-            "volumeNumber" => "volumeNumber",
             "pagination" => "pagination",
+            "pageStart" => "pageStart",
+            "volumeNumber" => "volumeNumber",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * The page on which the work starts; for example "135" or "xiii".
-     *
-     *
-     * @var string|int|null
-     */
-    protected $pageStart;
 
     /**
      * The page on which the work ends; for example "138" or "xvi".
@@ -43,6 +35,22 @@ class PublicationVolume extends \OpenActive\Models\SchemaOrg\CreativeWork
     protected $pageEnd;
 
     /**
+     * Any description of pages that is not separated into pageStart and pageEnd; for example, "1-6, 9, 55" or "10-12, 46-49".
+     *
+     *
+     * @var string
+     */
+    protected $pagination;
+
+    /**
+     * The page on which the work starts; for example "135" or "xiii".
+     *
+     *
+     * @var string|int|null
+     */
+    protected $pageStart;
+
+    /**
      * Identifies the volume of publication or multi-part work; for example, "iii" or "2".
      *
      *
@@ -51,12 +59,54 @@ class PublicationVolume extends \OpenActive\Models\SchemaOrg\CreativeWork
     protected $volumeNumber;
 
     /**
-     * Any description of pages that is not separated into pageStart and pageEnd; for example, "1-6, 9, 55" or "10-12, 46-49".
-     *
-     *
-     * @var string
+     * @return string|int|null
      */
-    protected $pagination;
+    public function getPageEnd()
+    {
+        return $this->pageEnd;
+    }
+
+    /**
+     * @param string|int|null $pageEnd
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setPageEnd($pageEnd)
+    {
+        $types = [
+            "string",
+            "int",
+            "null",
+        ];
+
+        $pageEnd = self::checkTypes($pageEnd, $types);
+
+        $this->pageEnd = $pageEnd;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPagination()
+    {
+        return $this->pagination;
+    }
+
+    /**
+     * @param string $pagination
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setPagination($pagination)
+    {
+        $types = [
+            "string",
+        ];
+
+        $pagination = self::checkTypes($pagination, $types);
+
+        $this->pagination = $pagination;
+    }
 
     /**
      * @return string|int|null
@@ -87,32 +137,6 @@ class PublicationVolume extends \OpenActive\Models\SchemaOrg\CreativeWork
     /**
      * @return string|int|null
      */
-    public function getPageEnd()
-    {
-        return $this->pageEnd;
-    }
-
-    /**
-     * @param string|int|null $pageEnd
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setPageEnd($pageEnd)
-    {
-        $types = [
-            "string",
-            "int",
-            "null",
-        ];
-
-        $pageEnd = self::checkTypes($pageEnd, $types);
-
-        $this->pageEnd = $pageEnd;
-    }
-
-    /**
-     * @return string|int|null
-     */
     public function getVolumeNumber()
     {
         return $this->volumeNumber;
@@ -134,30 +158,6 @@ class PublicationVolume extends \OpenActive\Models\SchemaOrg\CreativeWork
         $volumeNumber = self::checkTypes($volumeNumber, $types);
 
         $this->volumeNumber = $volumeNumber;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPagination()
-    {
-        return $this->pagination;
-    }
-
-    /**
-     * @param string $pagination
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setPagination($pagination)
-    {
-        $types = [
-            "string",
-        ];
-
-        $pagination = self::checkTypes($pagination, $types);
-
-        $this->pagination = $pagination;
     }
 
 }

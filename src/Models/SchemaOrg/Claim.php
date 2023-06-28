@@ -18,8 +18,8 @@ class Claim extends \OpenActive\Models\SchemaOrg\CreativeWork
     public static function fieldList() {
         $fields = [
             "claimInterpreter" => "claimInterpreter",
-            "firstAppearance" => "firstAppearance",
             "appearance" => "appearance",
+            "firstAppearance" => "firstAppearance",
         ];
 
         return array_merge(parent::fieldList(), $fields);
@@ -35,20 +35,20 @@ class Claim extends \OpenActive\Models\SchemaOrg\CreativeWork
     protected $claimInterpreter;
 
     /**
-     * Indicates the first known occurence of a [[Claim]] in some [[CreativeWork]].
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\CreativeWork|string
-     */
-    protected $firstAppearance;
-
-    /**
-     * Indicates an occurence of a [[Claim]] in some [[CreativeWork]].
+     * Indicates an occurrence of a [[Claim]] in some [[CreativeWork]].
      *
      *
      * @var \OpenActive\Models\SchemaOrg\CreativeWork|string
      */
     protected $appearance;
+
+    /**
+     * Indicates the first known occurrence of a [[Claim]] in some [[CreativeWork]].
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\CreativeWork|string
+     */
+    protected $firstAppearance;
 
     /**
      * @return \OpenActive\Models\SchemaOrg\Person|\OpenActive\Models\SchemaOrg\Organization|string
@@ -79,31 +79,6 @@ class Claim extends \OpenActive\Models\SchemaOrg\CreativeWork
     /**
      * @return \OpenActive\Models\SchemaOrg\CreativeWork|string
      */
-    public function getFirstAppearance()
-    {
-        return $this->firstAppearance;
-    }
-
-    /**
-     * @param \OpenActive\Models\SchemaOrg\CreativeWork|string $firstAppearance
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setFirstAppearance($firstAppearance)
-    {
-        $types = [
-            "\OpenActive\Models\SchemaOrg\CreativeWork",
-            "string",
-        ];
-
-        $firstAppearance = self::checkTypes($firstAppearance, $types);
-
-        $this->firstAppearance = $firstAppearance;
-    }
-
-    /**
-     * @return \OpenActive\Models\SchemaOrg\CreativeWork|string
-     */
     public function getAppearance()
     {
         return $this->appearance;
@@ -124,6 +99,31 @@ class Claim extends \OpenActive\Models\SchemaOrg\CreativeWork
         $appearance = self::checkTypes($appearance, $types);
 
         $this->appearance = $appearance;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\CreativeWork|string
+     */
+    public function getFirstAppearance()
+    {
+        return $this->firstAppearance;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\CreativeWork|string $firstAppearance
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setFirstAppearance($firstAppearance)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\CreativeWork",
+            "string",
+        ];
+
+        $firstAppearance = self::checkTypes($firstAppearance, $types);
+
+        $this->firstAppearance = $firstAppearance;
     }
 
 }

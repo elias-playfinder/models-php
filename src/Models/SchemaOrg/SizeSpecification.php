@@ -17,24 +17,16 @@ class SizeSpecification extends \OpenActive\BaseModel
 
     public static function fieldList() {
         $fields = [
-            "sizeGroup" => "sizeGroup",
             "suggestedMeasurement" => "suggestedMeasurement",
             "suggestedAge" => "suggestedAge",
-            "hasMeasurement" => "hasMeasurement",
-            "sizeSystem" => "sizeSystem",
             "suggestedGender" => "suggestedGender",
+            "sizeSystem" => "sizeSystem",
+            "sizeGroup" => "sizeGroup",
+            "hasMeasurement" => "hasMeasurement",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * The size group (also known as "size type") for a product's size. Size groups are common in the fashion industry to define size segments and suggested audiences for wearable products. Multiple values can be combined, for example "men's big and tall", "petite maternity" or "regular"
-     *
-     *
-     * @var string|\OpenActive\Enums\SchemaOrg\SizeGroupEnumeration|null
-     */
-    protected $sizeGroup;
 
     /**
      * A suggested range of body measurements for the intended audience or person, for example inseam between 32 and 34 inches or height between 170 and 190 cm. Typically found on a size chart for wearable products.
@@ -53,12 +45,12 @@ class SizeSpecification extends \OpenActive\BaseModel
     protected $suggestedAge;
 
     /**
-     * A product measurement, for example the inseam of pants, the wheel size of a bicycle, or the gauge of a screw. Usually an exact measurement, but can also be a range of measurements for adjustable products, for example belts and ski bindings.
+     * The suggested gender of the intended person or audience, for example "male", "female", or "unisex".
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|string
+     * @var string|\OpenActive\Enums\SchemaOrg\GenderType|null
      */
-    protected $hasMeasurement;
+    protected $suggestedGender;
 
     /**
      * The size system used to identify a product's size. Typically either a standard (for example, "GS1" or "ISO-EN13402"), country code (for example "US" or "JP"), or a measuring system (for example "Metric" or "Imperial").
@@ -69,38 +61,20 @@ class SizeSpecification extends \OpenActive\BaseModel
     protected $sizeSystem;
 
     /**
-     * The suggested gender of the intended person or audience, for example "male", "female", or "unisex".
+     * The size group (also known as "size type") for a product's size. Size groups are common in the fashion industry to define size segments and suggested audiences for wearable products. Multiple values can be combined, for example "men's big and tall", "petite maternity" or "regular"
      *
      *
-     * @var \OpenActive\Enums\SchemaOrg\GenderType|string|null
+     * @var string|\OpenActive\Enums\SchemaOrg\SizeGroupEnumeration|null
      */
-    protected $suggestedGender;
+    protected $sizeGroup;
 
     /**
-     * @return string|\OpenActive\Enums\SchemaOrg\SizeGroupEnumeration|null
+     * A product measurement, for example the inseam of pants, the wheel size of a bicycle, or the gauge of a screw. Usually an exact measurement, but can also be a range of measurements for adjustable products, for example belts and ski bindings.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|string
      */
-    public function getSizeGroup()
-    {
-        return $this->sizeGroup;
-    }
-
-    /**
-     * @param string|\OpenActive\Enums\SchemaOrg\SizeGroupEnumeration|null $sizeGroup
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setSizeGroup($sizeGroup)
-    {
-        $types = [
-            "string",
-            "\OpenActive\Enums\SchemaOrg\SizeGroupEnumeration",
-            "null",
-        ];
-
-        $sizeGroup = self::checkTypes($sizeGroup, $types);
-
-        $this->sizeGroup = $sizeGroup;
-    }
+    protected $hasMeasurement;
 
     /**
      * @return \OpenActive\Models\SchemaOrg\QuantitativeValue|string
@@ -153,28 +127,29 @@ class SizeSpecification extends \OpenActive\BaseModel
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\QuantitativeValue|string
+     * @return string|\OpenActive\Enums\SchemaOrg\GenderType|null
      */
-    public function getHasMeasurement()
+    public function getSuggestedGender()
     {
-        return $this->hasMeasurement;
+        return $this->suggestedGender;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\QuantitativeValue|string $hasMeasurement
+     * @param string|\OpenActive\Enums\SchemaOrg\GenderType|null $suggestedGender
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setHasMeasurement($hasMeasurement)
+    public function setSuggestedGender($suggestedGender)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
             "string",
+            "\OpenActive\Enums\SchemaOrg\GenderType",
+            "null",
         ];
 
-        $hasMeasurement = self::checkTypes($hasMeasurement, $types);
+        $suggestedGender = self::checkTypes($suggestedGender, $types);
 
-        $this->hasMeasurement = $hasMeasurement;
+        $this->suggestedGender = $suggestedGender;
     }
 
     /**
@@ -204,29 +179,54 @@ class SizeSpecification extends \OpenActive\BaseModel
     }
 
     /**
-     * @return \OpenActive\Enums\SchemaOrg\GenderType|string|null
+     * @return string|\OpenActive\Enums\SchemaOrg\SizeGroupEnumeration|null
      */
-    public function getSuggestedGender()
+    public function getSizeGroup()
     {
-        return $this->suggestedGender;
+        return $this->sizeGroup;
     }
 
     /**
-     * @param \OpenActive\Enums\SchemaOrg\GenderType|string|null $suggestedGender
+     * @param string|\OpenActive\Enums\SchemaOrg\SizeGroupEnumeration|null $sizeGroup
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setSuggestedGender($suggestedGender)
+    public function setSizeGroup($sizeGroup)
     {
         $types = [
-            "\OpenActive\Enums\SchemaOrg\GenderType",
             "string",
+            "\OpenActive\Enums\SchemaOrg\SizeGroupEnumeration",
             "null",
         ];
 
-        $suggestedGender = self::checkTypes($suggestedGender, $types);
+        $sizeGroup = self::checkTypes($sizeGroup, $types);
 
-        $this->suggestedGender = $suggestedGender;
+        $this->sizeGroup = $sizeGroup;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\QuantitativeValue|string
+     */
+    public function getHasMeasurement()
+    {
+        return $this->hasMeasurement;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\QuantitativeValue|string $hasMeasurement
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setHasMeasurement($hasMeasurement)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
+            "string",
+        ];
+
+        $hasMeasurement = self::checkTypes($hasMeasurement, $types);
+
+        $this->hasMeasurement = $hasMeasurement;
     }
 
 }

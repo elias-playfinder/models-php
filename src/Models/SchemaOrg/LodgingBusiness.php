@@ -17,43 +17,18 @@ class LodgingBusiness extends \OpenActive\Models\SchemaOrg\LocalBusiness
 
     public static function fieldList() {
         $fields = [
-            "numberOfRooms" => "numberOfRooms",
-            "audience" => "audience",
-            "starRating" => "starRating",
             "amenityFeature" => "amenityFeature",
             "availableLanguage" => "availableLanguage",
+            "starRating" => "starRating",
+            "numberOfRooms" => "numberOfRooms",
             "checkoutTime" => "checkoutTime",
-            "checkinTime" => "checkinTime",
             "petsAllowed" => "petsAllowed",
+            "audience" => "audience",
+            "checkinTime" => "checkinTime",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * The number of rooms (excluding bathrooms and closets) of the accommodation or lodging business.
-     * Typical unit code(s): ROM for room or C62 for no unit. The type of room can be put in the unitText property of the QuantitativeValue.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\QuantitativeValue|string|Number|null
-     */
-    protected $numberOfRooms;
-
-    /**
-     * An intended audience, i.e. a group for whom something was created.
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Audience|string
-     */
-    protected $audience;
-
-    /**
-     * An official rating for a lodging business or food establishment, e.g. from national associations or standards bodies. Use the author property to indicate the rating organization, e.g. as an Organization with name such as (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).
-     *
-     *
-     * @var \OpenActive\Models\SchemaOrg\Rating|string
-     */
-    protected $starRating;
 
     /**
      * An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs.
@@ -64,12 +39,29 @@ class LodgingBusiness extends \OpenActive\Models\SchemaOrg\LocalBusiness
     protected $amenityFeature;
 
     /**
-     * A language someone may use with or at the item, service or place. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]]
+     * A language someone may use with or at the item, service or place. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]].
      *
      *
-     * @var string|\OpenActive\Models\SchemaOrg\Language
+     * @var \OpenActive\Models\SchemaOrg\Language|string
      */
     protected $availableLanguage;
+
+    /**
+     * An official rating for a lodging business or food establishment, e.g. from national associations or standards bodies. Use the author property to indicate the rating organization, e.g. as an Organization with name such as (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Rating|string
+     */
+    protected $starRating;
+
+    /**
+     * The number of rooms (excluding bathrooms and closets) of the accommodation or lodging business.
+     * Typical unit code(s): ROM for room or C62 for no unit. The type of room can be put in the unitText property of the QuantitativeValue.
+     *
+     *
+     * @var Number|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null
+     */
+    protected $numberOfRooms;
 
     /**
      * The latest someone may check out of a lodging establishment.
@@ -80,14 +72,6 @@ class LodgingBusiness extends \OpenActive\Models\SchemaOrg\LocalBusiness
     protected $checkoutTime;
 
     /**
-     * The earliest someone may check into a lodging establishment.
-     *
-     *
-     * @var DateTime|string|null
-     */
-    protected $checkinTime;
-
-    /**
      * Indicates whether pets are allowed to enter the accommodation or lodging business. More detailed information can be put in a text value.
      *
      *
@@ -96,55 +80,69 @@ class LodgingBusiness extends \OpenActive\Models\SchemaOrg\LocalBusiness
     protected $petsAllowed;
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\QuantitativeValue|string|Number|null
+     * An intended audience, i.e. a group for whom something was created.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\Audience|string
      */
-    public function getNumberOfRooms()
+    protected $audience;
+
+    /**
+     * The earliest someone may check into a lodging establishment.
+     *
+     *
+     * @var DateTime|string|null
+     */
+    protected $checkinTime;
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\LocationFeatureSpecification|string
+     */
+    public function getAmenityFeature()
     {
-        return $this->numberOfRooms;
+        return $this->amenityFeature;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\QuantitativeValue|string|Number|null $numberOfRooms
+     * @param \OpenActive\Models\SchemaOrg\LocationFeatureSpecification|string $amenityFeature
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setNumberOfRooms($numberOfRooms)
+    public function setAmenityFeature($amenityFeature)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
+            "\OpenActive\Models\SchemaOrg\LocationFeatureSpecification",
             "string",
-            "Number",
-            "null",
         ];
 
-        $numberOfRooms = self::checkTypes($numberOfRooms, $types);
+        $amenityFeature = self::checkTypes($amenityFeature, $types);
 
-        $this->numberOfRooms = $numberOfRooms;
+        $this->amenityFeature = $amenityFeature;
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\Audience|string
+     * @return \OpenActive\Models\SchemaOrg\Language|string
      */
-    public function getAudience()
+    public function getAvailableLanguage()
     {
-        return $this->audience;
+        return $this->availableLanguage;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\Audience|string $audience
+     * @param \OpenActive\Models\SchemaOrg\Language|string $availableLanguage
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setAudience($audience)
+    public function setAvailableLanguage($availableLanguage)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\Audience",
+            "\OpenActive\Models\SchemaOrg\Language",
             "string",
         ];
 
-        $audience = self::checkTypes($audience, $types);
+        $availableLanguage = self::checkTypes($availableLanguage, $types);
 
-        $this->audience = $audience;
+        $this->availableLanguage = $availableLanguage;
     }
 
     /**
@@ -173,53 +171,30 @@ class LodgingBusiness extends \OpenActive\Models\SchemaOrg\LocalBusiness
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\LocationFeatureSpecification|string
+     * @return Number|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null
      */
-    public function getAmenityFeature()
+    public function getNumberOfRooms()
     {
-        return $this->amenityFeature;
+        return $this->numberOfRooms;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\LocationFeatureSpecification|string $amenityFeature
+     * @param Number|\OpenActive\Models\SchemaOrg\QuantitativeValue|string|null $numberOfRooms
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setAmenityFeature($amenityFeature)
+    public function setNumberOfRooms($numberOfRooms)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\LocationFeatureSpecification",
+            "Number",
+            "\OpenActive\Models\SchemaOrg\QuantitativeValue",
             "string",
+            "null",
         ];
 
-        $amenityFeature = self::checkTypes($amenityFeature, $types);
+        $numberOfRooms = self::checkTypes($numberOfRooms, $types);
 
-        $this->amenityFeature = $amenityFeature;
-    }
-
-    /**
-     * @return string|\OpenActive\Models\SchemaOrg\Language
-     */
-    public function getAvailableLanguage()
-    {
-        return $this->availableLanguage;
-    }
-
-    /**
-     * @param string|\OpenActive\Models\SchemaOrg\Language $availableLanguage
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setAvailableLanguage($availableLanguage)
-    {
-        $types = [
-            "string",
-            "\OpenActive\Models\SchemaOrg\Language",
-        ];
-
-        $availableLanguage = self::checkTypes($availableLanguage, $types);
-
-        $this->availableLanguage = $availableLanguage;
+        $this->numberOfRooms = $numberOfRooms;
     }
 
     /**
@@ -249,32 +224,6 @@ class LodgingBusiness extends \OpenActive\Models\SchemaOrg\LocalBusiness
     }
 
     /**
-     * @return DateTime|string|null
-     */
-    public function getCheckinTime()
-    {
-        return $this->checkinTime;
-    }
-
-    /**
-     * @param DateTime|string|null $checkinTime
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setCheckinTime($checkinTime)
-    {
-        $types = [
-            "DateTime",
-            "Time",
-            "null",
-        ];
-
-        $checkinTime = self::checkTypes($checkinTime, $types);
-
-        $this->checkinTime = $checkinTime;
-    }
-
-    /**
      * @return bool|string|null
      */
     public function getPetsAllowed()
@@ -298,6 +247,57 @@ class LodgingBusiness extends \OpenActive\Models\SchemaOrg\LocalBusiness
         $petsAllowed = self::checkTypes($petsAllowed, $types);
 
         $this->petsAllowed = $petsAllowed;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\Audience|string
+     */
+    public function getAudience()
+    {
+        return $this->audience;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\Audience|string $audience
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setAudience($audience)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\Audience",
+            "string",
+        ];
+
+        $audience = self::checkTypes($audience, $types);
+
+        $this->audience = $audience;
+    }
+
+    /**
+     * @return DateTime|string|null
+     */
+    public function getCheckinTime()
+    {
+        return $this->checkinTime;
+    }
+
+    /**
+     * @param DateTime|string|null $checkinTime
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setCheckinTime($checkinTime)
+    {
+        $types = [
+            "DateTime",
+            "Time",
+            "null",
+        ];
+
+        $checkinTime = self::checkTypes($checkinTime, $types);
+
+        $this->checkinTime = $checkinTime;
     }
 
 }

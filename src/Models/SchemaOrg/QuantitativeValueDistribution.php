@@ -17,16 +17,32 @@ class QuantitativeValueDistribution extends \OpenActive\Models\SchemaOrg\Structu
 
     public static function fieldList() {
         $fields = [
+            "percentile90" => "percentile90",
+            "duration" => "duration",
             "percentile75" => "percentile75",
             "median" => "median",
             "percentile10" => "percentile10",
             "percentile25" => "percentile25",
-            "percentile90" => "percentile90",
-            "duration" => "duration",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
+
+    /**
+     * The 90th percentile value.
+     *
+     *
+     * @var Number|null
+     */
+    protected $percentile90;
+
+    /**
+     * The duration of the item (movie, audio recording, event, etc.) in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601).
+     *
+     *
+     * @var DateInterval|string|null
+     */
+    protected $duration;
 
     /**
      * The 75th percentile value.
@@ -61,20 +77,55 @@ class QuantitativeValueDistribution extends \OpenActive\Models\SchemaOrg\Structu
     protected $percentile25;
 
     /**
-     * The 90th percentile value.
-     *
-     *
-     * @var Number|null
+     * @return Number|null
      */
-    protected $percentile90;
+    public function getPercentile90()
+    {
+        return $this->percentile90;
+    }
 
     /**
-     * The duration of the item (movie, audio recording, event, etc.) in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601).
-     *
-     *
-     * @var DateInterval|string|null
+     * @param Number|null $percentile90
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    protected $duration;
+    public function setPercentile90($percentile90)
+    {
+        $types = [
+            "Number",
+            "null",
+        ];
+
+        $percentile90 = self::checkTypes($percentile90, $types);
+
+        $this->percentile90 = $percentile90;
+    }
+
+    /**
+     * @return DateInterval|string|null
+     */
+    public function getDuration()
+    {
+        return $this->duration;
+    }
+
+    /**
+     * @param DateInterval|string|null $duration
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setDuration($duration)
+    {
+        $types = [
+            "DateInterval",
+            "string",
+            "null",
+        ];
+
+        $duration = self::checkTypes($duration, $types);
+
+        $this->duration = $duration;
+    }
 
     /**
      * @return Number|null
@@ -174,57 +225,6 @@ class QuantitativeValueDistribution extends \OpenActive\Models\SchemaOrg\Structu
         $percentile25 = self::checkTypes($percentile25, $types);
 
         $this->percentile25 = $percentile25;
-    }
-
-    /**
-     * @return Number|null
-     */
-    public function getPercentile90()
-    {
-        return $this->percentile90;
-    }
-
-    /**
-     * @param Number|null $percentile90
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setPercentile90($percentile90)
-    {
-        $types = [
-            "Number",
-            "null",
-        ];
-
-        $percentile90 = self::checkTypes($percentile90, $types);
-
-        $this->percentile90 = $percentile90;
-    }
-
-    /**
-     * @return DateInterval|string|null
-     */
-    public function getDuration()
-    {
-        return $this->duration;
-    }
-
-    /**
-     * @param DateInterval|string|null $duration
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setDuration($duration)
-    {
-        $types = [
-            "DateInterval",
-            "string",
-            "null",
-        ];
-
-        $duration = self::checkTypes($duration, $types);
-
-        $this->duration = $duration;
     }
 
 }

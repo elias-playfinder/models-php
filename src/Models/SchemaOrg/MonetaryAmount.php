@@ -18,11 +18,11 @@ class MonetaryAmount extends \OpenActive\Models\SchemaOrg\StructuredValue
     public static function fieldList() {
         $fields = [
             "maxValue" => "maxValue",
-            "minValue" => "minValue",
             "validFrom" => "validFrom",
-            "value" => "value",
-            "currency" => "currency",
+            "minValue" => "minValue",
             "validThrough" => "validThrough",
+            "currency" => "currency",
+            "value" => "value",
         ];
 
         return array_merge(parent::fieldList(), $fields);
@@ -37,14 +37,6 @@ class MonetaryAmount extends \OpenActive\Models\SchemaOrg\StructuredValue
     protected $maxValue;
 
     /**
-     * The lower value of some characteristic or property.
-     *
-     *
-     * @var Number|null
-     */
-    protected $minValue;
-
-    /**
      * The date when the item becomes valid.
      *
      *
@@ -53,20 +45,12 @@ class MonetaryAmount extends \OpenActive\Models\SchemaOrg\StructuredValue
     protected $validFrom;
 
     /**
-     * The value of the quantitative value or property value node.\n\n* For [[QuantitativeValue]] and [[MonetaryAmount]], the recommended type for values is 'Number'.\n* For [[PropertyValue]], it can be 'Text;', 'Number', 'Boolean', or 'StructuredValue'.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.
+     * The lower value of some characteristic or property.
      *
      *
-     * @var string|Number|\OpenActive\Models\SchemaOrg\StructuredValue|bool|null
+     * @var Number|null
      */
-    protected $value;
-
-    /**
-     * The currency in which the monetary amount is expressed.\n\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. "BTC"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. "Ithaca HOUR".
-     *
-     *
-     * @var string
-     */
-    protected $currency;
+    protected $minValue;
 
     /**
      * The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours.
@@ -75,6 +59,22 @@ class MonetaryAmount extends \OpenActive\Models\SchemaOrg\StructuredValue
      * @var Date|DateTime|null
      */
     protected $validThrough;
+
+    /**
+     * The currency in which the monetary amount is expressed.\n\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. "Ithaca HOUR".
+     *
+     *
+     * @var string
+     */
+    protected $currency;
+
+    /**
+     * The value of a [[QuantitativeValue]] (including [[Observation]]) or property value node.\n\n* For [[QuantitativeValue]] and [[MonetaryAmount]], the recommended type for values is 'Number'.\n* For [[PropertyValue]], it can be 'Text', 'Number', 'Boolean', or 'StructuredValue'.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.
+     *
+     *
+     * @var bool|string|Number|\OpenActive\Models\SchemaOrg\StructuredValue|null
+     */
+    protected $value;
 
     /**
      * @return Number|null
@@ -99,6 +99,32 @@ class MonetaryAmount extends \OpenActive\Models\SchemaOrg\StructuredValue
         $maxValue = self::checkTypes($maxValue, $types);
 
         $this->maxValue = $maxValue;
+    }
+
+    /**
+     * @return Date|DateTime|null
+     */
+    public function getValidFrom()
+    {
+        return $this->validFrom;
+    }
+
+    /**
+     * @param Date|DateTime|null $validFrom
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setValidFrom($validFrom)
+    {
+        $types = [
+            "Date",
+            "DateTime",
+            "null",
+        ];
+
+        $validFrom = self::checkTypes($validFrom, $types);
+
+        $this->validFrom = $validFrom;
     }
 
     /**
@@ -129,17 +155,17 @@ class MonetaryAmount extends \OpenActive\Models\SchemaOrg\StructuredValue
     /**
      * @return Date|DateTime|null
      */
-    public function getValidFrom()
+    public function getValidThrough()
     {
-        return $this->validFrom;
+        return $this->validThrough;
     }
 
     /**
-     * @param Date|DateTime|null $validFrom
+     * @param Date|DateTime|null $validThrough
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setValidFrom($validFrom)
+    public function setValidThrough($validThrough)
     {
         $types = [
             "Date",
@@ -147,37 +173,9 @@ class MonetaryAmount extends \OpenActive\Models\SchemaOrg\StructuredValue
             "null",
         ];
 
-        $validFrom = self::checkTypes($validFrom, $types);
+        $validThrough = self::checkTypes($validThrough, $types);
 
-        $this->validFrom = $validFrom;
-    }
-
-    /**
-     * @return string|Number|\OpenActive\Models\SchemaOrg\StructuredValue|bool|null
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param string|Number|\OpenActive\Models\SchemaOrg\StructuredValue|bool|null $value
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setValue($value)
-    {
-        $types = [
-            "string",
-            "Number",
-            "\OpenActive\Models\SchemaOrg\StructuredValue",
-            "bool",
-            "null",
-        ];
-
-        $value = self::checkTypes($value, $types);
-
-        $this->value = $value;
+        $this->validThrough = $validThrough;
     }
 
     /**
@@ -205,29 +203,31 @@ class MonetaryAmount extends \OpenActive\Models\SchemaOrg\StructuredValue
     }
 
     /**
-     * @return Date|DateTime|null
+     * @return bool|string|Number|\OpenActive\Models\SchemaOrg\StructuredValue|null
      */
-    public function getValidThrough()
+    public function getValue()
     {
-        return $this->validThrough;
+        return $this->value;
     }
 
     /**
-     * @param Date|DateTime|null $validThrough
+     * @param bool|string|Number|\OpenActive\Models\SchemaOrg\StructuredValue|null $value
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setValidThrough($validThrough)
+    public function setValue($value)
     {
         $types = [
-            "Date",
-            "DateTime",
+            "bool",
+            "string",
+            "Number",
+            "\OpenActive\Models\SchemaOrg\StructuredValue",
             "null",
         ];
 
-        $validThrough = self::checkTypes($validThrough, $types);
+        $value = self::checkTypes($value, $types);
 
-        $this->validThrough = $validThrough;
+        $this->value = $value;
     }
 
 }

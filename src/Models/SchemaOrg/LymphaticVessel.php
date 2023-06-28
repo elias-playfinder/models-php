@@ -37,7 +37,7 @@ class LymphaticVessel extends \OpenActive\Models\SchemaOrg\Vessel
      * The anatomical or organ system drained by this vessel; generally refers to a specific part of an organ.
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\AnatomicalSystem|\OpenActive\Models\SchemaOrg\AnatomicalStructure|string
+     * @var \OpenActive\Models\SchemaOrg\AnatomicalStructure|\OpenActive\Models\SchemaOrg\AnatomicalSystem|string
      */
     protected $regionDrained;
 
@@ -75,7 +75,7 @@ class LymphaticVessel extends \OpenActive\Models\SchemaOrg\Vessel
     }
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\AnatomicalSystem|\OpenActive\Models\SchemaOrg\AnatomicalStructure|string
+     * @return \OpenActive\Models\SchemaOrg\AnatomicalStructure|\OpenActive\Models\SchemaOrg\AnatomicalSystem|string
      */
     public function getRegionDrained()
     {
@@ -83,15 +83,15 @@ class LymphaticVessel extends \OpenActive\Models\SchemaOrg\Vessel
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\AnatomicalSystem|\OpenActive\Models\SchemaOrg\AnatomicalStructure|string $regionDrained
+     * @param \OpenActive\Models\SchemaOrg\AnatomicalStructure|\OpenActive\Models\SchemaOrg\AnatomicalSystem|string $regionDrained
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setRegionDrained($regionDrained)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\AnatomicalSystem",
             "\OpenActive\Models\SchemaOrg\AnatomicalStructure",
+            "\OpenActive\Models\SchemaOrg\AnatomicalSystem",
             "string",
         ];
 

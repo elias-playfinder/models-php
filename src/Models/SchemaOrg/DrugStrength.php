@@ -17,31 +17,23 @@ class DrugStrength extends \OpenActive\Models\SchemaOrg\MedicalIntangible
 
     public static function fieldList() {
         $fields = [
-            "availableIn" => "availableIn",
-            "strengthUnit" => "strengthUnit",
+            "strengthValue" => "strengthValue",
             "maximumIntake" => "maximumIntake",
             "activeIngredient" => "activeIngredient",
-            "strengthValue" => "strengthValue",
+            "strengthUnit" => "strengthUnit",
+            "availableIn" => "availableIn",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
 
     /**
-     * The location in which the strength is available.
+     * The value of an active ingredient's strength, e.g. 325.
      *
      *
-     * @var \OpenActive\Models\SchemaOrg\AdministrativeArea|string
+     * @var Number|null
      */
-    protected $availableIn;
-
-    /**
-     * The units of an active ingredient's strength, e.g. mg.
-     *
-     *
-     * @var string
-     */
-    protected $strengthUnit;
+    protected $strengthValue;
 
     /**
      * Recommended intake of this supplement for a given population as defined by a specific recommending authority.
@@ -60,60 +52,44 @@ class DrugStrength extends \OpenActive\Models\SchemaOrg\MedicalIntangible
     protected $activeIngredient;
 
     /**
-     * The value of an active ingredient's strength, e.g. 325.
+     * The units of an active ingredient's strength, e.g. mg.
      *
      *
-     * @var Number|null
+     * @var string
      */
-    protected $strengthValue;
+    protected $strengthUnit;
 
     /**
-     * @return \OpenActive\Models\SchemaOrg\AdministrativeArea|string
+     * The location in which the strength is available.
+     *
+     *
+     * @var \OpenActive\Models\SchemaOrg\AdministrativeArea|string
      */
-    public function getAvailableIn()
+    protected $availableIn;
+
+    /**
+     * @return Number|null
+     */
+    public function getStrengthValue()
     {
-        return $this->availableIn;
+        return $this->strengthValue;
     }
 
     /**
-     * @param \OpenActive\Models\SchemaOrg\AdministrativeArea|string $availableIn
+     * @param Number|null $strengthValue
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setAvailableIn($availableIn)
+    public function setStrengthValue($strengthValue)
     {
         $types = [
-            "\OpenActive\Models\SchemaOrg\AdministrativeArea",
-            "string",
+            "Number",
+            "null",
         ];
 
-        $availableIn = self::checkTypes($availableIn, $types);
+        $strengthValue = self::checkTypes($strengthValue, $types);
 
-        $this->availableIn = $availableIn;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStrengthUnit()
-    {
-        return $this->strengthUnit;
-    }
-
-    /**
-     * @param string $strengthUnit
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setStrengthUnit($strengthUnit)
-    {
-        $types = [
-            "string",
-        ];
-
-        $strengthUnit = self::checkTypes($strengthUnit, $types);
-
-        $this->strengthUnit = $strengthUnit;
+        $this->strengthValue = $strengthValue;
     }
 
     /**
@@ -166,28 +142,52 @@ class DrugStrength extends \OpenActive\Models\SchemaOrg\MedicalIntangible
     }
 
     /**
-     * @return Number|null
+     * @return string
      */
-    public function getStrengthValue()
+    public function getStrengthUnit()
     {
-        return $this->strengthValue;
+        return $this->strengthUnit;
     }
 
     /**
-     * @param Number|null $strengthValue
+     * @param string $strengthUnit
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
-    public function setStrengthValue($strengthValue)
+    public function setStrengthUnit($strengthUnit)
     {
         $types = [
-            "Number",
-            "null",
+            "string",
         ];
 
-        $strengthValue = self::checkTypes($strengthValue, $types);
+        $strengthUnit = self::checkTypes($strengthUnit, $types);
 
-        $this->strengthValue = $strengthValue;
+        $this->strengthUnit = $strengthUnit;
+    }
+
+    /**
+     * @return \OpenActive\Models\SchemaOrg\AdministrativeArea|string
+     */
+    public function getAvailableIn()
+    {
+        return $this->availableIn;
+    }
+
+    /**
+     * @param \OpenActive\Models\SchemaOrg\AdministrativeArea|string $availableIn
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setAvailableIn($availableIn)
+    {
+        $types = [
+            "\OpenActive\Models\SchemaOrg\AdministrativeArea",
+            "string",
+        ];
+
+        $availableIn = self::checkTypes($availableIn, $types);
+
+        $this->availableIn = $availableIn;
     }
 
 }

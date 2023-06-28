@@ -17,30 +17,14 @@ class DoseSchedule extends \OpenActive\Models\SchemaOrg\MedicalIntangible
 
     public static function fieldList() {
         $fields = [
-            "targetPopulation" => "targetPopulation",
-            "frequency" => "frequency",
             "doseUnit" => "doseUnit",
+            "targetPopulation" => "targetPopulation",
             "doseValue" => "doseValue",
+            "frequency" => "frequency",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * Characteristics of the population for which this is intended, or which typically uses it, e.g. 'adults'.
-     *
-     *
-     * @var string
-     */
-    protected $targetPopulation;
-
-    /**
-     * How often the dose is taken, e.g. 'daily'.
-     *
-     *
-     * @var string
-     */
-    protected $frequency;
 
     /**
      * The unit of the dose, e.g. 'mg'.
@@ -51,60 +35,28 @@ class DoseSchedule extends \OpenActive\Models\SchemaOrg\MedicalIntangible
     protected $doseUnit;
 
     /**
+     * Characteristics of the population for which this is intended, or which typically uses it, e.g. 'adults'.
+     *
+     *
+     * @var string
+     */
+    protected $targetPopulation;
+
+    /**
      * The value of the dose, e.g. 500.
      *
      *
-     * @var Number|\OpenActive\Enums\SchemaOrg\QualitativeValue|null
+     * @var \OpenActive\Enums\SchemaOrg\QualitativeValue|Number|null
      */
     protected $doseValue;
 
     /**
-     * @return string
+     * How often the dose is taken, e.g. 'daily'.
+     *
+     *
+     * @var string
      */
-    public function getTargetPopulation()
-    {
-        return $this->targetPopulation;
-    }
-
-    /**
-     * @param string $targetPopulation
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setTargetPopulation($targetPopulation)
-    {
-        $types = [
-            "string",
-        ];
-
-        $targetPopulation = self::checkTypes($targetPopulation, $types);
-
-        $this->targetPopulation = $targetPopulation;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFrequency()
-    {
-        return $this->frequency;
-    }
-
-    /**
-     * @param string $frequency
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setFrequency($frequency)
-    {
-        $types = [
-            "string",
-        ];
-
-        $frequency = self::checkTypes($frequency, $types);
-
-        $this->frequency = $frequency;
-    }
+    protected $frequency;
 
     /**
      * @return string
@@ -131,7 +83,31 @@ class DoseSchedule extends \OpenActive\Models\SchemaOrg\MedicalIntangible
     }
 
     /**
-     * @return Number|\OpenActive\Enums\SchemaOrg\QualitativeValue|null
+     * @return string
+     */
+    public function getTargetPopulation()
+    {
+        return $this->targetPopulation;
+    }
+
+    /**
+     * @param string $targetPopulation
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setTargetPopulation($targetPopulation)
+    {
+        $types = [
+            "string",
+        ];
+
+        $targetPopulation = self::checkTypes($targetPopulation, $types);
+
+        $this->targetPopulation = $targetPopulation;
+    }
+
+    /**
+     * @return \OpenActive\Enums\SchemaOrg\QualitativeValue|Number|null
      */
     public function getDoseValue()
     {
@@ -139,21 +115,45 @@ class DoseSchedule extends \OpenActive\Models\SchemaOrg\MedicalIntangible
     }
 
     /**
-     * @param Number|\OpenActive\Enums\SchemaOrg\QualitativeValue|null $doseValue
+     * @param \OpenActive\Enums\SchemaOrg\QualitativeValue|Number|null $doseValue
      * @return void
      * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
      */
     public function setDoseValue($doseValue)
     {
         $types = [
-            "Number",
             "\OpenActive\Enums\SchemaOrg\QualitativeValue",
+            "Number",
             "null",
         ];
 
         $doseValue = self::checkTypes($doseValue, $types);
 
         $this->doseValue = $doseValue;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFrequency()
+    {
+        return $this->frequency;
+    }
+
+    /**
+     * @param string $frequency
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setFrequency($frequency)
+    {
+        $types = [
+            "string",
+        ];
+
+        $frequency = self::checkTypes($frequency, $types);
+
+        $this->frequency = $frequency;
     }
 
 }

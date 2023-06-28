@@ -17,23 +17,15 @@ class NewsArticle extends \OpenActive\Models\SchemaOrg\Article
 
     public static function fieldList() {
         $fields = [
-            "printEdition" => "printEdition",
             "printColumn" => "printColumn",
             "printPage" => "printPage",
             "printSection" => "printSection",
+            "printEdition" => "printEdition",
             "dateline" => "dateline",
         ];
 
         return array_merge(parent::fieldList(), $fields);
     }
-
-    /**
-     * The edition of the print product in which the NewsArticle appears.
-     *
-     *
-     * @var string
-     */
-    protected $printEdition;
 
     /**
      * The number of the column in which the NewsArticle appears in the print edition.
@@ -60,9 +52,17 @@ class NewsArticle extends \OpenActive\Models\SchemaOrg\Article
     protected $printSection;
 
     /**
+     * The edition of the print product in which the NewsArticle appears.
+     *
+     *
+     * @var string
+     */
+    protected $printEdition;
+
+    /**
      * A [dateline](https://en.wikipedia.org/wiki/Dateline) is a brief piece of text included in news articles that describes where and when the story was written or filed though the date is often omitted. Sometimes only a placename is provided.
      * 
-     * Structured representations of dateline-related information can also be expressed more explicitly using [[locationCreated]] (which represents where a work was created e.g. where a news report was written).  For location depicted or described in the content, use [[contentLocation]].
+     * Structured representations of dateline-related information can also be expressed more explicitly using [[locationCreated]] (which represents where a work was created, e.g. where a news report was written).  For location depicted or described in the content, use [[contentLocation]].
      * 
      * Dateline summaries are oriented more towards human readers than towards automated processing, and can vary substantially. Some examples: "BEIRUT, Lebanon, June 2.", "Paris, France", "December 19, 2017 11:43AM Reporting from Washington", "Beijing/Moscow", "QUEZON CITY, Philippines".
      *       
@@ -71,30 +71,6 @@ class NewsArticle extends \OpenActive\Models\SchemaOrg\Article
      * @var string
      */
     protected $dateline;
-
-    /**
-     * @return string
-     */
-    public function getPrintEdition()
-    {
-        return $this->printEdition;
-    }
-
-    /**
-     * @param string $printEdition
-     * @return void
-     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
-     */
-    public function setPrintEdition($printEdition)
-    {
-        $types = [
-            "string",
-        ];
-
-        $printEdition = self::checkTypes($printEdition, $types);
-
-        $this->printEdition = $printEdition;
-    }
 
     /**
      * @return string
@@ -166,6 +142,30 @@ class NewsArticle extends \OpenActive\Models\SchemaOrg\Article
         $printSection = self::checkTypes($printSection, $types);
 
         $this->printSection = $printSection;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrintEdition()
+    {
+        return $this->printEdition;
+    }
+
+    /**
+     * @param string $printEdition
+     * @return void
+     * @throws \OpenActive\Exceptions\InvalidArgumentException If the provided argument is not of a supported type.
+     */
+    public function setPrintEdition($printEdition)
+    {
+        $types = [
+            "string",
+        ];
+
+        $printEdition = self::checkTypes($printEdition, $types);
+
+        $this->printEdition = $printEdition;
     }
 
     /**
